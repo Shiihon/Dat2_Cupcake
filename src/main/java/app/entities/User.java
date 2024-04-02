@@ -1,13 +1,13 @@
 package app.entities;
 
-public class user {
+public class User {
     private String userId;
     private String email;
     private String password;
     private String role;
     private int balance;
 
-    public user(String userId, String email, String password, String role, int balance) {
+    public User(String userId, String email, String password, String role, int balance) {
         this.userId = userId;
         this.email = email;
         this.password = password;
