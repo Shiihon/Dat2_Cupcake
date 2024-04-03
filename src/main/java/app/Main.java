@@ -15,6 +15,6 @@ public class Main {
 
         // Routing
 
-        app.get("/", ctx -> ctx.render("index.html"));
+        app.get("/", ctx -> ctx.render("order-overview.html"));
     }
 }

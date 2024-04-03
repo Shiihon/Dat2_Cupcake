@@ -10,4 +10,10 @@ body {
     flex-direction: column;
     align-items: center;
     background: #FBE7E9;
+    font-family: Arial, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 3rem;
 }
