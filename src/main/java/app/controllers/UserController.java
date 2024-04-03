@@ -16,14 +16,14 @@ public class UserController {
     }
 
     private static void createUser(Context ctx, ConnectionPool connectionPool) {
-        String username = ctx.formParam("username");
+        String userEmail = ctx.formParam("userEmail");
         String password1 = ctx.formParam("password1");
         String password2 = ctx.formParam("password2");
 
         if (password1.equals(password2)) {
             try {
-                UserMapper.createuser(username, password1, connectionPool);
-                ctx.attribute("message", "Du er hermed oprettet med brugernavn: " + username +
+                UserMapper.createuser(userEmail, password1, connectionPool);
+                ctx.attribute("message", "Du er hermed oprettet med brugernavn: " + userEmail +
                         ". Du kan nu logge på.");
                 ctx.render("index.html");
 
@@ -32,7 +32,7 @@ public class UserController {
                 ctx.render("createuser.html");
             }
         } else {
-            ctx.attribute("message", "Begge passwords skal være ens! Prøv igen");
+            ctx.attribute("message", "Begge kodeord skal være ens! Prøv igen");
             ctx.render("createuser.html");
         }
 
