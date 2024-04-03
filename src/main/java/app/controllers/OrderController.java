@@ -17,8 +17,6 @@ public class OrderController {
         app.post("cancelorder", ctx -> cancelOrder());
     }
 
-    //test til at commit igen
-
     private static void addToBasket(Context ctx, ConnectionPool connectionpool) {
     }
 
