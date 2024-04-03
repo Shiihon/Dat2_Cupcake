@@ -22,8 +22,8 @@ public class UserController {
 
         if (password1.equals(password2)) {
             try {
-                UserMapper.createuser(userEmail, password1, connectionPool);
-                ctx.attribute("message", "Du er hermed oprettet med brugernavn: " + userEmail +
+                UserMapper.createUser(userEmail, password1, connectionPool);
+                ctx.attribute("message", "Du er hermed oprettet med E-mailen: " + userEmail +
                         ". Du kan nu logge på.");
                 ctx.render("index.html");
 
@@ -45,12 +45,12 @@ public class UserController {
 
 
     public static void login(Context ctx, ConnectionPool connectionPool) {
-        String username = ctx.formParam("username");
+        String email = ctx.formParam("email");
         String password = ctx.formParam("password");
 
-        // Check om bruger findes i DB med de angivne username + password
+        // Check om bruger findes i DB med de angivne email + password
         try {
-            User user = UserMapper.login(username, password, connectionPool);
+            User user = UserMapper.login(email, password, connectionPool);
             ctx.sessionAttribute("currentUser", user);
             // Hvis ja, send videre til forsiden med login besked
             ctx.attribute("message", "Du er nu logget ind");
@@ -60,6 +60,5 @@ public class UserController {
             ctx.attribute("message", e.getMessage());
             ctx.render("index.html");
         }
-
     }
 }
