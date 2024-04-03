@@ -10,7 +10,7 @@ public class OrderController {
         app.post("myorders", ctx -> viewMyOrders());
         app.post("basket", ctx -> viewMyBasket());
         app.post("ordernow", ctx -> placeOrder());
-        app.post("cancelorderinorview", ctx -> cancelOrderInOverview());
+        app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
         app.post("orderisready", ctx -> orderReadyToPickup());
         app.post("rejectorder", ctx -> rejectOrder());
         app.get("backtoordersite", ctx -> ctx.render("user-frontpage.html"));
