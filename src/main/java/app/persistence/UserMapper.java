@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class UserMapper {
     public static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException {
-        String sql = "select * from users where user_email=? and user_password=?";
+        String sql = "select user_id, user_role, user_balance from users where user_email=? and user_password=?";
 
         try (
                 Connection connection = connectionPool.getConnection();
@@ -33,7 +33,7 @@ public class UserMapper {
         }
     }
 
-    public static void createuser(String email, String password, ConnectionPool connectionPool) throws DatabaseException {
+    public static void createUser(String email, String password, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "insert into users (user_email, user_password) values (?,?)";
 
         try (
@@ -50,7 +50,7 @@ public class UserMapper {
         } catch (SQLException e) {
             String msg = "Der er sket en fejl. Prøv igen";
             if (e.getMessage().startsWith("ERROR: duplicate key value ")) {
-                msg = "Brugernavnet findes allerede. Vælg et andet";
+                msg = "E-mailen findes allerede. Vælg et andet, eller log ind";
             }
             throw new DatabaseException(msg, e.getMessage());
         }
