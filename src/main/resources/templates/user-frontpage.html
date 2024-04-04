@@ -5,42 +5,143 @@
     <title th:text="${title}">Frontpage</title>
     <meta charset="UTF-8">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&display=swap" rel="stylesheet">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="../public/css/user-frontpage.css" th:href="@{/css/user-frontpage.css}" rel="stylesheet"/>
+
 </head>
 
 <body>
 
-<form class="dropdown-bottom">
-    <label for="bottom">Vælg bund:</label>
-    <select name="bottom" id="bottom">
-        <option value="chocolate">
-            <column>Chocolate</column>
-            <column> &nbsp 5.00</column>
-        </option>
-        <option value="vanilla">
-            <column>Vanilla</column>
-            <column> &nbsp &nbsp &nbsp &nbsp 5.00</column>
-        </option>
-        <option value="nutmeg">Nutmeg</option>
-        <option value="pistacio">Pistacio</option>
-        <option value="almond">Almond</option>
-    </select>
-    <br><br>
-    <input type="submit" value="Submit">
-</form>
-
-<div id="page-container">
-    <div id="page-content">
-        <header th:fragment="header(title)">
-            <div class="headerimage">
-                <img th:src="@{/images/CupHeader.png}" src="/images/CupHeader.png" width="100%"/>
-            </div>
-        </header>
-
-        <footer th:fragment="footer" class="footer-container">
-        </footer>
+<header th:fragment="header(title)">
+    <div class="headerimage">
+        <img th:src="@{/images/CupHeader.png}" src="../public/images/CupHeader.png" width="100%"/>
     </div>
-</div>
+</header>
+
+<nav class="navbar">
+    <button class="myorders-button">Mine ordrer</button>
+    <div class="customer-email">
+        [ Nuværende kundes e-mail ]
+    </div>
+    <button class="shoppingcart-button" type="submit" formaction="orderoverview">
+        <img src="../public/images/ShoppingCart.png" alt="Shopping Cart">
+    </button>
+</nav>
+
+<main>
+    <h1>Velkommen ombord</h1>
+    <p>Vælg og bestil her:</p>
+
+    <form method="post">
+        <div class="dropdown">
+        <select name="bottom" id="bottom">
+            <option value="" disabled selected>Vælg bund:</option>
+            <option value="chocolate">
+                <column>Chokolade</column>
+                <column class="bottom-price">&nbsp&nbsp&nbsp 5.00</column>
+            </option>
+            <option value="vanilla">
+                <column>Vanilje</column>
+                <column class="bottom-price">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
+            </option>
+            <option value="nutmeg">
+                <column>Muskatnød</column>
+                <column> &nbsp&nbsp 5.00</column>
+            </option>
+            <option value="pistacio">
+                <column>Pistacie</column>
+                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
+            </option>
+            <option value="almond">
+                <column>Mandel</column>
+                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
+            </option>
+        </select>
+
+        <select name="topping" id="topping">
+            <option value="" disabled selected>Vælg topping:</option>
+            <option value="chocolate">
+                <column>Chokolade</column>
+                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
+            </option>
+            <option value="blueberry">
+                <column>Blåbær</column>
+                <column>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
+            </option>
+            <option value="raspberry">
+                <column>Hindbær</column>
+                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
+            </option>
+            <option value="crispy">
+                <column>Knas</column>
+                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00
+                </column>
+            </option>
+            <option value="strawberry">
+                <column>Jordbær</column>
+                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
+            </option>
+            <option value="rum/raisin">
+                <column>Rom/rosin</column>
+                <column class="bottom-price">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
+            </option>
+            <option value="orange">
+                <column>Appelsin</column>
+                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
+            </option>
+            <option value="lemon">
+                <column>Citron</column>
+                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
+            </option>
+            <option value="blue-cheese">
+                <column>Blåskimmelost</column>
+                <column> &nbsp 5.00</column>
+            </option>
+        </select>
+
+        <select name="amount" id="amount">
+            <option value="" disabled selected>Vælg antal:</option>
+            <option value="1"/>
+            1</option>
+            <option value="2"/>
+            2</option>
+            <option value="3"/>
+            3</option>
+            <option value="4"/>
+            4</option>
+            <option value="5"/>
+            5</option>
+            <option value="6"/>
+            6</option>
+            <option value="7"/>
+            7</option>
+            <option value="8"/>
+            8</option>
+            <option value="9"/>
+            9</option>
+            <option value="10"/>
+            10</option>
+        </select>
+        </div>
+
+        <div class="button-container">
+            <button class="addtocart" type="submit" formaction="addtocart">Tilføj til kurv</button>
+        </div>
+    </form>
+</main>
+
+<footer>
+    <button class="logout-button">Log ud</button>
+</footer>
+
 </body>
 </html>
