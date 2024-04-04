@@ -1,0 +1,51 @@
+/**** Customer Orders ****/
+
+ul.customer-orders {
+    list-style-type: none;
+    border: 1px solid black;
+    margin: 0;
+    padding: 0;
+}
+
+li.customer-order-container {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-order-info {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.customer-order-container h3 {
+    margin: 5px 0;
+}
+
+.customer-order-content {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.customer-order-details {
+    border: 1px solid black;
+    border-radius: 2px;
+    width: 60%;
+}
+
+.customer-order-details p {
+    margin: 5px;
+}
+
+.customer-order-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    gap: 5px;
+}
