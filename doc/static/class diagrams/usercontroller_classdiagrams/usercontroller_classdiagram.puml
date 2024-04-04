@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class UserController {
++ {static} void addRoutes(Javalin app, ConnectionPool connectionPool)
+- {static} void createUser(Context ctx, ConnectionPool connectionPool)
+- {static} void logout(Context ctx)
+- {static} void login(Context ctx, ConnectionPool connectionPool)
+}
+
+class UserMapper {
++ {static} User login(String email, String password, ConnectionPool connectionPool)
++ {static} void createUser(String email, String password, ConnectionPool connectionPool)
+}
+
+class User {
+- int userId
+- String email
+- String password
+- String role
+- int balance
+
++ int getUserId()
++ String getEmail()
++ String getPassword()
++ String getRole()
++ int getBalance()
+}
+
+UserController *-- UserMapper
+
+UserMapper *-- User
+
+@enduml

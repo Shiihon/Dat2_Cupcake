@@ -1,0 +1,86 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+'==== Actors ===='
+
+actor :New User: as NewUser
+actor :Logged Out User: as LoggedOutUser
+actor :Logged Out Administrator: as LoggedOutAdministrator
+actor :Logged In User: as LoggedInUser
+actor :Logged In Administrator: as LoggedInAdministrator
+
+
+'==== System ===='
+
+rectangle "Cupcake Website" {
+left to right direction
+
+
+'==== Use Cases ===='
+
+together {
+usecase (Create Account) as (CreateAccount)
+usecase (Display Create Account Error) as (CreateAccountError)
+usecase (Validate Account Credentials) as (ValidateCreateAccountCredentials)
+}
+
+together {
+usecase (Login) as (Login)
+usecase (Display Login Error) as (LoginError)
+usecase (Verify Login Credentials) as (VerifyLogin)
+}
+
+together {
+usecase (Logout) as (Logout)
+
+usecase (View My Orders) as (ViewMyOrders)
+
+usecase (Add Item To Shopping Card) as (AddOrderToShoppingCard)
+usecase (View Shopping Card) as (ViewShoppingCard)
+usecase (Cancel Order) as (CancelOrder)
+}
+
+together {
+usecase (Place Order) as PlaceOrder
+usecase (Display insufficient Balance Error) as (InsufficientBalanceError)
+usecase (Validate Sufficient Balance) as (ValidateSufficientBalance)
+}
+
+together {
+usecase (View Customer Orders) as (ViewCustomerOrders)
+usecase (Mark Customer Order Complete) as (MarkCustomerOrderComplete)
+usecase (Delete Customer Order) as (DeleteCustomerOrder)
+}
+
+
+'==== Connections ===='
+
+NewUser --> (CreateAccount)
+(CreateAccount) ..> (ValidateCreateAccountCredentials): <<include>>
+(CreateAccount) <.. (CreateAccountError): <<extend>>
+
+LoggedOutUser --> (Login)
+LoggedOutAdministrator --> (Login)
+
+(Login) ..> (VerifyLogin): <<include>>
+(Login) <.. (LoginError): <<extend>>
+
+LoggedInUser --> (Logout)
+LoggedInUser --> (AddOrderToShoppingCard)
+LoggedInUser --> (ViewMyOrders)
+
+(AddOrderToShoppingCard) --> (ViewShoppingCard)
+
+(ViewShoppingCard) <.. (CancelOrder): << extend >>
+(ViewShoppingCard) --> PlaceOrder
+
+PlaceOrder <.. (ValidateSufficientBalance): << extend >>
+PlaceOrder <.. (InsufficientBalanceError): << extend >>
+
+LoggedInAdministrator --> (Logout)
+LoggedInAdministrator --> (ViewCustomerOrders)
+
+(ViewCustomerOrders) ..> (MarkCustomerOrderComplete): << extend >>
+(ViewCustomerOrders) ..> (DeleteCustomerOrder): << extend >>
+}
+@enduml
