@@ -1,9 +1,9 @@
 package app.entities;
 
 public class CupcakePart {
-    enum Type {
+    public enum Type {
         TOP,
-        BOTTOM,
+        BOTTOM
     }
 
     private int cupcakePartId;
