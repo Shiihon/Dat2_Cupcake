@@ -21,29 +21,65 @@
 
     <h1>Bestillinger</h1>
 
-    <ul class="customer-orders">
-        <li class="customer-order-container" th:each="order: ${orders}">
-            <div class="customer-order-info">
-                <h3>Customer email</h3>
-                <h3>Order Id</h3>
-            </div>
-            <div class="customer-order-content">
-                <div class="customer-order-details">
-                    <p>Order details</p>
+    <div class="customer-orders-container">
+        <ul class="customer-orders-content">
+            <li class="customer-order-container" th:each="order: ${orders}">
+                <div class="customer-order-content">
+                    <div class="customer-order-info-content">
+                        <h3>Customer email</h3>
+                        <h3>Order Id</h3>
+                    </div>
+
+                    <div class="customer-order-details-content">
+                        <div class="customer-order-items-container">
+                            <ul class="customer-order-items-content">
+                                <li class="customer-order-item-container" th:each="orderItem: ${order.getOrderItems()}">
+                                    <div class="customer-order-item-content">
+                                        <div class="cupcake-parts">
+                                            <p>
+                                                Bund:
+                                                <span style="display: inline-flex; padding: 0"
+                                                      th:text="${orderItem.getCupcakeBottom().getName()}">
+                                                Chocolate
+                                            </span>
+                                            </p>
+                                            <p>
+                                                Top:
+                                                <span style="display: inline-flex; padding: 0"
+                                                      th:text="${orderItem.getCupcakeTop().getName()}">
+                                                Blueberry
+                                            </span>
+                                            </p>
+                                        </div>
+
+                                        <p>
+                                            Antal:
+                                            <span style="display: inline-flex; padding: 0"
+                                                  th:text="${orderItem.getQuantity()}">
+                                                10
+                                            </span>
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="customer-order-buttons-content">
+                            <form method="post">
+                                <button type="submit" name="orderId" th:value="${order.getOrderId()}"
+                                        formaction="/orderisready">Klar til afhentning
+                                </button>
+                                <button type="submit" name="orderId" th:value="${order.getOrderId()}"
+                                        formaction="/rejectorder">
+                                    Slet ordre
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="customer-order-buttons">
-                    <form method="post">
-                        <button type="submit" name="orderId" th:value="${order.getOrderId()}"
-                                formaction="/orderisready">Klar til afhentning
-                        </button>
-                        <button type="submit" name="orderId" th:value="${order.getOrderId()}" formaction="/rejectorder">
-                            Slet ordre
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </li>
-    </ul>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <div th:replace="~{fragments :: footer}"></div>
