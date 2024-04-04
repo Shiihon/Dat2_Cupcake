@@ -21,8 +21,6 @@
 
     <h1>Bestillinger</h1>
 
-    <p>This is your first web application in this world</p>
-
     <ul class="customer-orders">
         <li class="customer-order-container" th:each="order: ${orders}">
             <div class="customer-order-info">
@@ -34,8 +32,14 @@
                     <p>Order details</p>
                 </div>
                 <div class="customer-order-buttons">
-                    <button onclick="fetch()">Klar til afhentning</button>
-                    <button onclick="fetch()">Slet ordre</button>
+                    <form method="post">
+                        <button type="submit" name="orderId" th:value="${order.getOrderId()}"
+                                formaction="/orderisready">Klar til afhentning
+                        </button>
+                        <button type="submit" name="orderId" th:value="${order.getOrderId()}" formaction="/rejectorder">
+                            Slet ordre
+                        </button>
+                    </form>
                 </div>
             </div>
         </li>
