@@ -1,50 +1,97 @@
 /**** Customer Orders ****/
 
-ul.customer-orders {
+ul {
     list-style-type: none;
-    border: 1px solid black;
     margin: 0;
     padding: 0;
 }
 
-li.customer-order-container {
-    border: 1px solid black;
+.customer-orders-content {
     display: flex;
     flex-direction: column;
+    gap: 30px;
 }
 
-.customer-order-info {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-}
 
-.customer-order-container h3 {
-    margin: 0;
+.customer-order-container {
+    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, .1);
+    border: 1px solid black;
+    border-radius: 2px;
 }
 
 .customer-order-content {
-    padding: 0 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 60px;
+    gap: 15px;
+}
+
+
+.customer-order-info-content {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 10px;
 }
 
-.customer-order-details {
+.customer-order-info-content h3 {
+    margin: 0;
+}
+
+
+.customer-order-details-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+
+.customer-order-items-container {
     border: 1px solid black;
     border-radius: 2px;
-    width: 60%;
+    width: 80%;
 }
 
-.customer-order-details p {
-    margin: 5px;
-}
-
-.customer-order-buttons {
+.customer-order-items-content {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    gap: 5px;
+}
+
+.customer-order-items-container p {
+    margin: 0;
+}
+
+.customer-order-item-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cupcake-parts {
+    display: flex;
+    min-width: 230px;
+    width: 80%;
+    gap: 20px;
+}
+
+.cupcake-parts > p {
+    width: 35%;
+}
+
+.customer-order-item-content > p {
+    width: 20%;
+}
+
+
+.customer-order-buttons-content {
+    width: 20%;
+}
+
+.customer-order-buttons-content form {
+    display: flex;
+    flex-direction: column;
     gap: 5px;
 }
