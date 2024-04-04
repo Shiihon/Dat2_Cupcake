@@ -11,11 +11,11 @@ public class UserController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         app.post("login", ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
-        app.get("createuser", ctx -> ctx.render("createuser.html"));
-        app.post("createuser", ctx -> createUser(ctx, connectionPool));
+        app.get("createAccount", ctx -> ctx.render("createAccount.html"));
+        app.post("createAccount", ctx -> createAccount(ctx, connectionPool));
     }
 
-    private static void createUser(Context ctx, ConnectionPool connectionPool) {
+    private static void createAccount(Context ctx, ConnectionPool connectionPool) {
         String userEmail = ctx.formParam("userEmail");
         String password1 = ctx.formParam("password1");
         String password2 = ctx.formParam("password2");
@@ -54,7 +54,7 @@ public class UserController {
             ctx.sessionAttribute("currentUser", user);
             // Hvis ja, send videre til forsiden med login besked
             ctx.attribute("message", "Du er nu logget ind");
-            ctx.render("index.html");
+            ctx.render("user-frontpage.html");
         } catch (DatabaseException e) {
             // Hvis nej, send tilbage til login side med fejl besked
             ctx.attribute("message", e.getMessage());
