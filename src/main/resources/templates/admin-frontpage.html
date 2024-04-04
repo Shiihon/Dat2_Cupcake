@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Admin Frontpage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="../public/css/admin-frontpage.css" th:href="@{/css/admin-frontpage.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div th:replace="~{fragments :: header('Header fragment')}"></div>
+
+<div class="main-container">
+    <ul class="nav-bar">
+        <li class="nav-bar-item"><a th:href="@{/customers}"><strong>Kunder</strong></a></li>
+        <li class="nav-bar-item"><a class="active" th:href="@{/customer-orders}"><strong>Bestillinger</strong></a></li>
+        <li class="nav-bar-item"><span><strong>Admin email</strong></span></li>
+    </ul>
+
+    <h1>Bestillinger</h1>
+
+    <p>This is your first web application in this world</p>
+
+    <ul class="customer-orders">
+        <li class="customer-order-container" th:each="order: ${orders}">
+            <div class="customer-order-info">
+                <h3>Customer email</h3>
+                <h3>Order Id</h3>
+            </div>
+            <div class="customer-order-content">
+                <div class="customer-order-details">
+                    <p>Order details</p>
+                </div>
+                <div class="customer-order-buttons">
+                    <button onclick="fetch()">Klar til afhentning</button>
+                    <button onclick="fetch()">Slet ordre</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
