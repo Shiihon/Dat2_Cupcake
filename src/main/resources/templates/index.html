@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <title>Frontpage</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +11,24 @@
 
 <body>
 
-<h1>Welcome to the Javalin / Thymeleaf demo</h1>
+<img class="headerImage" src="../public/images/CupcakeLogo.png" th:src="@{/images/CupcakeLogo.png}"/>
 
-<p>This is your first web application in this world</p>
+
+<form class="generic-form" method="post">
+    <input type="text" name="email" placeholder="Indtast E-mail"/>
+    <input type="password" name="password" placeholder="Indtast kodeord"/>
+    <br><br>
+
+    <button class="buttons" type="submit" formaction="/login">Login</button>
+</form>
+
+<form>
+<div>
+    <button class="buttons" type="submit" formaction="/createAccount">Opret konto</button>
+</div>
+</form>
+
+<div class="error"><p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p></div>
 
 </body>
 </html>
