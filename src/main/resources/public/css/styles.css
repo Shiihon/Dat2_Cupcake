@@ -11,3 +11,60 @@ body {
     align-items: center;
     background: #FBE7E9;
 }
+
+.main-container {
+    display: block;
+    min-width: 300px;
+    max-width: 800px;
+    width: 100%;
+}
+
+/**** Navigation Bar ****/
+
+ul.nav-bar {
+    position: relative;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 2px;
+    background-color: #f3f3f3;
+}
+
+li.nav-bar-item {
+    float: left;
+    padding: 8px;
+}
+
+li.nav-bar-item a, span {
+    display: block;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+li.nav-bar-item a {
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+li.nav-bar-item span {
+    cursor: default;
+}
+
+li.nav-bar-item:has(span) {
+    position: absolute;
+    right: 0;
+}
+
+li.nav-bar-item a:hover:not(.active) {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+li.nav-bar-item a.active {
+    background-color: #facaca;
+    cursor: default;
+}
