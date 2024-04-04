@@ -21,9 +21,7 @@
     </header>
 
     <footer th:fragment="footer" class="footer-container">
-      <a th:if="${#ctx.session.currentUser} == null" th:href="@{/createuser}">Create account</a>
-      <a th:if="${#ctx.session.currentUser} != null" th:href="@{/logout}">Logout</a>
-      <a href="/public" class="footer-item">Home</a>
+      <a class="a-footer" th:href="@{/logout}">Logout</a>
     </footer>
   </div>
 </div>
