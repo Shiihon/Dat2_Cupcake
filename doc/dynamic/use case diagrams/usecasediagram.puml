@@ -1,6 +1,8 @@
 @startuml
 'https://plantuml.com/use-case-diagram
 
+!pragma layout smetana
+
 '==== Actors ===='
 
 actor :New User: as NewUser

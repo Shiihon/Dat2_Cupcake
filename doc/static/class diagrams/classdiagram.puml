@@ -1,6 +1,8 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+!pragma layout smetana
+
 class UserController {
 + {static} void addRoutes(Javalin app, ConnectionPool connectionPool)
 - {static} void createUser(Context ctx, ConnectionPool connectionPool)
