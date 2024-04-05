@@ -141,11 +141,11 @@ public class OrderMapperTest {
 
         try (Connection connection = connectionPool.getConnection()) {
             try (Statement statement = connection.createStatement()) {
-                statement.execute("DELETE FROM cupcake_bottoms");
-                statement.execute("DELETE FROM cupcake_tops");
                 statement.execute("DELETE FROM order_items");
                 statement.execute("DELETE FROM orders");
                 statement.execute("DELETE FROM users");
+                statement.execute("DELETE FROM cupcake_bottoms");
+                statement.execute("DELETE FROM cupcake_tops");
 
                 statement.execute("SELECT setval('cupcake_bottoms_cupcake_bottom_id_seq', 1)");
                 statement.execute("SELECT setval('cupcake_tops_cupcake_top_id_seq', 1)");
