@@ -1,6 +1,6 @@
 /**** Customer Orders ****/
 
-ul {
+ul.customer-orders-content, ul.customer-order-items-content {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -62,7 +62,7 @@ ul {
 .customer-order-items-content {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 10px !important;
     width: 100%;
     gap: 5px;
 }
