@@ -18,6 +18,7 @@ public class OrderController {
         app.post("cancelorder", ctx -> cancelOrder());
 
         app.get("/view-all-customers-orders", ctx -> viewAllCustomersOrders(ctx, connectionPool));
+        app.get("/view-customers", ctx -> viewCustomers(ctx, connectionPool));
     }
 
     private static void addToBasket(Context ctx, ConnectionPool connectionpool) {
@@ -46,5 +47,9 @@ public class OrderController {
 
     private static void viewAllCustomersOrders(Context ctx, ConnectionPool connectionPool) {
         ctx.render("admin-frontpage.html");
+    }
+
+    private static void viewCustomers(Context ctx, ConnectionPool connectionPool) {
+        ctx.render("admin-customers.html");
     }
 }
