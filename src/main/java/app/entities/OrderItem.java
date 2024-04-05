@@ -1,5 +1,7 @@
 package app.entities;
 
+import java.util.Objects;
+
 public class OrderItem {
     private int orderItemId;
     private int orderId;
@@ -33,6 +35,19 @@ public class OrderItem {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderItem orderItem = (OrderItem) o;
+        return getOrderItemId() == orderItem.getOrderItemId() && getOrderId() == orderItem.getOrderId() && getQuantity() == orderItem.getQuantity() && Objects.equals(getCupcakeTop(), orderItem.getCupcakeTop()) && Objects.equals(getCupcakeBottom(), orderItem.getCupcakeBottom());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOrderItemId(), getOrderId(), getCupcakeTop(), getCupcakeBottom(), getQuantity());
     }
 
     @Override
