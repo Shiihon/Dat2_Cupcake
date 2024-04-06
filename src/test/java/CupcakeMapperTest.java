@@ -1,3 +1,7 @@
+import app.entities.CupcakePart;
+import app.persistence.ConnectionPool;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import app.persistence.ConnectionPool;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -5,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class CupcakeMapperTest {
 
@@ -15,17 +21,84 @@ public class CupcakeMapperTest {
 
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance(USER, PASSWORD, URL, DB);
 
+    private List<CupcakePart> expectedCupcakeBottoms;
+    private List<CupcakePart> expectedCupcakeTops;
+
     @BeforeEach
     void setupTestData() throws SQLException {
+        expectedCupcakeBottoms = List.of(
+                new CupcakePart(
+                        1,
+                        "Chocolate",
+                        5,
+                        CupcakePart.Type.BOTTOM
+                ),
+                new CupcakePart(
+                        2,
+                        "Pistachio",
+                        6,
+                        CupcakePart.Type.BOTTOM
+                ),
+                new CupcakePart(
+                        3,
+                        "Almond",
+                        7,
+                        CupcakePart.Type.BOTTOM
+                )
+        );
+
+        expectedCupcakeTops = List.of(
+                new CupcakePart(
+                        1,
+                        "Blueberry",
+                        5,
+                        CupcakePart.Type.TOP
+                ),
+                new CupcakePart(
+                        2,
+                        "Strawberry",
+                        6,
+                        CupcakePart.Type.TOP
+                ),
+                new CupcakePart(
+                        3,
+                        "Rum/Raisin",
+                        7,
+                        CupcakePart.Type.TOP
+                )
+        );
+
         try (Connection connection = connectionPool.getConnection()) {
             try (Statement statement = connection.createStatement()) {
+                statement.execute("DELETE FROM cupcake_bottoms");
+                statement.execute("DELETE FROM cupcake_tops");
 
-                statement.execute("TRUNCATE TABLE cupcake_bottoms RESTART IDENTITY CASCADE");
-                statement.execute("TRUNCATE TABLE cupcake_tops RESTART IDENTITY CASCADE");
+                statement.execute("SELECT setval('cupcake_bottoms_cupcake_bottom_id_seq', 1)");
+                statement.execute("SELECT setval('cupcake_tops_cupcake_top_id_seq', 1)");
 
-                statement.execute("INSERT INTO cupcake_bottoms (cupcake_bottom_name, cupcake_bottom_price) VALUES ('Chocolate', 5), ('Vanilla', 4)");
+                String cupcakeBottomsSql = "INSERT INTO cupcake_bottoms (cupcake_bottom_id, cupcake_bottom_name, cupcake_bottom_price) VALUES" + expectedCupcakeBottoms.stream()
+                        .map(cupcakePart -> String.format(
+                                "(%d, '%s', %d)",
+                                cupcakePart.getCupcakePartId(),
+                                cupcakePart.getName(),
+                                cupcakePart.getPrice()
+                        ))
+                        .collect(Collectors.joining(", "));
 
-                statement.execute("INSERT INTO cupcake_tops (cupcake_top_name, cupcake_top_price) VALUES ('Blueberry', 5), ('Strawberry', 6)");
+                statement.execute(cupcakeBottomsSql);
+                statement.execute("SELECT setval('cupcake_bottoms_cupcake_bottom_id_seq', COALESCE((SELECT MAX(cupcake_bottom_id)+1 FROM cupcake_bottoms), 1), false)");
+
+                String cupcakeTopsSql = "INSERT INTO cupcake_tops (cupcake_top_id, cupcake_top_name, cupcake_top_price) VALUES" + expectedCupcakeTops.stream()
+                        .map(cupcakePart -> String.format(
+                                "(%d, '%s', %d)",
+                                cupcakePart.getCupcakePartId(),
+                                cupcakePart.getName(),
+                                cupcakePart.getPrice()
+                        ))
+                        .collect(Collectors.joining(", "));
+
+                statement.execute(cupcakeTopsSql);
+                statement.execute("SELECT setval('cupcake_tops_cupcake_top_id_seq', COALESCE((SELECT MAX(cupcake_top_id)+1 FROM cupcake_tops), 1), false)");
             }
         }
     }
