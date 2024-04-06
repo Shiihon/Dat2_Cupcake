@@ -11,9 +11,9 @@ import java.util.List;
 public class OrderController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
-        app.post("addtobasket", ctx -> addToBasket(ctx, connectionPool));
+        app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
         app.post("myorders", ctx -> viewMyOrders());
-        app.post("basket", ctx -> viewMyBasket());
+        app.post("viewcart", ctx -> viewMyCart(ctx, connectionPool));
         app.post("ordernow", ctx -> placeOrder());
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
         app.post("orderisready", ctx -> orderReadyToPickup());
@@ -32,10 +32,10 @@ public class OrderController {
         });
     }
 
-    private static void addToBasket(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+    private static void addToCart(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
         try {
             int bottomId = Integer.parseInt(ctx.formParam("bottom"));
-            int topId = Integer.parseInt(ctx.formParam("topping"));
+            int topId = Integer.parseInt(ctx.formParam("tops"));
             int amount = Integer.parseInt(ctx.formParam("amount"));
 
             int bottomPrice = CupcakeMapper.getCupcakePartPrice(bottomId, connectionPool, CupcakePart.Type.BOTTOM);
@@ -53,6 +53,7 @@ public class OrderController {
                     totalPrice, amount);
 
             basket.add(itemDescription);
+            System.out.println(basket);
 
             ctx.sessionAttribute("basket", basket);
             ctx.redirect("/user-frontpage");
@@ -67,7 +68,8 @@ public class OrderController {
     private static void viewMyOrders() {
     }
 
-    private static void viewMyBasket() {
+    private static void viewMyCart(Context ctx, ConnectionPool connectionPool) {
+
     }
 
     private static void placeOrder() {
