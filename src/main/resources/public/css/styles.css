@@ -1,13 +1,4 @@
 /* Stylesheet for the application - dont' touch */
 /* Stylesheet for the application */
 
-html * {
-    box-sizing: border-box;
-}
 
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #FBE7E9;
-}
