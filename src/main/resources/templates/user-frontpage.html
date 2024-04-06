@@ -45,9 +45,10 @@
         <div class="dropdown">
             <select name="bottom" id="bottom">
                 <option value="" disabled selected>Vælg bund:</option>
-                <th:block th:each="bottom : ${bottoms}">
+                <div th:each="bottom : ${bottoms}">
+                    <input type="text">
                     <option th:value="${bottom.cupcakePartId}" th:text="${bottom.name + ' - ' + bottom.price}"></option>
-                </th:block>
+                </div>
             </select>
 
             <select name="topping" id="topping">
