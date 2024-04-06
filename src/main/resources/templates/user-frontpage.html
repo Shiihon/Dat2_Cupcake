@@ -41,72 +41,21 @@
     <h1>Velkommen ombord</h1>
     <p>Vælg og bestil her:</p>
 
-    <form method="post">
+    <form th:action="@{/addtobasket}" method="post">
         <div class="dropdown">
-        <select name="bottom" id="bottom">
-            <option value="" disabled selected>Vælg bund:</option>
-            <option value="chocolate">
-                <column>Chokolade</column>
-                <column class="bottom-price">&nbsp&nbsp&nbsp 5.00</column>
-            </option>
-            <option value="vanilla">
-                <column>Vanilje</column>
-                <column class="bottom-price">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
-            </option>
-            <option value="nutmeg">
-                <column>Muskatnød</column>
-                <column> &nbsp&nbsp 5.00</column>
-            </option>
-            <option value="pistacio">
-                <column>Pistacie</column>
-                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
-            </option>
-            <option value="almond">
-                <column>Mandel</column>
-                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
-            </option>
-        </select>
+            <select name="bottom" id="bottom">
+                <option value="" disabled selected>Vælg bund:</option>
+                <th:block th:each="bottom : ${bottoms}">
+                    <option th:value="${bottom.cupcakePartId}" th:text="${bottom.name + ' - ' + bottom.price}"></option>
+                </th:block>
+            </select>
 
-        <select name="topping" id="topping">
-            <option value="" disabled selected>Vælg topping:</option>
-            <option value="chocolate">
-                <column>Chokolade</column>
-                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
-            </option>
-            <option value="blueberry">
-                <column>Blåbær</column>
-                <column>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
-            </option>
-            <option value="raspberry">
-                <column>Hindbær</column>
-                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
-            </option>
-            <option value="crispy">
-                <column>Knas</column>
-                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00
-                </column>
-            </option>
-            <option value="strawberry">
-                <column>Jordbær</column>
-                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
-            </option>
-            <option value="rum/raisin">
-                <column>Rom/rosin</column>
-                <column class="bottom-price">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
-            </option>
-            <option value="orange">
-                <column>Appelsin</column>
-                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
-            </option>
-            <option value="lemon">
-                <column>Citron</column>
-                <column> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 5.00</column>
-            </option>
-            <option value="blue-cheese">
-                <column>Blåskimmelost</column>
-                <column> &nbsp 5.00</column>
-            </option>
-        </select>
+            <select name="topping" id="topping">
+                <option value="" disabled selected>Vælg topping:</option>
+                <th:block th:each="top : ${tops}">
+                    <option th:value="${top.cupcakePartId}" th:text="${top.name + ' - ' + top.price}"></option>
+                </th:block>
+            </select>
 
         <select name="amount" id="amount">
             <option value="" disabled selected>Vælg antal:</option>
@@ -134,7 +83,7 @@
         </div>
 
         <div class="button-container">
-            <button class="addtocart" type="submit" formaction="addtocart">Tilføj til kurv</button>
+            <button class="addtocart" type="submit">Tilføj til kurv</button>
         </div>
     </form>
 </main>
