@@ -2,9 +2,6 @@ import app.entities.CupcakePart;
 import app.persistence.ConnectionPool;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import app.persistence.ConnectionPool;
-import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.sql.Connection;
 import java.sql.SQLException;
