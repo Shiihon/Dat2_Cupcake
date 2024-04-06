@@ -1,5 +1,7 @@
 package app.entities;
 
+import java.util.Objects;
+
 public class User {
     private int userId;
     private String email;
@@ -53,6 +55,19 @@ public class User {
 
     public void setBalance(int balance) {
         this.balance = balance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return getUserId() == user.getUserId() && getBalance() == user.getBalance() && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getRole(), user.getRole());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUserId(), getEmail(), getPassword(), getRole(), getBalance());
     }
 
     @Override
