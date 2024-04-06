@@ -1,7 +1,63 @@
+/* Stylesheet for the application - dont' touch */
 /* Stylesheet for the application */
 
-h1 {
-    color: #369;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 3rem;
+html * {
+    box-sizing: border-box;
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #FBE7E9;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+.headerImage {
+    width: 500px;
+    height: auto;
+    margin-top: 3%;
+}
+
+.generic-form {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.generic-form input {
+    background-color: rgba(226, 159, 159, 0.5);
+    border: 0;
+    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    width: 300px;
+}
+
+.buttons {
+    border-radius: 30px;
+    width: 120px;
+    height: auto;
+    margin: auto;
+    margin-bottom: 8px;
+    border: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgba(226, 159, 159, 0.5);
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #ffb3b3;
+}
+
+
+
