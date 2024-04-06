@@ -109,6 +109,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         @Test
         void getCupcakeBottomsTest() throws DatabaseException {
             List<CupcakePart> bottoms = CupcakeMapper.getCupcakeBottoms(connectionPool);
+            System.out.println(bottoms);
             assertFalse(bottoms.isEmpty(), "Bottoms should not be empty");
             assertTrue(bottoms.stream().anyMatch(b -> b.getName().equals("Chocolate") && b.getPrice() == 5));
         }
