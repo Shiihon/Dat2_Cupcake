@@ -3,6 +3,8 @@ import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.util.ArrayList;
+
 public class OrderController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
@@ -18,6 +20,20 @@ public class OrderController {
     }
 
     private static void addToBasket(Context ctx, ConnectionPool connectionpool) {
+        String bottomId = ctx.formParam("bottom");
+        String topId = ctx.formParam("topping");
+        String amountN = ctx.formParam("amount");
+        int amount = Integer.parseInt(amountN);
+
+        List<OrderItem> basket = ctx.sessionAttribute("basket");
+        if (basket == null) {
+            basket = new ArrayList<>();
+        }
+
+        basket.add(new OrderItem(Integer.parseInt(bottomId), Integer.parseInt(topId), amount));
+        ctx.sessionAttribute("basket", basket);
+
+        ctx.redirect("user-frontpage.html");
     }
 
     private static void viewMyOrders() {
