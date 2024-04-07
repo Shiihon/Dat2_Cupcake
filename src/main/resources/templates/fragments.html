@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:fragment="head(title)">
+    <title th:text="${title}">Frontpage</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+
+<div id="page-container">
+    <div id="page-content">
+        <header th:fragment="header(title)">
+            <div class="header-image">
+                <img th:src="@{/images/CupHeader.png}" src="/images/CupHeader.png" alt="CupcakeHeader"/>
+            </div>
+        </header>
+
+        <nav class="navigation-bar" th:fragment="navigation-bar(pageTitle)">
+            <ul class="nav-bar" th:if="${#ctx.session.currentUser == null ||
+                        #strings.equals(#ctx.session.currentUser.getRole(), 'customer')}">
+                <li>
+                    <ul class="nav-bar-items">
+                        <li class="nav-bar-item">
+                            <a th:classappend="${#strings.equals(pageTitle,'My Orders')} ? active : ''"
+                               th:href="@{/my-orders}"><strong>Mine ordrer</strong></a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <ul class="nav-bar-items">
+                        <li class="nav-bar-item" th:if="${#ctx.session.currentUser != null}">
+                            <span><strong th:text="${#ctx.session.currentUser.getEmail()}">User email</strong></span>
+                        </li>
+                        <li class="nav-bar-item" th:if="${#ctx.session.currentUser == null}">
+                            <span><strong>User email</strong></span>
+                        </li>
+                        <li class="nav-bar-item">
+                            <a th:classappend="${#strings.equals(pageTitle,'Shopping Card')} ? active : ''"
+                               th:href="@{/shopping-card}"><strong>Indkøbskurv</strong></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav-bar" th:if="${#ctx.session.currentUser != null &&
+                        #strings.equals(#ctx.session.currentUser.getRole(), 'admin')}">
+                <li>
+                    <ul class="nav-bar-items">
+                        <li class="nav-bar-item">
+                            <a th:classappend="${#strings.equals(pageTitle,'Customers')} ? active : ''"
+                               th:href="@{/view-customers}"><strong>Kunder</strong></a>
+                        </li>
+                        <li class="nav-bar-item">
+                            <a th:classappend="${#strings.equals(pageTitle,'Customer Orders')} ? active : ''"
+                               th:href="@{/view-all-customers-orders}"><strong>Bestillinger</strong></a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <ul class="nav-bar-items">
+                        <li class="nav-bar-item">
+                            <span><strong th:text="${#ctx.session.currentUser.getEmail()}">Admin email</strong></span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <footer th:fragment="footer" class="footer-container">
+            <a th:if="${#ctx.session.currentUser} == null" th:href="@{/createuser}">Create account</a>
+            <a th:if="${#ctx.session.currentUser} != null" th:href="@{/logout}">Logout</a>
+            <a href="/public" class="footer-item">Home</a>
+        </footer>
+    </div>
+</div>
+</body>
+</html>

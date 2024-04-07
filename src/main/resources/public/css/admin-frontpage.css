@@ -1,0 +1,109 @@
+/**** Customer Orders ****/
+
+ul.customer-orders-content, ul.customer-order-items-content {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.customer-orders-container {
+    display: flex;
+    justify-content: center;
+}
+
+.customer-orders-content {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 50px);
+    gap: 30px;
+}
+
+
+.customer-order-container {
+    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, .1);
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.customer-order-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+    gap: 15px;
+}
+
+
+.customer-order-info-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.customer-order-info-content h3 {
+    margin: 0;
+}
+
+
+.customer-order-details-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+
+.customer-order-items-container {
+    border: 1px solid black;
+    border-radius: 2px;
+    width: 100%;
+}
+
+.customer-order-items-content {
+    display: flex;
+    flex-direction: column;
+    padding: 10px !important;
+    width: 100%;
+    gap: 5px;
+}
+
+.customer-order-items-content p {
+    margin: 0;
+}
+
+.customer-order-item-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.cupcake-parts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 5px 20px;
+}
+
+.cupcake-parts > p {
+    max-width: 120px;
+    width: 100%;
+}
+
+.customer-order-item-content > p {
+    max-width: 80px;
+    width: 100%;
+}
+
+
+.customer-order-buttons-content {
+    width: 100%;
+    max-width: 140px;
+}
+
+.customer-order-buttons-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

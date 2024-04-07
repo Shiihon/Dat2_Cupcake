@@ -1,7 +1,92 @@
+/* Stylesheet for the application - dont' touch */
 /* Stylesheet for the application */
 
+html * {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #FBE7E9;
+}
+
+.header-image img {
+    display: block;
+    width: 100%;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.main-content {
+    max-width: 800px;
+    width: 100%;
+    margin-top: 15px;
+}
+
 h1 {
-    color: #369;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+
+/**** Navigation Bar ****/
+
+ul.nav-bar, ul.nav-bar-items {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+ul.nav-bar {
+    overflow: hidden;
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 8px;
+}
+
+li.nav-bar-item:has(a) {
+    background-color: #f3f3f3;
+}
+
+li.nav-bar-item a, li.nav-bar-item span {
+    display: block;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+li.nav-bar-item a {
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+li.nav-bar-item span {
+    cursor: default;
+}
+
+li.nav-bar-item a:hover:not(.active) {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+li.nav-bar-item a.active:hover {
+    background-color: #ffdbdb;
+    cursor: pointer;
+}
+
+li.nav-bar-item a.active {
+    background-color: #facaca;
 }
