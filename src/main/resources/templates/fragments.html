@@ -56,8 +56,8 @@
                                th:href="@{/customers}"><strong>Kunder</strong></a>
                         </li>
                         <li class="nav-bar-item">
-                            <a th:classappend="${#strings.equals(pageTitle,'Customer Orders')} ? active : ''"
-                               th:href="@{/view-all-customers-orders}"><strong>Bestillinger</strong></a>
+                            <a th:classappend="${#strings.equals(pageTitle,'Active Customers Orders')} ? active : ''"
+                               th:href="@{/active-customers-orders}"><strong>Bestillinger</strong></a>
                         </li>
                     </ul>
                 </li>

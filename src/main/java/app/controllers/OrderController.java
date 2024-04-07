@@ -19,7 +19,7 @@ public class OrderController {
         // Admin routes
         app.post("delete-order", ctx -> deleteOrder());
         app.post("set-order-ready", ctx -> orderReadyToPickup());
-        app.get("/view-all-customers-orders", ctx -> viewAllCustomersOrders(ctx, connectionPool));
+        app.get("/active-customers-orders", ctx -> viewAllCustomersOrders(ctx, connectionPool));
         app.get("/customers", ctx -> viewCustomers(ctx, connectionPool));
         app.get("/customer-orders", ctx -> viewCustomerOrders(ctx, connectionPool));
     }
