@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <title>Ordreoversigt</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div th:replace="~{fragments :: header('Header fragment')}"></div>
+
+<h1>Ordreoversigt</h1>
+
+<div class="row">
+    <div class="column1">
+        <table>
+            <tr>
+                <td>Vanilla-Rasberry</td>
+                <td>100 kr.</td>
+                <td>10 stk.</td>
+                <td><img th:src="@{/images/remove.png}" src="/images/remove.png" width="100%"/></td>
+            </tr>
+            <tr>
+                <td>Nutmeg-Blueberry</td>
+                <td>110 kr.</td>
+                <td>11 stk.</td>
+                <td><img th:src="@{/images/remove.png}" src="/images/remove.png" width="100%"/></td>
+            </tr>
+            <tr>
+                <td>Almond-Chocolate</td>
+                <td>24 kr.</td>
+                <td>2 stk.</td>
+                <td><img th:src="@{/images/remove.png}" src="/images/remove.png" width="100%"/></td>
+            </tr>
+        </table>
+    </div>
+    <div class="column2">
+        <table>
+            <tr>
+                <td><h2>Total:</h2></td>
+                <td><h3>234</h3></td>
+                <td><h3>kr</h3></td>
+            </tr>
+            <tr>
+                <td><h2>Balance:</h2></td>
+                <td><h3>500</h3></td>
+                <td><h3>kr</h3></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="gray">-234</td>
+            </tr>
+            <tr>
+                <td><h2>Ny Balance:</h2></td>
+                <td><h3>266</h3></td>
+                <td><h3>kr</h3></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="button1">
+                    <button type="submit">Bestil</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="button2">
+                    <button type="submit">Annuller Bestilling</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
