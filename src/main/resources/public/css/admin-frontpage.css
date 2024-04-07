@@ -1,30 +1,5 @@
 /**** Customer Orders ****/
 
-ul.customer-orders-content, ul.customer-order-items-content {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.customer-orders-container {
-    display: flex;
-    justify-content: center;
-}
-
-.customer-orders-content {
-    display: flex;
-    flex-direction: column;
-    width: calc(100% - 50px);
-    gap: 30px;
-}
-
-
-.customer-order-container {
-    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, .1);
-    border: 1px solid black;
-    border-radius: 2px;
-}
-
 .customer-order-content {
     display: flex;
     flex-direction: column;
