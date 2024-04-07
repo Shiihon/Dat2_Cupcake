@@ -12,7 +12,7 @@ public class OrderController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
-        app.post("myorders", ctx -> viewMyOrders());
+        app.post("myorders", ctx -> viewMyOrders(ctx, connectionPool));
         app.post("viewcart", ctx -> viewMyCart(ctx, connectionPool));
         app.post("ordernow", ctx -> placeOrder());
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
@@ -65,11 +65,12 @@ public class OrderController {
     }
 
 
-    private static void viewMyOrders() {
+    private static void viewMyOrders(Context ctx, ConnectionPool connectionPool) {
+        ctx.render("my-orders.html");
     }
 
     private static void viewMyCart(Context ctx, ConnectionPool connectionPool) {
-
+        ctx.render("order-overview.html");
     }
 
     private static void placeOrder() {

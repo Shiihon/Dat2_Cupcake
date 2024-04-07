@@ -29,15 +29,15 @@
 </header>
 
 <nav class="navbar">
-    <button class="myorders-button">Mine ordrer</button>
+    <a class="myorders-button" th:if="${session.currentUser != null}" href="my-orders.html" th:href="@{/myorders}">Mine ordrer</a>
 
     <div
             class="customer-email"
             th:text="${session.currentUser != null ? session.currentUser.email : 'Not logged in'}">
     </div>
 
-    <a class="shoppingcart-button" type="button" th:if="${session.currentUser != null}" href="order-overview.html"
-       th:href="@{/viewcart}">
+    <a class="shoppingcart-button"
+       type="button" th:if="${session.currentUser != null}" href="order-overview.html" th:href="@{/viewcart}">
         <img src="../public/images/ShoppingCart.png" alt="Shopping Cart">
     </a>
 </nav>

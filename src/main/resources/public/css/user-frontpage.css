@@ -9,13 +9,13 @@
 }
 
 .myorders-button {
-    width: 80px;
+    color: black;
+    width: 90px;
     height: 35px;
     border: 1px solid black;
-    padding: 0;
+    padding: 10px 9px;
     font-family: "Josefin Sans";
     font-size: 13px;
-    line-height: 15px;
     text-align: center;
     margin-right: auto;
     cursor: pointer;
