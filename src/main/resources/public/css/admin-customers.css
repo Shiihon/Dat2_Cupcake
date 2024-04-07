@@ -1,26 +1,4 @@
-ul.customers-content {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.customers-container {
-    display: flex;
-    justify-content: center;
-}
-
-.customers-content {
-    display: flex;
-    flex-direction: column;
-    width: calc(100% - 50px);
-    gap: 15px;
-}
-
-.customer-container {
-    box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, .1);
-    border: 1px solid black;
-    border-radius: 2px;
-}
+/**** Customer ****/
 
 .customer-content {
     display: flex;
@@ -31,6 +9,20 @@ ul.customers-content {
     padding: 12px 40px;
 }
 
-.customer-content h3 {
+
+/**** Info Container ****/
+
+.customer-info-container {
+    word-break: break-all;
+}
+
+.customer-info-container h4 {
     margin: 0;
+}
+
+
+/**** Button Container ****/
+
+.customer-button-container {
+    flex-shrink: 0;
 }
