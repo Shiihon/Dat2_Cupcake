@@ -37,11 +37,11 @@ class OrderMapper {
 }
 
 class CupcakeMapper {
-+ {static} List<CupcakePart> getAllCupcakeTops(ConnectionPool connectionPool)
 + {static} List<CupcakePart> getAllCupcakeBottoms(ConnectionPool connectionPool)
-+ {static} CupcakePart getCupcakeTopById(int cupcakeTopId, ConnectionPool connectionPool)
++ {static} List<CupcakePart> getAllCupcakeTops(ConnectionPool connectionPool)
 + {static} CupcakePart getCupcakeBottomById(int cupcakeTopId, ConnectionPool connectionPool)
-+ {static} CupcakePart getCupcakePartById(int cupcakeTopId, CupcakePart.Type type, ConnectionPool connectionPool)
++ {static} CupcakePart getCupcakeTopById(int cupcakeTopId, ConnectionPool connectionPool)
+- {static} CupcakePart getCupcakePartById(int cupcakeTopId, CupcakePart.Type type, ConnectionPool connectionPool)
 }
 
 class User {
@@ -74,13 +74,13 @@ class Order {
 
 class OrderItem {
 - int orderItemId
-- CupcakePart cupcakeTop
 - CupcakePart cupcakeBottom
+- CupcakePart cupcakeTop
 - int quantity
 
 + int getOrderItemId()
-+ CupcakePart getCupcakeTop()
 + CupcakePart getCupcakeBottom()
++ CupcakePart getCupcakeTop()
 + int getQuantity()
 + int getTotalPrice()
 }
