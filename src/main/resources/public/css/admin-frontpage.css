@@ -8,19 +8,23 @@
 }
 
 
-.customer-order-info-content {
+/**** Header Container ****/
+
+.order-header-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 15px;
 }
 
-.customer-order-info-content h3 {
+.order-header-container h3 {
     margin: 0;
 }
 
 
-.customer-order-details-content {
+/**** Body Container ****/
+
+.order-body-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -28,57 +32,72 @@
 }
 
 
-.customer-order-items-container {
-    border: 1px solid black;
-    border-radius: 2px;
-    width: 100%;
+/**** Items Container ****/
+
+.order-items-container {
+    flex-basis: 80%;
 }
 
-.customer-order-items-content {
+.order-items-content {
+    list-style-type: none;
     display: flex;
     flex-direction: column;
-    padding: 10px !important;
-    width: 100%;
-    gap: 5px;
-}
-
-.customer-order-items-content p {
+    padding: 10px;
     margin: 0;
+    gap: 10px;
 }
 
-.customer-order-item-content {
+
+/**** Item Content ****/
+
+.item-content {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0 15px;
 }
 
-.cupcake-parts {
+.item-details {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
-    gap: 5px 20px;
+    gap: 0 15px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 120px;
 }
 
-.cupcake-parts > p {
-    max-width: 120px;
-    width: 100%;
+.item-details p {
+    flex-basis: 120px;
+    margin: 0;
 }
 
-.customer-order-item-content > p {
-    max-width: 80px;
-    width: 100%;
+.item-quantity {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 80px
+}
+
+.item-quantity p {
+    flex-basis: 80px;
+    margin: 0;
 }
 
 
-.customer-order-buttons-content {
-    width: 100%;
-    max-width: 140px;
+/**** Order Buttons ****/
+
+.order-buttons-container {
+    flex-basis: 130px;
+    align-self: center;
 }
 
-.customer-order-buttons-content form {
+.order-buttons-content {
+    list-style-type: none;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    padding: 0;
+    margin: 0;
+    gap: 10px;
 }
