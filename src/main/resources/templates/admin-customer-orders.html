@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title th:text="'Kunde Ordrer - ' + ${customer.getEmail()}">Customer Orders</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="../public/css/admin-customer-orders.css" th:href="@{/css/admin-customer-orders.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="main-container">
+    <div th:replace="~{fragments :: header('Header fragment')}"></div>
+
+    <div class="main-content">
+        <div th:replace="~{fragments :: navigation-bar('Current Customer Orders')}"></div>
+
+        <div class="page-container">
+            <h1 th:text="${customer.getEmail()}">Customer Email</h1>
+
+            <ul class="page-list-content">
+                <li class="customer-order-container" th:each="order: ${orders}">
+                    <div class="customer-order-content box-shadow">
+                        <div class="order-header-container">
+                            <h3>ID:
+                                <span th:text="${order.getOrderId()}">
+                                    Order Id
+                                </span>
+                            </h3>
+                        </div>
+
+                        <div class="order-body-container">
+                            <div class="order-items-container">
+                                <ul class="order-items-content box-shadow">
+                                    <li class="item-container" th:each="orderItem: ${order.getOrderItems()}">
+                                        <div class="item-content">
+                                            <div class="item-details">
+                                                <p>
+                                                    Bund:
+                                                    <span th:text="${orderItem.getCupcakeBottom().getName()}">
+                                                        Bottom
+                                                    </span>
+                                                </p>
+                                                <p>
+                                                    Top:
+                                                    <span th:text="${orderItem.getCupcakeTop().getName()}">
+                                                        Top
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="item-quantity">
+                                                <p>Antal:
+                                                    <span th:text="${orderItem.getQuantity()}">
+                                                        Amount
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="order-buttons-container">
+                                <form class="order-buttons-content" method="post">
+                                    <input type="hidden" name="customerId" th:value="${customer.getUserId()}">
+                                    <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
+
+                                    <button type="submit" formaction="/set-order-ready">Klar til afhentning</button>
+                                    <button type="submit" formaction="/delete-order">Slet ordre</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
