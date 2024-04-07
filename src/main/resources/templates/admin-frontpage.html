@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-    <title>Customer Orders</title>
+    <title>Aktive Kunde Ordrer</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
@@ -15,15 +15,15 @@
     <div th:replace="~{fragments :: header('Header fragment')}"></div>
 
     <div class="main-content">
-        <div th:replace="~{fragments :: navigation-bar('Customer Orders')}"></div>
+        <div th:replace="~{fragments :: navigation-bar('Active Customers Orders')}"></div>
 
-        <h1>Bestillinger</h1>
+        <div class="page-container">
+            <h1>Bestillinger</h1>
 
-        <div class="customer-orders-container">
-            <ul class="customer-orders-content">
+            <ul class="page-list-content">
                 <li class="customer-order-container" th:each="order: ${orders}">
-                    <div class="customer-order-content">
-                        <div class="customer-order-info-content">
+                    <div class="customer-order-content box-shadow">
+                        <div class="order-header-container">
                             <h3 th:text="${order.getKey().getEmail()}">Customer email</h3>
                             <h3>
                                 ID:
@@ -34,48 +34,45 @@
                             </h3>
                         </div>
 
-                        <div class="customer-order-details-content">
-                            <div class="customer-order-items-container">
-                                <ul class="customer-order-items-content">
-                                    <li class="customer-order-item-container"
+                        <div class="order-body-container">
+                            <div class="order-items-container">
+                                <ul class="order-items-content box-shadow">
+                                    <li class="item-container"
                                         th:each="orderItem: ${order.getValue().getOrderItems()}">
-                                        <div class="customer-order-item-content">
-                                            <div class="cupcake-parts">
+                                        <div class="item-content">
+                                            <div class="item-details">
                                                 <p>
                                                     Bund:
-                                                    <span style="display: inline-flex; padding: 0"
-                                                          th:text="${orderItem.getCupcakeBottom().getName()}">
-                                                Chocolate
-                                            </span>
+                                                    <span th:text="${orderItem.getCupcakeBottom().getName()}">
+                                                        Bottom
+                                                    </span>
                                                 </p>
                                                 <p>
                                                     Top:
-                                                    <span style="display: inline-flex; padding: 0"
-                                                          th:text="${orderItem.getCupcakeTop().getName()}">
-                                                Blueberry
-                                            </span>
+                                                    <span th:text="${orderItem.getCupcakeTop().getName()}">
+                                                        Top
+                                                    </span>
                                                 </p>
                                             </div>
-
-                                            <p>
-                                                Antal:
-                                                <span style="display: inline-flex; padding: 0"
-                                                      th:text="${orderItem.getQuantity()}">
-                                                10
-                                            </span>
-                                            </p>
+                                            <div class="item-quantity">
+                                                <p>Antal:
+                                                    <span th:text="${orderItem.getQuantity()}">
+                                                        Amount
+                                                    </span>
+                                                </p>
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
 
-                            <div class="customer-order-buttons-content">
-                                <form method="post">
+                            <div class="order-buttons-container">
+                                <form class="order-buttons-content" method="post">
                                     <button type="submit" name="orderId" th:value="${order.getValue().getOrderId()}"
-                                            formaction="/orderisready">Klar til afhentning
+                                            formaction="/set-order-ready">Klar til afhentning
                                     </button>
                                     <button type="submit" name="orderId" th:value="${order.getValue().getOrderId()}"
-                                            formaction="/rejectorder">
+                                            formaction="/delete-order">
                                         Slet ordre
                                     </button>
                                 </form>
