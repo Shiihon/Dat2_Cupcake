@@ -1,5 +1,6 @@
 package app.controllers;
 import app.entities.CupcakePart;
+import app.entities.OrderItem;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.CupcakeMapper;
@@ -13,7 +14,7 @@ public class OrderController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
         app.post("myorders", ctx -> viewMyOrders(ctx, connectionPool));
-        app.post("viewcart", ctx -> viewMyCart(ctx, connectionPool));
+        app.get("viewcart", ctx -> viewMyCart(ctx, connectionPool));
         app.post("ordernow", ctx -> placeOrder());
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
         app.post("orderisready", ctx -> orderReadyToPickup());
@@ -32,44 +33,48 @@ public class OrderController {
         });
     }
 
-    private static void addToCart(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+    public static void addToCart(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
         try {
             int bottomId = Integer.parseInt(ctx.formParam("bottom"));
             int topId = Integer.parseInt(ctx.formParam("tops"));
             int amount = Integer.parseInt(ctx.formParam("amount"));
 
-            int bottomPrice = CupcakeMapper.getCupcakePartPrice(bottomId, connectionPool, CupcakePart.Type.BOTTOM);
-            int topPrice = CupcakeMapper.getCupcakePartPrice(topId, connectionPool, CupcakePart.Type.TOP);
-            int totalPrice = (bottomPrice + topPrice) * amount;
+            CupcakePart bottomPart = CupcakeMapper.getCupcakePartById(bottomId, connectionPool, CupcakePart.Type.BOTTOM);
+            CupcakePart topPart = CupcakeMapper.getCupcakePartById(topId, connectionPool, CupcakePart.Type.TOP);
 
-            List<String> basket = ctx.sessionAttribute("basket");
+            int itemPrice = bottomPart.getPrice() + topPart.getPrice();
+            int totalPrice = itemPrice * amount;
+
+            OrderItem newItem = new OrderItem(-1, topPart, bottomPart, amount, totalPrice);
+
+            List<OrderItem> basket = ctx.sessionAttribute("basket");
             if (basket == null) {
                 basket = new ArrayList<>();
             }
 
-            String itemDescription = String.format("%s + %s = %d %d",
-                    CupcakeMapper.getCupcakePartName(bottomId, connectionPool, CupcakePart.Type.BOTTOM),
-                    CupcakeMapper.getCupcakePartName(topId, connectionPool, CupcakePart.Type.TOP),
-                    totalPrice, amount);
-
-            basket.add(itemDescription);
-            System.out.println(basket);
+            basket.add(newItem);
+            System.out.println(newItem);
 
             ctx.sessionAttribute("basket", basket);
             ctx.redirect("/user-frontpage");
 
-        } catch (DatabaseException e) {
-
-            throw new DatabaseException("Can't add to basket.", e.getMessage());
+        } catch (NumberFormatException | DatabaseException e) {
+            ctx.attribute("Error adding to cart: " + e.getMessage());
+            ctx.render("user-frontpage.html");
         }
     }
-
 
     private static void viewMyOrders(Context ctx, ConnectionPool connectionPool) {
         ctx.render("my-orders.html");
     }
 
     private static void viewMyCart(Context ctx, ConnectionPool connectionPool) {
+        List<OrderItem> basket = ctx.sessionAttribute("basket");
+        if (basket == null) {
+            basket = new ArrayList<>();
+        }
+
+        ctx.attribute("basket", basket);
         ctx.render("order-overview.html");
     }
 

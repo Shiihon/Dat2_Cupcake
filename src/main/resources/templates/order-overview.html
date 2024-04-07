@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="../public/css/order-overview.css" th:href="@{/css/order-overview.css}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -17,22 +18,8 @@
 <div class="row">
     <div class="column1">
         <table>
-            <tr>
-                <td>Vanilla-Rasberry</td>
-                <td>100 kr.</td>
-                <td>10 stk.</td>
-                <td><img th:src="@{/images/remove.png}" src="/images/remove.png" width="100%"/></td>
-            </tr>
-            <tr>
-                <td>Nutmeg-Blueberry</td>
-                <td>110 kr.</td>
-                <td>11 stk.</td>
-                <td><img th:src="@{/images/remove.png}" src="/images/remove.png" width="100%"/></td>
-            </tr>
-            <tr>
-                <td>Almond-Chocolate</td>
-                <td>24 kr.</td>
-                <td>2 stk.</td>
+            <tr th:each="item : ${basket}">
+                <td th:text="${item.cupcakeBottom.name + ' + ' + item.cupcakeTop.name + '&nbsp;&nbsp;&nbsp;' + item.quantity + ' stk ' + item.totalPrice + ' kr.'}"></td>
                 <td><img th:src="@{/images/remove.png}" src="/images/remove.png" width="100%"/></td>
             </tr>
         </table>
