@@ -1,5 +1,4 @@
 package app;
-
 import app.config.ThymeleafConfig;
 import app.controllers.OrderController;
 import app.controllers.UserController;
