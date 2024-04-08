@@ -1,7 +1,5 @@
 package app.entities;
 
-import app.persistence.CupcakeMapper;
-
 public class OrderItem {
     private int orderItemId;
     private int orderId;
@@ -30,7 +28,6 @@ public class OrderItem {
         int totalItemPrice = (bottomPart + topPart) * amount;
 
         return totalItemPrice;
-
     }
 
     public int getOrderItemId() {

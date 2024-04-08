@@ -7,7 +7,6 @@ import app.persistence.ConnectionPool;
 import app.persistence.CupcakeMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class OrderController {
             CupcakePart bottomPart = CupcakeMapper.getCupcakePartById(bottomId, connectionPool, CupcakePart.Type.BOTTOM);
             CupcakePart topPart = CupcakeMapper.getCupcakePartById(topId, connectionPool, CupcakePart.Type.TOP);
 
-            OrderItem newItem = new OrderItem(-1, -1, topPart, bottomPart, amount);
+            OrderItem newItem = new OrderItem(topPart, bottomPart, amount);
 
             List<OrderItem> basket = ctx.sessionAttribute("basket");
             if (basket == null) {
