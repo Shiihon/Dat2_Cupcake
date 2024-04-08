@@ -93,9 +93,6 @@
     </form>
 </main>
 
-<footer>
-    <a class="logout-button" th:if="${session.currentUser != null}" href="index.html" th:href="@{/logout}">Log ud</a>
-</footer>
-
+<div th:replace="~{fragments :: footer}"></div>
 </body>
 </html>
