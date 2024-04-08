@@ -42,10 +42,7 @@ public class OrderController {
             CupcakePart bottomPart = CupcakeMapper.getCupcakePartById(bottomId, connectionPool, CupcakePart.Type.BOTTOM);
             CupcakePart topPart = CupcakeMapper.getCupcakePartById(topId, connectionPool, CupcakePart.Type.TOP);
 
-            int itemPrice = bottomPart.getPrice() + topPart.getPrice();
-            int totalPrice = itemPrice * amount;
-
-            OrderItem newItem = new OrderItem(-1, topPart, bottomPart, amount, totalPrice);
+            OrderItem newItem = new OrderItem(-1, topPart, bottomPart, amount);
 
             List<OrderItem> basket = ctx.sessionAttribute("basket");
             if (basket == null) {

@@ -19,7 +19,7 @@
     <div class="column1">
         <table>
             <tr th:each="item : ${basket}">
-                <td th:text="${item.cupcakeBottom.name + ' + ' + item.cupcakeTop.name + '&nbsp;&nbsp;&nbsp;' + item.quantity + ' stk ' + item.totalPrice + ' kr.'}"></td>
+                <td th:text="${item.cupcakeBottom.name + ' + ' + item.cupcakeTop.name + '&nbsp;&nbsp;&nbsp;' + item.quantity + ' stk ' + item.getTotalItemPrice() + ' kr.'}"></td>
                 <td><img th:src="@{/images/remove.png}" src="/images/remove.png" width="100%"/></td>
             </tr>
         </table>
