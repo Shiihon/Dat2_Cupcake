@@ -15,6 +15,21 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
+    public OrderItem(CupcakePart cupcakeTop, CupcakePart cupcakeBottom, int quantity) {
+        this.cupcakeTop = cupcakeTop;
+        this.cupcakeBottom = cupcakeBottom;
+        this.quantity = quantity;
+    }
+
+    public int getTotalItemPrice(){
+        int amount = quantity;
+        int bottomPart = cupcakeBottom.getPrice();
+        int topPart = cupcakeTop.getPrice();
+        int totalItemPrice = (bottomPart + topPart) * amount;
+
+        return totalItemPrice;
+    }
+
     public int getOrderItemId() {
         return orderItemId;
     }
