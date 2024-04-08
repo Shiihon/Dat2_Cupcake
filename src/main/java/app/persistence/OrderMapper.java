@@ -5,6 +5,7 @@ import app.entities.Order;
 import app.entities.OrderItem;
 import app.exceptions.DatabaseException;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,8 +54,21 @@ public class OrderMapper {
     private void createOrderItem(OrderItem orderItem, ConnectionPool connectionPool) {
     }
 
-    private void deleteOrderItem(int orderItemId, ConnectionPool connectionPool) {
+    private void deleteOrderItem(int orderItemId, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "delete from order_items where order_items.order_item_id = ?";
 
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setInt(1, orderItemId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 1) {
+                throw new DatabaseException("Error in updating order items");
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Error in deleting orderItem", e.getMessage());
+        }
     }
 
     private OrderItem getOrderItemById(int orderItemId, ConnectionPool connectionPool) throws DatabaseException {
