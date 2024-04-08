@@ -21,8 +21,6 @@ public class OrderController {
         app.post("rejectorder", ctx -> rejectOrder());
         app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.post("cancelorder", ctx -> cancelOrder());
-
-        //loader liste af bunde og topp når user-frontpage bliver loaded
         app.get("/user-frontpage", ctx -> loadCupcakeParts(ctx, connectionPool));
 
     }
@@ -44,7 +42,7 @@ public class OrderController {
             CupcakePart bottomPart = CupcakeMapper.getCupcakePartById(bottomId, connectionPool, CupcakePart.Type.BOTTOM);
             CupcakePart topPart = CupcakeMapper.getCupcakePartById(topId, connectionPool, CupcakePart.Type.TOP);
 
-            OrderItem newItem = new OrderItem(-1, topPart, bottomPart, amount);
+            OrderItem newItem = new OrderItem(-1,-1, topPart, bottomPart, amount);
 
             List<OrderItem> basket = ctx.sessionAttribute("basket");
             if (basket == null) {
