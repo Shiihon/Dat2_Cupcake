@@ -228,6 +228,12 @@ public class OrderMapperTest {
     }
 
     @Test
+    void getOrderById() {
+        Order actualOrder = OrderMapper.getOrderById(2, connectionPool);
+        Assertions.assertEquals(expectedOrders.get(1), actualOrder);
+    }
+
+    @Test
     void getAllOrdersTest() {
         List<Order> actualOrders = OrderMapper.getAllOrders(connectionPool);
 
@@ -289,5 +295,22 @@ public class OrderMapperTest {
 
         Order actualOrder = OrderMapper.getOrderById(expectedOrders.size(), connectionPool);
         Assertions.assertEquals(expectedOrder, actualOrder);
+    }
+
+    @Test
+    void deleteOrderTest() {
+        OrderMapper.deleteOrder(1, connectionPool);
+
+        List<Order> actualOrdersBefore = OrderMapper.getAllOrders(connectionPool);
+        Assertions.assertEquals(1, actualOrdersBefore.size());
+        Assertions.assertEquals(expectedOrders.get(1), actualOrdersBefore.get(0));
+    }
+
+    @Test
+    void setOrderStatusTest() {
+        OrderMapper.setOrderStatus(1, "complete", connectionPool);
+
+        String actualOrderStatus = OrderMapper.getOrderById(1, connectionPool).getStatus();
+        Assertions.assertEquals("Complete", actualOrderStatus);
     }
 }
