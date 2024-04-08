@@ -20,6 +20,7 @@
     margin-right: auto;
     cursor: pointer;
     background-color: transparent;
+    text-decoration: none;
 }
 
 .myorders-button:hover {
@@ -121,5 +122,6 @@ footer .logout-button {
     bottom: 20px;
     right: 20px;
     cursor: pointer;
+    text-decoration: none;
 }
 
