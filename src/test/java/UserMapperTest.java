@@ -71,13 +71,24 @@ public class UserMapperTest {
     }
 
     @Test
-    void loginUserTest() {
+    void loginUserTest() throws DatabaseException {
+        User expectedUser = expectedUsers.get(0);
+        User actualUser = UserMapper.login(expectedUser.getEmail(), expectedUser.getPassword(), connectionPool);
 
+        Assertions.assertEquals(expectedUser, actualUser);
+    }
+
+    @Test
+    void getUserByIdTest() throws DatabaseException {
+        User expectedUser = expectedUsers.get(0);
+        User actualUser = UserMapper.getUserById(expectedUser.getUserId(), connectionPool);
+
+        Assertions.assertEquals(expectedUser, actualUser);
     }
 
     @Test
     void createUserTest() throws DatabaseException {
-        User expectedUser = new User(1, "jon@cphbusiness.com", "1234", "customer", 500);
+        User expectedUser = new User(3, "Nanna@cphbusiness.com", "1234", "customer", 500);
         UserMapper.createAccount(expectedUser.getEmail(), expectedUser.getPassword(), connectionPool);
         User actualUser = UserMapper.getUserById(expectedUser.getUserId(), connectionPool);
 
