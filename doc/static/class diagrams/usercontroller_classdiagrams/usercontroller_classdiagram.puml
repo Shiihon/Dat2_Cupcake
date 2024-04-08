@@ -5,7 +5,7 @@
 
 class UserController {
 + {static} void addRoutes(Javalin app, ConnectionPool connectionPool)
-- {static} void createUser(Context ctx, ConnectionPool connectionPool)
+- {static} void createAccount(Context ctx, ConnectionPool connectionPool)
 - {static} void logout(Context ctx)
 - {static} void login(Context ctx, ConnectionPool connectionPool)
 }
