@@ -12,7 +12,7 @@ class UserController {
 
 class UserMapper {
 + {static} User login(String email, String password, ConnectionPool connectionPool)
-+ {static} void createUser(String email, String password, ConnectionPool connectionPool)
++ {static} void createAccount(String email, String password, ConnectionPool connectionPool)
 + {static} User getUserById(int userId, ConnectionPool connectionPool)
 }
 
