@@ -40,8 +40,8 @@ h3 {
 
 
 .row {
-    margin-left:-5px;
-    margin-right:-5px;
+    margin-left: -5px;
+    margin-right: -5px;
 }
 
 .column1, .column2 {
@@ -106,8 +106,4 @@ tr td .button1, tr td .button2 {
     text-align: center;
     width: 180px;
     margin-left: 30%;
-}
-
-tr td .button2 {
-
 }
