@@ -13,10 +13,9 @@ body {
     font-family: "Josefin Sans", sans-serif;
 }
 
-.headerImage {
-    width: 500px;
-    height: auto;
-    margin-top: 3%;
+.headerimage img {
+    display: block;
+    width: 100%;
 }
 
 .main-container {

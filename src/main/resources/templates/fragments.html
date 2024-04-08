@@ -14,7 +14,7 @@
 <div id="page-container">
     <div id="page-content">
         <header th:fragment="header(title)">
-            <div class="headerimage">
+            <div class="header-image">
                 <img th:src="@{/images/CupHeader.png}" src="/images/CupHeader.png" alt="CupcakeHeader"/>
             </div>
         </header>
@@ -26,11 +26,10 @@
                     <ul class="nav-bar-items">
                         <li class="nav-bar-item">
                             <a th:classappend="${#strings.equals(pageTitle,'My Orders')} ? active : ''"
-                               th:href="@{/my-orders}"><strong>Mine ordrer</strong></a>
+                               th:href="@{/myorders}"><strong>Mine ordrer</strong></a>
                         </li>
                     </ul>
                 </li>
-
                 <li>
                     <ul class="nav-bar-items">
                         <li class="nav-bar-item" th:if="${#ctx.session.currentUser != null}">
