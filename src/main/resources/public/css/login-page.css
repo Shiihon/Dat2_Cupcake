@@ -1,6 +1,12 @@
 /* Stylesheet for the application - dont' touch */
 /* Stylesheet for the application */
 
+.headerImage {
+    width: 500px;
+    height: auto;
+    margin-top: 2%;
+}
+
 .generic-form {
     max-width: 400px;
     display: flex;
