@@ -3,6 +3,8 @@ import app.entities.Order;
 import app.entities.OrderItem;
 import app.entities.User;
 import app.persistence.ConnectionPool;
+import app.persistence.OrderMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -226,12 +228,15 @@ public class OrderMapperTest {
     }
 
     @Test
-    void getAllCupcakeBottomsTest() {
-
+    void getAllOrdersTest() {
+        List<Order> actualOrders = OrderMapper.getAllOrders(connectionPool);
+        Assertions.assertEquals(expectedOrders.size(), actualOrders.size());
+        Assertions.assertEquals(expectedOrders, actualOrders);
     }
 
     @Test
-    void getAllCupcakeTopsTest() {
-
+    void getAllOrdersByStatusTest() {
+        List<Order> statusComplete = OrderMapper.getAllOrdersByStatus("complete", connectionPool);
+        Assertions.assertEquals(expectedOrders.get(1), statusComplete);
     }
 }
