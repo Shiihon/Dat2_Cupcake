@@ -1,6 +1,5 @@
 package app.persistence;
 
-import app.entities.CupcakePart;
 import app.entities.Order;
 import app.entities.OrderItem;
 import app.exceptions.DatabaseException;
@@ -188,7 +187,7 @@ public class OrderMapper {
                 int cupcakeBottomId = rs.getInt("cupcake_bottom_id");
                 int cupcakeTopId = rs.getInt("cupcake_top_id");
                 int orderItemQuantity = rs.getInt("order_item_quantity");
-                orderItems.add(new OrderItem(orderItemId, orderId, CupcakeMapper.getCupcakePartById(cupcakeTopId, connectionPool, CupcakePart.Type.TOP), CupcakeMapper.getCupcakePartById(cupcakeBottomId, connectionPool, CupcakePart.Type.BOTTOM), orderItemQuantity));
+                orderItems.add(new OrderItem(orderItemId, orderId, CupcakeMapper.getCupcakeBottomById(cupcakeTopId, connectionPool), CupcakeMapper.getCupcakeTopById(cupcakeBottomId, connectionPool), orderItemQuantity));
             }
 
         } catch (SQLException e) {
@@ -251,7 +250,7 @@ public class OrderMapper {
                 int cupcakeBottomId = rs.getInt("cupcake_bottom_id");
                 int cupcakeTopId = rs.getInt("cupcake_top_id");
                 int orderItemQuantity = rs.getInt("order_item_quantity");
-                orderItem = new OrderItem(orderItemId, orderId, CupcakeMapper.getCupcakePartById(cupcakeTopId, connectionPool, CupcakePart.Type.TOP), CupcakeMapper.getCupcakePartById(cupcakeBottomId, connectionPool, CupcakePart.Type.BOTTOM), orderItemQuantity);
+                orderItem = new OrderItem(orderItemId, orderId, CupcakeMapper.getCupcakeBottomById(cupcakeTopId, connectionPool), CupcakeMapper.getCupcakeTopById(cupcakeBottomId, connectionPool), orderItemQuantity);
             } else {
                 throw new DatabaseException("The order id doesn't exist");
             }
