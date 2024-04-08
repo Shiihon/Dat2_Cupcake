@@ -1,5 +1,9 @@
 import app.entities.User;
+import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
+import app.persistence.UserMapper;
+import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -67,12 +71,27 @@ public class UserMapperTest {
     }
 
     @Test
-    void loginUserTest() {
+    void loginUserTest() throws DatabaseException {
+        User expectedUser = expectedUsers.get(0);
+        User actualUser = UserMapper.login(expectedUser.getEmail(), expectedUser.getPassword(), connectionPool);
 
+        Assertions.assertEquals(expectedUser, actualUser);
     }
 
     @Test
-    void createUserTest() {
+    void getUserByIdTest() throws DatabaseException {
+        User expectedUser = expectedUsers.get(0);
+        User actualUser = UserMapper.getUserById(expectedUser.getUserId(), connectionPool);
 
+        Assertions.assertEquals(expectedUser, actualUser);
+    }
+
+    @Test
+    void createUserTest() throws DatabaseException {
+        User expectedUser = new User(3, "Nanna@cphbusiness.com", "1234", "customer", 500);
+        UserMapper.createAccount(expectedUser.getEmail(), expectedUser.getPassword(), connectionPool);
+        User actualUser = UserMapper.getUserById(expectedUser.getUserId(), connectionPool);
+
+        Assertions.assertEquals(expectedUser, actualUser);
     }
 }
