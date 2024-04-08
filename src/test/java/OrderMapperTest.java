@@ -229,13 +229,13 @@ public class OrderMapperTest {
     }
 
     @Test
-    void getOrderById() {
+    void getOrderById() throws DatabaseException {
         Order actualOrder = OrderMapper.getOrderById(2, connectionPool);
         Assertions.assertEquals(expectedOrders.get(1), actualOrder);
     }
 
     @Test
-    void getAllOrdersTest() {
+    void getAllOrdersTest() throws DatabaseException{
         List<Order> actualOrders = OrderMapper.getAllOrders(connectionPool);
 
         Assertions.assertEquals(expectedOrders.size(), actualOrders.size());
@@ -243,7 +243,7 @@ public class OrderMapperTest {
     }
 
     @Test
-    void getAllOrdersByStatusTest() {
+    void getAllOrdersByStatusTest() throws DatabaseException {
         List<Order> actualCompleteOrders = OrderMapper.getAllOrdersByStatus("complete", connectionPool);
 
         Assertions.assertEquals(1, actualCompleteOrders.size());
@@ -251,7 +251,7 @@ public class OrderMapperTest {
     }
 
     @Test
-    void getAllUserOrdersTest() {
+    void getAllUserOrdersTest() throws DatabaseException {
         List<Order> actualUserOrders = OrderMapper.getAllUserOrders(1, connectionPool);
 
         Assertions.assertEquals(2, actualUserOrders.size());
@@ -299,7 +299,7 @@ public class OrderMapperTest {
     }
 
     @Test
-    void deleteOrderTest() {
+    void deleteOrderTest() throws DatabaseException {
         OrderMapper.deleteOrder(1, connectionPool);
 
         List<Order> actualOrdersBefore = OrderMapper.getAllOrders(connectionPool);
@@ -308,7 +308,7 @@ public class OrderMapperTest {
     }
 
     @Test
-    void setOrderStatusTest() {
+    void setOrderStatusTest() throws DatabaseException {
         OrderMapper.setOrderStatus(1, "complete", connectionPool);
 
         String actualOrderStatus = OrderMapper.getOrderById(1, connectionPool).getStatus();
