@@ -23,14 +23,16 @@ public class OrderController {
         app.post("cancelorder", ctx -> cancelOrder());
 
         //loader liste af bunde og topp når user-frontpage bliver loaded
-        app.get("/user-frontpage", ctx -> {
-            List<CupcakePart> bottoms = CupcakeMapper.getCupcakeBottoms(connectionPool);
-            System.out.println("Bottoms: " + bottoms);
-            List<CupcakePart> tops = CupcakeMapper.getCupcakeTops(connectionPool);
-            ctx.attribute("bottoms", bottoms);
-            ctx.attribute("tops", tops);
-            ctx.render("user-frontpage.html");
-        });
+        app.get("/user-frontpage", ctx -> loadCupcakeParts(ctx, connectionPool));
+
+    }
+
+    private static void loadCupcakeParts(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+        List<CupcakePart> bottoms = CupcakeMapper.getCupcakeBottoms(connectionPool);
+        List<CupcakePart> tops = CupcakeMapper.getCupcakeTops(connectionPool);
+        ctx.attribute("bottoms", bottoms);
+        ctx.attribute("tops", tops);
+        ctx.render("user-frontpage.html");
     }
 
     public static void addToCart(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
@@ -50,7 +52,6 @@ public class OrderController {
             }
 
             basket.add(newItem);
-            System.out.println(newItem);
 
             ctx.sessionAttribute("basket", basket);
             ctx.redirect("/user-frontpage");
@@ -70,7 +71,6 @@ public class OrderController {
         if (basket == null) {
             basket = new ArrayList<>();
         }
-
         ctx.attribute("basket", basket);
         ctx.render("order-overview.html");
     }
@@ -89,5 +89,4 @@ public class OrderController {
 
     private static void cancelOrder() {
     }
-
 }

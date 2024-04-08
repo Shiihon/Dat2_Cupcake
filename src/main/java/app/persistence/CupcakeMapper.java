@@ -17,19 +17,19 @@ public class CupcakeMapper {
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                int bottomId = rs.getInt("cupcake_bottom_id");
+                String bottomName = rs.getString("cupcake_bottom_name");
+                int bottomPrice = rs.getInt("cupcake_bottom_price");
 
-                int bottom_id = rs.getInt("cupcake_bottom_id");
-                String bottom_name = rs.getString("cupcake_bottom_name");
-                int bottom_price = rs.getInt("cupcake_bottom_price");
-
-                bottoms.add(new CupcakePart(bottom_id, bottom_name, bottom_price, CupcakePart.Type.BOTTOM));
+                bottoms.add(new CupcakePart(bottomId, bottomName, bottomPrice, CupcakePart.Type.BOTTOM));
             }
         }
         catch (SQLException e){
-            throw new DatabaseException("No bottoms found", e.getMessage());
+            throw new DatabaseException("No connection to bottoms", e.getMessage());
         }
         return bottoms;
     }
@@ -42,19 +42,20 @@ public class CupcakeMapper {
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
-                int top_id = rs.getInt("cupcake_top_id");
-                String top_name = rs.getString("cupcake_top_name");
-                int top_price = rs.getInt("cupcake_top_price");
+                int topId = rs.getInt("cupcake_top_id");
+                String topName = rs.getString("cupcake_top_name");
+                int topPrice = rs.getInt("cupcake_top_price");
 
-                tops.add(new CupcakePart(top_id, top_name, top_price, CupcakePart.Type.TOP));
+                tops.add(new CupcakePart(topId, topName, topPrice, CupcakePart.Type.TOP));
             }
         }
         catch (SQLException e){
-            throw new DatabaseException("No tops found.", e.getMessage());
+            throw new DatabaseException("No connection to tops", e.getMessage());
         }
         return tops;
     }
