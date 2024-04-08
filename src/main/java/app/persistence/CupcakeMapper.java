@@ -1,6 +1,8 @@
 package app.persistence;
+
 import app.entities.CupcakePart;
 import app.exceptions.DatabaseException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,8 +29,7 @@ public class CupcakeMapper {
 
                 bottoms.add(new CupcakePart(bottom_id, bottom_name, bottom_price, CupcakePart.Type.BOTTOM));
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             throw new DatabaseException("No bottoms found", e.getMessage());
         }
         return bottoms;
@@ -52,8 +53,7 @@ public class CupcakeMapper {
 
                 tops.add(new CupcakePart(top_id, top_name, top_price, CupcakePart.Type.TOP));
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             throw new DatabaseException("No tops found.", e.getMessage());
         }
         return tops;
@@ -104,6 +104,34 @@ public class CupcakeMapper {
             }
         } catch (SQLException e) {
             throw new DatabaseException("No cupcake part price found.", e.getMessage());
+        }
+    }
+
+    public static CupcakePart getCupcakePartById(int partId, ConnectionPool connectionPool, CupcakePart.Type type) throws DatabaseException {
+        String sql = "";
+        if (type == CupcakePart.Type.BOTTOM) {
+            sql = "SELECT cupcake_bottom_id, cupcake_bottom_name, cupcake_bottom_price FROM cupcake_bottoms WHERE cupcake_bottom_id = ?";
+        } else if (type == CupcakePart.Type.TOP) {
+            sql = "SELECT cupcake_top_id, cupcake_top_name, cupcake_top_price FROM cupcake_tops WHERE cupcake_top_id = ?";
+        }
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, partId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                int price = rs.getInt(3);
+
+                return new CupcakePart(id, name, price, type);
+            } else {
+                throw new DatabaseException("No cupcakepart with ID: " + partId);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("No cupcakepart with ID found", e.getMessage());
         }
     }
 }
