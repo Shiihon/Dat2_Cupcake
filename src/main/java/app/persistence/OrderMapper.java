@@ -4,40 +4,135 @@ import app.entities.CupcakePart;
 import app.entities.Order;
 import app.entities.OrderItem;
 import app.exceptions.DatabaseException;
+import javassist.expr.NewArray;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderMapper {
-    public static List<Order> getAllOrders(ConnectionPool connectionpool) {
-        String sql = "SELECT order_id, user_id, order_status, order_timestamp FROM public.orders";
+    public static List<Order> getAllOrders(ConnectionPool connectionpool) throws DatabaseException {
+        List<Order> orderList = new ArrayList<>();
+        String sql = "SELECT order_id, user_id, order_status, order_timestamp FROM orders";
 
-        return null;
+        try (
+                Connection connection = connectionpool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql);
+        ) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int orderId = rs.getInt("order_id");
+                int userId = rs.getInt("user_id");
+                String orderStatus = rs.getString("order_timestamp");
+                LocalDateTime timestamp = rs.getTimestamp("order_timestamp").toLocalDateTime();
+                orderList.add(new Order(orderId, userId, getAllOrderItems(orderId, connectionpool), orderStatus, timestamp));
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Error while getting all orders");
+        }
+        return orderList;
     }
 
-    public static List<Order> getAllOrdersByStatus(String orderStatus, ConnectionPool connectionPool) {
-        return null;
+    public static List<Order> getAllOrdersByStatus(String orderStatus, ConnectionPool connectionPool) throws DatabaseException {
+        List<Order> orderList = new ArrayList<>();
+        String sql = "SELECT order_id, user_id, order_timestamp FROM orders WHERE order_status = ?";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql);
+        ) {
+            ps.setString(1, orderStatus);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int orderId = rs.getInt("order_id");
+                int userId = rs.getInt("user_id");
+                LocalDateTime timestamp = rs.getTimestamp("order_timestamp").toLocalDateTime();
+                orderList.add(new Order(orderId, userId, getAllOrderItems(orderId, connectionPool), orderStatus, timestamp));
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Error while getting all the orders");
+        }
+        return orderList;
     }
 
-    public static List<Order> getAllUserOrders(int userId, ConnectionPool connectionPool) {
-        return null;
+    public static List<Order> getAllUserOrders(int userId, ConnectionPool connectionPool) throws DatabaseException {
+        List<Order> orderList = new ArrayList<>();
+        String sql = "SELECT order_id, order_status, order_timestamp FROM orders where user_id = ? order by order_id";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int orderId = rs.getInt("order_id");
+                String orderStatus = rs.getString("order_status");
+                LocalDateTime timestamp = rs.getTimestamp("order_timestamp").toLocalDateTime();
+                orderList.add(new Order(orderId, userId, getAllOrderItems(orderId, connectionPool), orderStatus, timestamp));
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Database error", e.getMessage());
+        }
+        return orderList;
     }
 
-    public static void createOrder(Order order, ConnectionPool connectionPool) {
+    public static void createOrder(Order order, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "INSERT INTO orders (order_id, user_id, order_status, order_timestamp) values (?,?,?,?)";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setInt(1, order.getOrderId());
+            ps.setInt(2, order.getUserId());
+            ps.setString(3, order.getStatus());
+            ps.setTimestamp(4, Timestamp.valueOf(order.getTimestamp()));
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 1) {
+                throw new DatabaseException("Error could not insert order item");
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Error in DB connection", e.getMessage());
+        }
 
     }
 
-    public static void deleteOrder(int orderId, ConnectionPool connectionPool) {
+    public static void deleteOrder(int orderId, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "DELETE FROM orders WHERE order_id = ?";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setInt(1, orderId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 1) {
+                throw new DatabaseException("Error in updating order");
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Database error", e.getMessage());
+        }
 
     }
 
-    public static void setOrderStatus(int orderId, String orderStatus, ConnectionPool connectionPool) {
+    public static void setOrderStatus(int orderId, String orderStatus, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "UPDATE orders SET order_status = ? WHERE order_id = ?";
 
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setString(1, orderStatus);
+            ps.setInt(2, orderId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 1) {
+                throw new DatabaseException("Error in updating order");
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Error in DB");
+        }
     }
 
     public static Order getOrderById(int orderId, ConnectionPool connectionPool) throws DatabaseException {
@@ -114,7 +209,7 @@ public class OrderMapper {
     }
 
     private static void deleteOrderItem(int orderItemId, ConnectionPool connectionPool) throws DatabaseException {
-        String sql = "delete from order_items where order_items.order_item_id = ?";
+        String sql = "DELETE FROM order_items WHERE order_items.order_item_id = ?";
 
         try (
                 Connection connection = connectionPool.getConnection();
