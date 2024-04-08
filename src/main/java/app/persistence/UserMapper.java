@@ -33,8 +33,8 @@ public class UserMapper {
         }
     }
 
-    public static void createUser(String email, String password, ConnectionPool connectionPool) throws DatabaseException {
-        String sql = "insert into users (user_email, user_password) values (?,?)";
+    public static void createAccount(String email, String password, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "INSERT INTO users (user_email, user_password) values (?,?)";
 
         try (
                 Connection connection = connectionPool.getConnection();
