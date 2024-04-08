@@ -5,16 +5,11 @@ import app.entities.Order;
 import app.entities.OrderItem;
 import app.exceptions.DatabaseException;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-
-import static app.entities.CupcakePart.Type.BOTTOM;
 
 public class OrderMapper {
     public static List<Order> getAllOrders(ConnectionPool connectionpool) {
@@ -39,22 +34,22 @@ public class OrderMapper {
 
     }
 
-    public void setOrderStatus(int orderId, String orderStatus, ConnectionPool connectionPool) {
+    public static void setOrderStatus(int orderId, String orderStatus, ConnectionPool connectionPool) {
 
     }
 
-    public Order getAllOrdersById(int orderId, ConnectionPool connectionPool) {
+    public static Order getOrderById(int orderId, ConnectionPool connectionPool) {
         return null;
     }
 
-    private List<OrderItem> getAllOrderItems(int orderItem, ConnectionPool connectionPool) {
+    private static List<OrderItem> getAllOrderItems(int orderItem, ConnectionPool connectionPool) {
         return null;
     }
 
-    private void createOrderItem(OrderItem orderItem, ConnectionPool connectionPool) {
+    private static void createOrderItem(OrderItem orderItem, ConnectionPool connectionPool) {
     }
 
-    private void deleteOrderItem(int orderItemId, ConnectionPool connectionPool) throws DatabaseException {
+    private static void deleteOrderItem(int orderItemId, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "delete from order_items where order_items.order_item_id = ?";
 
         try (
@@ -71,7 +66,7 @@ public class OrderMapper {
         }
     }
 
-    private OrderItem getOrderItemById(int orderItemId, ConnectionPool connectionPool) throws DatabaseException {
+    private static OrderItem getOrderItemById(int orderItemId, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "SELECT order_item_id, order_id, cupcake_bottom_id, cupcake_top_id, order_item_quantity " +
                 " FROM order_items WHERE order_id = ?";
 
