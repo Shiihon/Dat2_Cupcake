@@ -55,7 +55,7 @@
                 </th:block>
             </select>
 
-            <select name="tops" id="tops">
+            <select name="top" id="top">
                 <option value="" disabled selected>Vælg topping:</option>
                 <th:block th:each="top : ${tops}">
                     <option th:value="${top.cupcakePartId}" th:text="${top.name + ' - ' + top.price}"></option>
