@@ -23,5 +23,15 @@ button:hover {
     background-color: #ffb3b3;
 }
 
-
-
+footer .logout-button {
+    background-color: #FACACA;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-family: "Josefin Sans";
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}

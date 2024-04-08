@@ -9,17 +9,18 @@
 }
 
 .myorders-button {
-    width: 80px;
+    color: black;
+    width: 90px;
     height: 35px;
     border: 1px solid black;
-    padding: 0;
+    padding: 10px 9px;
     font-family: "Josefin Sans";
     font-size: 13px;
-    line-height: 15px;
     text-align: center;
     margin-right: auto;
     cursor: pointer;
     background-color: transparent;
+    text-decoration: none;
 }
 
 .myorders-button:hover {
@@ -110,16 +111,3 @@ main p {
     color: black;
     margin-top: 1rem;
 }
-
-footer .logout-button {
-    background-color: #FACACA;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-family: "Josefin Sans";
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    cursor: pointer;
-}
-
