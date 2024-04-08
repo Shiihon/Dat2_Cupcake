@@ -4,7 +4,6 @@ import app.entities.CupcakePart;
 import app.entities.Order;
 import app.entities.OrderItem;
 import app.exceptions.DatabaseException;
-import javassist.expr.NewArray;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -79,13 +78,12 @@ public class OrderMapper {
     }
 
     public static void createOrder(Order order, ConnectionPool connectionPool) throws DatabaseException {
-        String sql = "INSERT INTO orders (order_id, user_id, order_status, order_timestamp) values (?,?,?,?)";
+        String sql = "INSERT INTO orders (user_id, order_status, order_timestamp) values (?,?,?,?)";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
-            ps.setInt(1, order.getOrderId());
             ps.setInt(2, order.getUserId());
             ps.setString(3, order.getStatus());
             ps.setTimestamp(4, Timestamp.valueOf(order.getTimestamp()));
@@ -112,7 +110,7 @@ public class OrderMapper {
     public static void deleteOrder(int orderId, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "DELETE FROM orders WHERE order_id = ?";
 
-        deleteOrderItem(orderId, connectionPool);
+        deleteOrderItems(orderId, connectionPool);
 
         try (
                 Connection connection = connectionPool.getConnection();
@@ -220,7 +218,7 @@ public class OrderMapper {
         }
     }
 
-    private static void deleteOrderItem(int orderId, ConnectionPool connectionPool) throws DatabaseException {
+    private static void deleteOrderItems(int orderId, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "DELETE FROM order_items WHERE order_id = ?";
 
         try (
