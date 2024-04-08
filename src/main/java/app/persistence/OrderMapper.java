@@ -24,7 +24,7 @@ public class OrderMapper {
             while (rs.next()) {
                 int orderId = rs.getInt("order_id");
                 int userId = rs.getInt("user_id");
-                String orderStatus = rs.getString("order_timestamp");
+                String orderStatus = rs.getString("order_status");
                 LocalDateTime timestamp = rs.getTimestamp("order_timestamp").toLocalDateTime();
                 orderList.add(new Order(orderId, userId, getAllOrderItems(orderId, connectionpool), orderStatus, timestamp));
             }
@@ -83,14 +83,24 @@ public class OrderMapper {
 
         try (
                 Connection connection = connectionPool.getConnection();
-                PreparedStatement ps = connection.prepareStatement(sql)
+                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             ps.setInt(1, order.getOrderId());
             ps.setInt(2, order.getUserId());
             ps.setString(3, order.getStatus());
             ps.setTimestamp(4, Timestamp.valueOf(order.getTimestamp()));
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected != 1) {
+
+            if (rowsAffected == 1) {
+                ResultSet rs = ps.getGeneratedKeys();
+                rs.next();
+                int newOrderId = rs.getInt(1);
+
+                for (OrderItem orderItem : order.getOrderItems()) {
+                    orderItem.setOrderId(newOrderId);
+                    createOrderItem(orderItem, connectionPool);
+                }
+            } else {
                 throw new DatabaseException("Error could not insert order item");
             }
         } catch (SQLException e) {
@@ -101,6 +111,8 @@ public class OrderMapper {
 
     public static void deleteOrder(int orderId, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "DELETE FROM orders WHERE order_id = ?";
+
+        deleteOrderItem(orderId, connectionPool);
 
         try (
                 Connection connection = connectionPool.getConnection();
@@ -114,7 +126,6 @@ public class OrderMapper {
         } catch (SQLException e) {
             throw new DatabaseException("Database error", e.getMessage());
         }
-
     }
 
     public static void setOrderStatus(int orderId, String orderStatus, ConnectionPool connectionPool) throws DatabaseException {
@@ -145,6 +156,7 @@ public class OrderMapper {
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         ) {
+            ps.setInt(1, orderId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int userId = rs.getInt("user_id");
@@ -208,16 +220,16 @@ public class OrderMapper {
         }
     }
 
-    private static void deleteOrderItem(int orderItemId, ConnectionPool connectionPool) throws DatabaseException {
-        String sql = "DELETE FROM order_items WHERE order_items.order_item_id = ?";
+    private static void deleteOrderItem(int orderId, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "DELETE FROM order_items WHERE order_id = ?";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         ) {
-            ps.setInt(1, orderItemId);
+            ps.setInt(1, orderId);
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected != 1) {
+            if (rowsAffected == 0) {
                 throw new DatabaseException("Error in updating order items");
             }
         } catch (SQLException e) {
