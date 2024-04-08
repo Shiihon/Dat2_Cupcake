@@ -21,12 +21,7 @@
 </head>
 
 <body>
-
-<header th:fragment="header(title)">
-    <div class="headerimage">
-        <img th:src="@{/images/CupHeader.png}" src="../public/images/CupHeader.png" width="100%"/>
-    </div>
-</header>
+<div th:replace="~{fragments :: header('Header fragment')}"></div>
 
 <nav class="navbar">
     <a class="back-button" th:if="${session.currentUser != null}" href="user-frontpage.html" th:href="@{/backtoordersite}">Tilbage</a>
