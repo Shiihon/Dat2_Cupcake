@@ -23,7 +23,7 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public int getTotalItemPrice(){
+    public int getTotalItemPrice() {
         int amount = quantity;
         int bottomPart = cupcakeBottom.getPrice();
         int topPart = cupcakeTop.getPrice();
@@ -38,6 +38,10 @@ public class OrderItem {
 
     public int getOrderId() {
         return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public CupcakePart getCupcakeTop() {
