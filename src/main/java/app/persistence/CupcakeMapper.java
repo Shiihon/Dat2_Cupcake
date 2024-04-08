@@ -18,8 +18,8 @@ public class CupcakeMapper {
         String sql = "SELECT cupcake_bottom_id, cupcake_bottom_name, cupcake_bottom_price FROM cupcake_bottoms";
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-
+             PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -41,8 +41,8 @@ public class CupcakeMapper {
         String sql = "SELECT cupcake_top_id, cupcake_top_name, cupcake_top_price FROM cupcake_tops";
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-
+             PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -67,11 +67,10 @@ public class CupcakeMapper {
         }
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-
+             PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
             ps.setInt(1, partId);
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 int id = rs.getInt(1);
                 String name = rs.getString(2);

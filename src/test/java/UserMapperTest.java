@@ -1,5 +1,8 @@
 import app.entities.User;
+import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
+import app.persistence.UserMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +44,11 @@ public class UserMapperTest {
 
         try (Connection connection = connectionPool.getConnection()) {
             try (Statement statement = connection.createStatement()) {
+                statement.execute("DELETE FROM order_items");
+                statement.execute("DELETE FROM orders");
                 statement.execute("DELETE FROM users");
+                statement.execute("DELETE FROM cupcake_bottoms");
+                statement.execute("DELETE FROM cupcake_tops");
 
                 statement.execute("SELECT setval('users_user_id_seq', 1)");
 
@@ -63,12 +70,27 @@ public class UserMapperTest {
     }
 
     @Test
-    void loginUserTest() {
+    void loginUserTest() throws DatabaseException {
+        User expectedUser = expectedUsers.get(0);
+        User actualUser = UserMapper.login(expectedUser.getEmail(), expectedUser.getPassword(), connectionPool);
 
+        Assertions.assertEquals(expectedUser, actualUser);
     }
 
     @Test
-    void createUserTest() {
+    void getUserByIdTest() throws DatabaseException {
+        User expectedUser = expectedUsers.get(0);
+        User actualUser = UserMapper.getUserById(expectedUser.getUserId(), connectionPool);
 
+        Assertions.assertEquals(expectedUser, actualUser);
+    }
+
+    @Test
+    void createUserTest() throws DatabaseException {
+        User expectedUser = new User(3, "Nanna@cphbusiness.com", "1234", "customer", 500);
+        UserMapper.createAccount(expectedUser.getEmail(), expectedUser.getPassword(), connectionPool);
+        User actualUser = UserMapper.getUserById(expectedUser.getUserId(), connectionPool);
+
+        Assertions.assertEquals(expectedUser, actualUser);
     }
 }
