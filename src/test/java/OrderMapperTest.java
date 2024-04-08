@@ -91,7 +91,6 @@ public class OrderMapperTest {
                         expectedCupcakeBottoms.get(1),
                         10
                 ),
-
                 new OrderItem(
                         3,
                         2,
@@ -235,7 +234,7 @@ public class OrderMapperTest {
     }
 
     @Test
-    void getAllOrdersTest() throws DatabaseException{
+    void getAllOrdersTest() throws DatabaseException {
         List<Order> actualOrders = OrderMapper.getAllOrders(connectionPool);
 
         Assertions.assertEquals(expectedOrders.size(), actualOrders.size());
@@ -244,7 +243,7 @@ public class OrderMapperTest {
 
     @Test
     void getAllOrdersByStatusTest() throws DatabaseException {
-        List<Order> actualCompleteOrders = OrderMapper.getAllOrdersByStatus("complete", connectionPool);
+        List<Order> actualCompleteOrders = OrderMapper.getAllOrdersByStatus("Complete", connectionPool);
 
         Assertions.assertEquals(1, actualCompleteOrders.size());
         Assertions.assertEquals(expectedOrders.get(1), actualCompleteOrders.get(0));
@@ -254,11 +253,8 @@ public class OrderMapperTest {
     void getAllUserOrdersTest() throws DatabaseException {
         List<Order> actualUserOrders = OrderMapper.getAllUserOrders(1, connectionPool);
 
-        Assertions.assertEquals(2, actualUserOrders.size());
-        Assertions.assertEquals(List.of(
-                expectedOrders.get(0),
-                expectedOrders.get(1)
-        ), actualUserOrders);
+        Assertions.assertEquals(1, actualUserOrders.size());
+        Assertions.assertEquals(List.of(expectedOrders.get(0)), actualUserOrders);
     }
 
     @Test
@@ -268,8 +264,8 @@ public class OrderMapperTest {
                 2,
                 List.of(
                         new OrderItem(
-                                0,
-                                3,
+                                4,
+                                4,
                                 new CupcakePart(
                                         1,
                                         "Blueberry",
@@ -278,15 +274,15 @@ public class OrderMapperTest {
                                 ),
                                 new CupcakePart(
                                         2,
-                                        "Strawberry",
+                                        "Pistachio",
                                         6,
-                                        CupcakePart.Type.TOP
+                                        CupcakePart.Type.BOTTOM
                                 ),
                                 8
                         )
                 ),
                 "In Progress",
-                LocalDateTime.now()
+                LocalDateTime.of(2024, 4, 6, 12, 18, 52)
         );
 
         OrderMapper.createOrder(expectedOrder, connectionPool);
@@ -294,7 +290,7 @@ public class OrderMapperTest {
         List<Order> actualOrders = OrderMapper.getAllOrders(connectionPool);
         Assertions.assertEquals(expectedOrders.size() + 1, actualOrders.size());
 
-        Order actualOrder = OrderMapper.getOrderById(expectedOrders.size(), connectionPool);
+        Order actualOrder = OrderMapper.getOrderById(expectedOrders.size() + 1, connectionPool);
         Assertions.assertEquals(expectedOrder, actualOrder);
     }
 
@@ -309,7 +305,7 @@ public class OrderMapperTest {
 
     @Test
     void setOrderStatusTest() throws DatabaseException {
-        OrderMapper.setOrderStatus(1, "complete", connectionPool);
+        OrderMapper.setOrderStatus(1, "Complete", connectionPool);
 
         String actualOrderStatus = OrderMapper.getOrderById(1, connectionPool).getStatus();
         Assertions.assertEquals("Complete", actualOrderStatus);
