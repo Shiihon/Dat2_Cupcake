@@ -30,11 +30,15 @@ class UserMapper {
 class OrderMapper {
 + {static} List<Order> getAllOrders(ConnectionPool connectionPool)
 + {static} List<Order> getAllOrdersByStatus(String orderStatus, ConnectionPool connectionPool)
-+ {static} List<Order> getAllOrdersByUser(int userId, ConnectionPool connectionPool)
++ {static} List<Order> getAllUserOrders(int userId, ConnectionPool connectionPool)
 + {static} void createOrder(Order order, ConnectionPool connectionPool)
 + {static} void deleteOrder(int orderId, ConnectionPool connectionPool)
 + {static} void setOrderStatus(int orderId, String orderStatus, ConnectionPool connectionPool)
-+ {static} Order getAllOrdersById(int orderId, ConnectionPool connectionPool)
++ {static} Order getOrdersById(int orderId, ConnectionPool connectionPool)
+- {static} List<OrderItem> getAllOrderItems(int orderId, ConnectionPool connectionPool)
+- {static} void createOrderItem(OrderItem, ConnectionPool connectionPool)
+- {static} void deleteOrderItem(int orderItemId, ConnectionPool connectionPool)
+- {static} OrderItem getOrderItemById(int orderItemId, ConnectionPool connectionPool)
 }
 
 class CupcakeMapper {
