@@ -230,6 +230,7 @@ public class OrderMapperTest {
     @Test
     void getAllOrdersTest() {
         List<Order> actualOrders = OrderMapper.getAllOrders(connectionPool);
+
         Assertions.assertEquals(expectedOrders.size(), actualOrders.size());
         Assertions.assertEquals(expectedOrders, actualOrders);
     }
@@ -237,6 +238,45 @@ public class OrderMapperTest {
     @Test
     void getAllOrdersByStatusTest() {
         List<Order> statusComplete = OrderMapper.getAllOrdersByStatus("complete", connectionPool);
+
         Assertions.assertEquals(expectedOrders.get(1), statusComplete);
+    }
+
+
+    @Test
+    void getOrderItemByIdTest() {
+        Order expectedOrder = new Order(
+                3,
+                2,
+                List.of(
+                        new OrderItem(
+                                0,
+                                3,
+                                new CupcakePart(
+                                        1,
+                                        "Blueberry",
+                                        5,
+                                        CupcakePart.Type.TOP
+                                ),
+                                new CupcakePart(
+                                        2,
+                                        "Strawberry",
+                                        6,
+                                        CupcakePart.Type.TOP
+                                ),
+                                8
+                        )
+                ),
+                "In Progress",
+                LocalDateTime.now()
+        );
+
+        OrderMapper.createOrder(expectedOrder, connectionPool);
+
+        List<Order> actualOrders = OrderMapper.getAllOrders(connectionPool);
+        Assertions.assertEquals(expectedOrders.size() + 1, actualOrders.size());
+
+        Order actualOrder = OrderMapper.getOrderById(expectedOrders.size(), connectionPool);
+        Assertions.assertEquals(expectedOrder, actualOrder);
     }
 }
