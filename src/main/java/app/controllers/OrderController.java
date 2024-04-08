@@ -13,7 +13,7 @@ public class OrderController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
-        app.post("myorders", ctx -> viewMyOrders(ctx, connectionPool));
+        app.get("myorders", ctx -> viewMyOrders(ctx, connectionPool));
         app.get("viewcart", ctx -> viewMyCart(ctx, connectionPool));
         app.post("ordernow", ctx -> placeOrder());
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
