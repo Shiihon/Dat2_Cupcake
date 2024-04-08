@@ -2,6 +2,7 @@ package app.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 public class Order {
     private int orderId;
@@ -36,6 +37,19 @@ public class Order {
 
     public LocalDateTime getTimestamp() {
         return timestamp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return getOrderId() == order.getOrderId() && getUserId() == order.getUserId() && Objects.equals(getOrderItems(), order.getOrderItems()) && Objects.equals(getStatus(), order.getStatus()) && Objects.equals(getTimestamp(), order.getTimestamp());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOrderId(), getUserId(), getOrderItems(), getStatus(), getTimestamp());
     }
 
     @Override

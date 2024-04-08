@@ -1,5 +1,7 @@
 package app.entities;
 
+import java.util.Objects;
+
 public class CupcakePart {
     public enum Type {
         TOP,
@@ -32,6 +34,19 @@ public class CupcakePart {
 
     public Type getType() {
         return type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CupcakePart that = (CupcakePart) o;
+        return getCupcakePartId() == that.getCupcakePartId() && getPrice() == that.getPrice() && Objects.equals(getName(), that.getName()) && getType() == that.getType();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCupcakePartId(), getName(), getPrice(), getType());
     }
 
     @Override

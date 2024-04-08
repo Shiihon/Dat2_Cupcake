@@ -13,22 +13,20 @@
 
 <img class="headerImage" src="../public/images/CupcakeLogo.png" th:src="@{/images/CupcakeLogo.png}"/>
 
-
 <form class="generic-form" method="post">
-    <input type="text" name="email" placeholder="Indtast E-mail"/>
-    <input type="password" name="password" placeholder="Indtast kodeord"/>
-    <br><br>
+    <input type="text" name="userEmail" placeholder="Indtast E-mail"/>
+    <input type="password" name="password1" placeholder="Indtast kodeord"/>
+    <input type="password" name="password2" placeholder="Gentag kodeord"/>
+    <br>
 
-    <button class="buttons" type="submit" formaction="/login">Login</button>
-</form>
-
-<form>
-<div>
     <button class="buttons" type="submit" formaction="/createAccount">Opret konto</button>
-</div>
+    <div class="fontSizeForMessages"><p th:text="${message}"></p></div>
+
 </form>
 
-<div class="error"><p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p></div>
+<div>
+    <a th:if="${session.currentUser != null}" href="index.html" th:href="@{/logout}">Logout</a>
+</div>
 
 </body>
 </html>
