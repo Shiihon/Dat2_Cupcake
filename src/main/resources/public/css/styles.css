@@ -142,15 +142,18 @@ button:hover {
 
 /**** Footer ****/
 
-footer .logout-button {
+.footer-container {
     background-color: #FACACA;
     border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-family: "Josefin Sans", serif;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    cursor: pointer;
+    border-radius: 2em 2em 2em 2em;
+    padding: 10px;
+    float: right;
+    width: 10%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.a-footer {
+    color: black;
     text-decoration: none;
 }
