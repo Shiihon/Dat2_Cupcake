@@ -46,7 +46,25 @@ public class OrderMapper {
         return null;
     }
 
-    private static void createOrderItem(OrderItem orderItem, ConnectionPool connectionPool) {
+    private static void createOrderItem(OrderItem orderItem, ConnectionPool connectionPool) throws DatabaseException {
+
+        String sql = "INSERT INTO order_items (order_id, cupcake_bottom_id, cupcake_top_id, order_item_quantity) values (?,?,?,?)";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setInt(1, orderItem.getOrderId());
+            ps.setInt(2, orderItem.getCupcakeBottom().getCupcakePartId());
+            ps.setInt(3, orderItem.getCupcakeTop().getCupcakePartId());
+            ps.setInt(4, orderItem.getQuantity());
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 1) {
+                throw new DatabaseException("Error could not insert order item");
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Error in DB connection", e.getMessage());
+        }
     }
 
     private static void deleteOrderItem(int orderItemId, ConnectionPool connectionPool) throws DatabaseException {
