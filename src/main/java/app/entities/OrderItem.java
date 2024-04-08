@@ -30,6 +30,7 @@ public class OrderItem {
         int totalItemPrice = (bottomPart + topPart) * amount;
 
         return totalItemPrice;
+
     }
 
     public int getOrderItemId() {
