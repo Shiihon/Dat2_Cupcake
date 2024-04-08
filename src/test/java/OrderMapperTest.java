@@ -2,6 +2,7 @@ import app.entities.CupcakePart;
 import app.entities.Order;
 import app.entities.OrderItem;
 import app.entities.User;
+import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.OrderMapper;
 import org.junit.jupiter.api.Assertions;
@@ -244,7 +245,7 @@ public class OrderMapperTest {
 
 
     @Test
-    void getOrderItemByIdTest() {
+    void getOrderItemByIdTest() throws DatabaseException {
         Order expectedOrder = new Order(
                 3,
                 2,
