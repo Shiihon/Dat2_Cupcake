@@ -24,6 +24,7 @@ class OrderController {
 class UserMapper {
 + {static} User login(String email, String password, ConnectionPool connectionPool)
 + {static} void createUser(String email, String password, ConnectionPool connectionPool)
++ {static} User getUserById(int userId, ConnectionPool connectionPool)
 }
 
 class OrderMapper {
