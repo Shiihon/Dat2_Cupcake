@@ -71,10 +71,19 @@ public class OrderController {
             basket = new ArrayList<>();
         }
 
+        int totalPrice = calculateTotalPrice(basket);
         ctx.attribute("basket", basket);
+        ctx.attribute("totalPrice", totalPrice);
         ctx.render("order-overview.html");
     }
 
+    public static int calculateTotalPrice(List<OrderItem> basket) {
+        int totalPrice = 0;
+        for (OrderItem item : basket) {
+            totalPrice += item.getTotalItemPrice();
+        }
+        return totalPrice;
+    }
     private static void placeOrder() {
     }
 

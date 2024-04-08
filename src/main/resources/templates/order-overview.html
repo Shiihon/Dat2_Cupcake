@@ -13,6 +13,14 @@
 <body>
 <div th:replace="~{fragments :: header('Header fragment')}"></div>
 
+<nav class="navbar">
+    <a class="back-button" th:if="${session.currentUser != null}" href="user-frontpage.html" th:href="@{/backtoordersite}">Tilbage</a>
+
+    <div class="customer-email"
+         th:text="${session.currentUser != null ? session.currentUser.email : 'Not logged in'}">
+    </div>
+</nav>
+
 <h1>Ordreoversigt</h1>
 
 <div class="row">
@@ -28,21 +36,21 @@
         <table>
             <tr>
                 <td><h2>Total:</h2></td>
-                <td><h3>234</h3></td>
+                <td><h3 th:text="${totalPrice}"></h3></td>
                 <td><h3>kr</h3></td>
             </tr>
             <tr>
                 <td><h2>Balance:</h2></td>
-                <td><h3>500</h3></td>
+                <td><h3 th:text="${session.currentUser != null ? session.currentUser.balance : 'Not logged in'}"></h3></td>
                 <td><h3>kr</h3></td>
             </tr>
             <tr>
                 <td></td>
-                <td class="gray">-234</td>
+                <td class="gray"><h3 th:text="'- ' + ${totalPrice}"></h3></td>
             </tr>
             <tr>
                 <td><h2>Ny Balance:</h2></td>
-                <td><h3>266</h3></td>
+                <td><h3 th:text="${session.currentUser.balance - totalPrice}"></h3></td>
                 <td><h3>kr</h3></td>
             </tr>
             <tr>
