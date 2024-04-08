@@ -1,0 +1,96 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+!pragma layout smetana
+
+class OrderController {
++ {static} void addRoutes(Javalin app, ConnectionPool connectionPool)
+- {static} void viewMyOrders(Context ctx, ConnectionPool connectionPool)
+- {static} void viewMyBasket(Context ctx, ConnectionPool connectionPool)
+- {static} void placeOrder(Context ctx, ConnectionPool connectionPool)
+- {static} void cancelOrderInOverview(Context ctx, ConnectionPool connectionPool)
+- {static} void orderReadyToPickup(Context ctx, ConnectionPool connectionPool)
+- {static} void rejectOrder(Context ctx, ConnectionPool connectionPool)
+- {static} void cancelOrder(Context ctx, ConnectionPool connectionPool)
+}
+
+class OrderMapper {
++ {static} List<Order> getAllOrders(ConnectionPool connectionPool)
++ {static} List<Order> getAllOrdersByStatus(String orderStatus, ConnectionPool connectionPool)
++ {static} List<Order> getAllUserOrders(int userId, ConnectionPool connectionPool)
++ {static} void createOrder(Order order, ConnectionPool connectionPool)
++ {static} void deleteOrder(int orderId, ConnectionPool connectionPool)
++ {static} void setOrderStatus(int orderId, String orderStatus, ConnectionPool connectionPool)
++ {static} Order getOrdersById(int orderId, ConnectionPool connectionPool)
+- {static} List<OrderItem> getAllOrderItems(int orderId, ConnectionPool connectionPool)
+- {static} void createOrderItem(OrderItem, ConnectionPool connectionPool)
+- {static} void deleteOrderItem(int orderItemId, ConnectionPool connectionPool)
+- {static} OrderItem getOrderItemById(int orderItemId, ConnectionPool connectionPool)
+}
+
+class CupcakeMapper {
++ {static} List<CupcakePart> getAllCupcakeBottoms(ConnectionPool connectionPool)
++ {static} List<CupcakePart> getAllCupcakeTops(ConnectionPool connectionPool)
++ {static} CupcakePart getCupcakeBottomById(int cupcakeTopId, ConnectionPool connectionPool)
++ {static} CupcakePart getCupcakeTopById(int cupcakeTopId, ConnectionPool connectionPool)
+- {static} CupcakePart getCupcakePartById(int cupcakeTopId, CupcakePart.Type type, ConnectionPool connectionPool)
+}
+
+class Order {
+- int orderId
+- int userId
+- List<OrderItem> orderItems
+- String status
+- LocalDateTime timestamp
+
++ int getOrderId()
++ int getUserId()
++ List<OrderItem> getOrderItems()
++ int getTotalPrice()
++ String getStatus()
++ LocalDateTime getTimestamp()
+}
+
+class OrderItem {
+- int orderItemId
+- CupcakePart cupcakeBottom
+- CupcakePart cupcakeTop
+- int quantity
+
++ int getOrderItemId()
++ CupcakePart getCupcakeBottom()
++ CupcakePart getCupcakeTop()
++ int getQuantity()
++ int getTotalPrice()
+}
+
+class CupcakePart {
+- int cupcakePartId
+- String name
+- int price
+- Type type
+
++ int getCupcakePartId()
++ String getName()
++ int getPrice()
++ Type getType()
+}
+
+enum Type {
+TOP
+BOTTOM
+}
+
+OrderController *-- OrderMapper
+OrderController *-- CupcakeMapper
+
+OrderMapper *-- Order
+CupcakeMapper *-- CupcakePart
+
+Order *-- OrderItem
+
+OrderItem *-- CupcakePart
+
+CupcakePart +-- Type
+
+@enduml

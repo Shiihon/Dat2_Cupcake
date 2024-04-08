@@ -11,7 +11,7 @@ public class UserController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         app.post("login", ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
-        app.get("createAccount", ctx -> ctx.render("createAccount.html"));
+        app.get("createAccount", ctx -> ctx.render("createaccount.html"));
         app.post("createAccount", ctx -> createAccount(ctx, connectionPool));
     }
 
@@ -22,18 +22,18 @@ public class UserController {
 
         if (password1.equals(password2)) {
             try {
-                UserMapper.createUser(userEmail, password1, connectionPool);
+                UserMapper.createAccount(userEmail, password1, connectionPool);
                 ctx.attribute("message", "Du er hermed oprettet med E-mailen: " + userEmail +
                         ". Du kan nu logge på.");
                 ctx.render("index.html");
 
             } catch (DatabaseException e) {
                 ctx.attribute("message", "E-mailen findes allerede. Prøv igen, eller log ind");
-                ctx.render("createuser.html");
+                ctx.render("createaccount.html");
             }
         } else {
             ctx.attribute("message", "Begge kodeord skal være ens! Prøv igen");
-            ctx.render("createuser.html");
+            ctx.render("createaccount.html");
         }
 
     }

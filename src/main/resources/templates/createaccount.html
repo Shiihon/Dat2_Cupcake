@@ -2,16 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-    <title>Frontpage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+          rel="stylesheet">
+    <title>Opret Konto</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles_login.css" th:href="@{/css/styles_login.css}" rel="stylesheet"/>
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 
 <body>
 
-<img class="headerImage" src="../public/images/CupcakeLogo.png" th:src="@{/images/CupcakeLogo.png}"/>
+<img class="headerImage" src="../public/images/CupcakeLogo.png" th:src="@{/images/CupcakeLogo.png}" alt="Cupcake Logo"/>
 
 <form class="generic-form" method="post">
     <input type="text" name="userEmail" placeholder="Indtast E-mail"/>
@@ -20,13 +22,7 @@
     <br>
 
     <button class="buttons" type="submit" formaction="/createAccount">Opret konto</button>
-    <div class="fontSizeForMessages"><p th:text="${message}"></p></div>
-
 </form>
-
-<div>
-    <a th:if="${session.currentUser != null}" href="index.html" th:href="@{/logout}">Logout</a>
-</div>
 
 </body>
 </html>
