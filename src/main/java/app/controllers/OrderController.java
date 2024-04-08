@@ -13,24 +13,26 @@ public class OrderController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
-        app.post("myorders", ctx -> viewMyOrders(ctx, connectionPool));
+        app.get("myorders", ctx -> viewMyOrders(ctx, connectionPool));
         app.get("viewcart", ctx -> viewMyCart(ctx, connectionPool));
         app.post("ordernow", ctx -> placeOrder());
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
         app.post("orderisready", ctx -> orderReadyToPickup());
         app.post("rejectorder", ctx -> rejectOrder());
-        app.get("backtoordersite", ctx -> ctx.render("user-frontpage.html"));
+        app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.post("cancelorder", ctx -> cancelOrder());
 
         //loader liste af bunde og topp når user-frontpage bliver loaded
-        app.get("/user-frontpage", ctx -> {
-            List<CupcakePart> bottoms = CupcakeMapper.getCupcakeBottoms(connectionPool);
-            System.out.println("Bottoms: " + bottoms);
-            List<CupcakePart> tops = CupcakeMapper.getCupcakeTops(connectionPool);
-            ctx.attribute("bottoms", bottoms);
-            ctx.attribute("tops", tops);
-            ctx.render("user-frontpage.html");
-        });
+        app.get("/user-frontpage", ctx -> loadCupcakeParts(ctx, connectionPool));
+
+    }
+
+    private static void loadCupcakeParts(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+        List<CupcakePart> bottoms = CupcakeMapper.getCupcakeBottoms(connectionPool);
+        List<CupcakePart> tops = CupcakeMapper.getCupcakeTops(connectionPool);
+        ctx.attribute("bottoms", bottoms);
+        ctx.attribute("tops", tops);
+        ctx.render("user-frontpage.html");
     }
 
     public static void addToCart(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
@@ -50,7 +52,6 @@ public class OrderController {
             }
 
             basket.add(newItem);
-            System.out.println(newItem);
 
             ctx.sessionAttribute("basket", basket);
             ctx.redirect("/user-frontpage");
@@ -98,5 +99,4 @@ public class OrderController {
 
     private static void cancelOrder() {
     }
-
 }

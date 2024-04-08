@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="head(title)">
+<head>
     <title th:text="${title}">Frontpage</title>
     <meta charset="UTF-8">
 
@@ -38,7 +38,7 @@
 
     <a class="shoppingcart-button"
        type="button" th:if="${session.currentUser != null}" href="order-overview.html" th:href="@{/viewcart}">
-        <img src="../public/images/ShoppingCart.png" alt="Shopping Cart">
+        <img th:src="@{/images/ShoppingCart.png}" src="../public/images/ShoppingCart.png" alt="Shopping Cart">
     </a>
 </nav>
 
