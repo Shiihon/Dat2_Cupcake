@@ -19,7 +19,7 @@ public class OrderController {
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
         app.post("orderisready", ctx -> orderReadyToPickup());
         app.post("rejectorder", ctx -> rejectOrder());
-        app.get("backtoordersite", ctx -> ctx.redirect("user-frontpage.html"));
+        app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.post("cancelorder", ctx -> cancelOrder());
 
         //loader liste af bunde og topp når user-frontpage bliver loaded
