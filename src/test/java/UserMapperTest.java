@@ -2,7 +2,6 @@ import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.UserMapper;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
