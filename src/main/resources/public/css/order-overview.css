@@ -1,0 +1,129 @@
+.a-footer {
+    color: black;
+    text-decoration: none;
+}
+
+.footer-container{
+    background-color: #FACACA;
+    border: none;
+    border-radius: 2em 2em 2em 2em;
+    padding: 10px;
+    float: right;
+    width: 10%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.navbar {
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    box-sizing: border-box;
+}
+
+.back-button {
+    width: 80px;
+    height: 35px;
+    border: 1px solid black;
+    font-family: "Josefin Sans";
+    padding: 10px 20px;
+    font-size: 13px;
+    text-align: center;
+    margin-right: auto;
+    cursor: pointer;
+    background-color: transparent;
+    color: black;
+
+}
+
+.back-button:hover {
+    background-color: #E29F9F;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    padding: 0;
+}
+
+h3 {
+    font-weight: normal;
+    padding: 0;
+}
+
+
+.row {
+    margin-left:-5px;
+    margin-right:-5px;
+}
+
+.column1, .column2 {
+    float: left;
+    width: 10%;
+    padding: 5px;
+
+}
+
+.column1 {
+    width: 700px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #000000;
+    height: auto;
+}
+
+.gray {
+    color: grey;
+    margin-top: -20px;
+}
+
+table img {
+    max-width: 25px;
+    height: auto;
+}
+
+th, td {
+    text-align: left;
+    padding: 16px;
+
+}
+
+.column2 th, .column2 td {
+    padding-top: 0;
+}
+
+table button {
+    background-color: #FACACA;
+    border: none;
+    border-radius: 2em 2em 2em 2em;
+    padding: 10px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #ffb3b3;
+}
+
+tr td .button1, tr td .button2 {
+    text-align: center;
+    width: 180px;
+    margin-left: 30%;
+}
+
+tr td .button2 {
+
+}

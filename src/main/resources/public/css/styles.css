@@ -10,11 +10,13 @@ body {
     flex-direction: column;
     align-items: center;
     background: #FBE7E9;
+    font-family: "Josefin Sans", sans-serif;
 }
 
-.header-image img {
-    display: block;
-    width: 100%;
+.headerImage {
+    width: 500px;
+    height: auto;
+    margin-top: 3%;
 }
 
 .main-container {
@@ -136,4 +138,20 @@ button {
 
 button:hover {
     background-color: #ffb3b3;
+}
+
+
+/**** Footer ****/
+
+footer .logout-button {
+    background-color: #FACACA;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-family: "Josefin Sans", serif;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    text-decoration: none;
 }

@@ -14,7 +14,7 @@
 <div id="page-container">
     <div id="page-content">
         <header th:fragment="header(title)">
-            <div class="header-image">
+            <div class="headerimage">
                 <img th:src="@{/images/CupHeader.png}" src="/images/CupHeader.png" alt="CupcakeHeader"/>
             </div>
         </header>
@@ -73,9 +73,7 @@
         </nav>
 
         <footer th:fragment="footer" class="footer-container">
-            <a th:if="${#ctx.session.currentUser} == null" th:href="@{/createuser}">Create account</a>
-            <a th:if="${#ctx.session.currentUser} != null" th:href="@{/logout}">Logout</a>
-            <a href="/public" class="footer-item">Home</a>
+            <a class="a-footer" th:href="@{/logout}">Log ud</a>
         </footer>
     </div>
 </div>
