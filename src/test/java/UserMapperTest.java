@@ -112,4 +112,14 @@ public class UserMapperTest {
         Assertions.assertEquals(expectedCustomerUsers.size(), actualCustomerUsers.size());
         Assertions.assertEquals(expectedCustomerUsers, actualCustomerUsers);
     }
+
+    @Test
+    void setUserBalanceTest() throws DatabaseException {
+        int expectedUserId = expectedUsers.get(2).getUserId();
+        int expectedNewBalance = 400;
+        UserMapper.setUserBalance(expectedUserId, expectedNewBalance, connectionPool);
+
+        User updatedUser = UserMapper.getUserById(expectedUserId, connectionPool);
+        Assertions.assertEquals(expectedNewBalance, updatedUser.getBalance());
+    }
 }

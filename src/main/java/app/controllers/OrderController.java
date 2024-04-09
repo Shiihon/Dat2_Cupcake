@@ -8,20 +8,25 @@ import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.CupcakeMapper;
 import app.persistence.OrderMapper;
+import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 public class OrderController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         // User Routes
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
+        app.get("myorders", ctx -> viewMyOrders(ctx, connectionPool));
+        app.get("viewcart", ctx -> viewMyCart(ctx, connectionPool));
+        app.post("ordernow", ctx -> placeOrder());
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
-        app.post("orderisready", ctx -> orderReadyToPickup());
+        app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.post("cancelorder", ctx -> cancelOrder());
 
         app.get("ordernow", ctx -> placeOrder(ctx, connectionPool));
@@ -135,14 +140,51 @@ public class OrderController {
     }
 
     private static void viewAllCustomersOrders(Context ctx, ConnectionPool connectionPool) {
-        ctx.render("admin-frontpage.html");
+        try {
+            List<Order> activeOrders = OrderMapper.getAllOrdersByStatus("In Progress", connectionPool);
+            Map<Order, User> userOrderMap = new LinkedHashMap<>();
+            Map<Integer, User> userMap = new HashMap<>();
+
+            for (Order order : activeOrders) {
+                if (!userMap.containsKey(order.getUserId())) {
+                    userMap.put(order.getUserId(), UserMapper.getUserById(order.getUserId(), connectionPool));
+                }
+
+                userOrderMap.put(order, userMap.get(order.getUserId()));
+            }
+
+            ctx.attribute("orders", userOrderMap);
+            ctx.render("admin-frontpage.html");
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void viewCustomers(Context ctx, ConnectionPool connectionPool) {
-        ctx.render("admin-customers.html");
+        try {
+            List<User> customers = UserMapper.getAllUsersByRole("customer", connectionPool);
+
+            ctx.attribute("customers", customers);
+            ctx.render("admin-customers.html");
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void viewCustomerOrders(Context ctx, ConnectionPool connectionPool) {
-        ctx.render("admin-customer-orders.html");
+        try {
+            int customerId = Integer.parseInt(Objects.requireNonNull(ctx.queryParam("customerId")));
+
+            User customer = UserMapper.getUserById(customerId, connectionPool);
+            List<Order> customerOrders = OrderMapper.getAllUserOrders(customer.getUserId(), connectionPool);
+
+            ctx.attribute("customer", customer);
+            ctx.attribute("orders", customerOrders);
+            ctx.render("admin-customer-orders.html");
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        } catch (NullPointerException | NumberFormatException e) {
+            ctx.redirect("/customers");
+        }
     }
 }

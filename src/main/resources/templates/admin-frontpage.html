@@ -23,11 +23,11 @@
                 <li class="customer-order-container" th:each="order: ${orders}">
                     <div class="customer-order-content box-shadow">
                         <div class="order-header-container">
-                            <h3 th:text="${order.getKey().getEmail()}">Customer email</h3>
+                            <h3 th:text="${order.getValue().getEmail()}">Customer email</h3>
                             <h3>
                                 ID:
                                 <span style="display: inline-flex; padding: 0"
-                                      th:text="${order.getValue().getOrderId()}">
+                                      th:text="${order.getKey().getOrderId()}">
                                                 OrderId
                             </span>
                             </h3>
@@ -37,7 +37,7 @@
                             <div class="order-items-container">
                                 <ul class="order-items-content box-shadow">
                                     <li class="item-container"
-                                        th:each="orderItem: ${order.getValue().getOrderItems()}">
+                                        th:each="orderItem: ${order.getKey().getOrderItems()}">
                                         <div class="item-content">
                                             <div class="item-details">
                                                 <p>
@@ -67,10 +67,10 @@
 
                             <div class="order-buttons-container">
                                 <form class="order-buttons-content" method="post">
-                                    <button type="submit" name="orderId" th:value="${order.getValue().getOrderId()}"
+                                    <button type="submit" name="orderId" th:value="${order.getKey().getOrderId()}"
                                             formaction="/set-order-ready">Klar til afhentning
                                     </button>
-                                    <button type="submit" name="orderId" th:value="${order.getValue().getOrderId()}"
+                                    <button type="submit" name="orderId" th:value="${order.getKey().getOrderId()}"
                                             formaction="/delete-order">
                                         Slet ordre
                                     </button>

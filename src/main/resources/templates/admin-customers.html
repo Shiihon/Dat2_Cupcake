@@ -30,7 +30,8 @@
 
                         <div class="customer-button-container">
                             <form class="customer-button-content" method="get">
-                                <button type="submit" name="customerId" th:value="${customer.getUserId()}">
+                                <button type="submit" formaction="/customer-orders" name="customerId"
+                                        th:value="${customer.getUserId()}">
                                     Se ordrer
                                 </button>
                             </form>
