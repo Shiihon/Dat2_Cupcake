@@ -58,8 +58,8 @@
             </tr>
             <tr>
                 <td>
-                    <div class="button1">
-                        <button type="submit">Bestil</button>
+                    <div>
+                        <a class="button1" th:if="${session.currentUser != null}" href="pop-up.html" th:href="@{/ordernow}">Bestil</a>
                     </div>
                 </td>
             </tr>

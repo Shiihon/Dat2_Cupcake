@@ -121,6 +121,7 @@ public class UserMapper {
             ps.setInt(2, userId);
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 1) {
+
                 throw new DatabaseException("Failed to update user balance for user ID: " + userId);
             }
 
