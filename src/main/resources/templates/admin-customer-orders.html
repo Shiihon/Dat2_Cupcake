@@ -63,7 +63,6 @@
 
                             <div class="order-buttons-container">
                                 <form class="order-buttons-content" method="post">
-                                    <input type="hidden" name="customerId" th:value="${customer.getUserId()}">
                                     <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
 
                                     <button type="submit" formaction="/set-order-ready">Klar til afhentning</button>
