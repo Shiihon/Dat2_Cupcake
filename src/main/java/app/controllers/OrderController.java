@@ -90,7 +90,7 @@ public class OrderController {
         ctx.render("order-overview.html");
     }
 
-    public static int calculateTotalPrice(List<OrderItem> basket) {
+    private static int calculateTotalBasketPrice(List<OrderItem> basket) {
         int totalPrice = 0;
         for (OrderItem item : basket) {
             totalPrice += item.getTotalItemPrice();
@@ -98,7 +98,7 @@ public class OrderController {
         return totalPrice;
     }
 
-    public static void placeOrder(Context ctx, ConnectionPool connectionPool) {
+    private static void placeOrder(Context ctx, ConnectionPool connectionPool) {
         try {
 
             User user = ctx.sessionAttribute("currentUser");
