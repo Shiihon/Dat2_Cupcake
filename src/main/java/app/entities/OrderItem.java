@@ -74,8 +74,8 @@ public class OrderItem {
         return "OrderItem{" +
                 "orderItemId=" + orderItemId +
                 ", orderId=" + orderId +
-                ", cupcakeTop=" + cupcakeTop +
                 ", cupcakeBottom=" + cupcakeBottom +
+                ", cupcakeTop=" + cupcakeTop +
                 ", quantity=" + quantity +
                 '}';
     }
