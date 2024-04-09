@@ -35,6 +35,13 @@ public class UserMapperTest {
                 ),
                 new User(
                         2,
+                        "jesper@cphbusiness.com",
+                        "1234",
+                        "customer",
+                        500
+                ),
+                new User(
+                        3,
                         "bob@gmail.com",
                         "1234",
                         "customer",
@@ -92,5 +99,17 @@ public class UserMapperTest {
         User actualUser = UserMapper.getUserById(expectedUser.getUserId(), connectionPool);
 
         Assertions.assertEquals(expectedUser, actualUser);
+    }
+
+    @Test
+    void getAllUsersByRoleTest() throws DatabaseException {
+        List<User> expectedCustomerUsers = List.of(
+                expectedUsers.get(1),
+                expectedUsers.get(2)
+        );
+
+        List<User> actualCustomerUsers = UserMapper.getAllUsersByRole("customer", connectionPool);
+        Assertions.assertEquals(expectedCustomerUsers.size(), actualCustomerUsers.size());
+        Assertions.assertEquals(expectedCustomerUsers, actualCustomerUsers);
     }
 }
