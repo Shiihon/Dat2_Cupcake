@@ -23,7 +23,6 @@ public class OrderController {
         // User Routes
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
-        app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.post("cancelorder", ctx -> cancelOrder());
 
         app.get("ordernow", ctx -> placeOrder(ctx, connectionPool));
