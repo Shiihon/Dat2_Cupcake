@@ -35,6 +35,13 @@ public class UserMapperTest {
                 ),
                 new User(
                         2,
+                        "jesper@cphbusiness.com",
+                        "1234",
+                        "customer",
+                        500
+                ),
+                new User(
+                        3,
                         "bob@gmail.com",
                         "1234",
                         "customer",
@@ -87,10 +94,22 @@ public class UserMapperTest {
 
     @Test
     void createUserTest() throws DatabaseException {
-        User expectedUser = new User(3, "Nanna@cphbusiness.com", "1234", "customer", 500);
+        User expectedUser = new User(expectedUsers.size() + 1, "Nanna@cphbusiness.com", "1234", "customer", 500);
         UserMapper.createAccount(expectedUser.getEmail(), expectedUser.getPassword(), connectionPool);
         User actualUser = UserMapper.getUserById(expectedUser.getUserId(), connectionPool);
 
         Assertions.assertEquals(expectedUser, actualUser);
+    }
+
+    @Test
+    void getAllUsersByRoleTest() throws DatabaseException {
+        List<User> expectedCustomerUsers = List.of(
+                expectedUsers.get(1),
+                expectedUsers.get(2)
+        );
+
+        List<User> actualCustomerUsers = UserMapper.getAllUsersByRole("customer", connectionPool);
+        Assertions.assertEquals(expectedCustomerUsers.size(), actualCustomerUsers.size());
+        Assertions.assertEquals(expectedCustomerUsers, actualCustomerUsers);
     }
 }
