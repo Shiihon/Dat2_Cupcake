@@ -22,9 +22,6 @@ public class OrderController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         // User Routes
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
-        app.get("myorders", ctx -> viewMyOrders(ctx, connectionPool));
-        app.get("viewcart", ctx -> viewMyCart(ctx, connectionPool));
-        app.post("ordernow", ctx -> placeOrder());
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
         app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.post("cancelorder", ctx -> cancelOrder());
