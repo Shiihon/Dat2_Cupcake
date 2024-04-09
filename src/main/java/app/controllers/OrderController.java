@@ -1,13 +1,16 @@
 package app.controllers;
 
 import app.entities.CupcakePart;
+import app.entities.Order;
 import app.entities.OrderItem;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.CupcakeMapper;
+import app.persistence.OrderMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +19,15 @@ public class OrderController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         // User Routes
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
+        app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
+        app.post("orderisready", ctx -> orderReadyToPickup());
+        app.post("cancelorder", ctx -> cancelOrder());
+
+        app.get("ordernow", ctx -> placeOrder(ctx, connectionPool));
+        app.get("/user-frontpage", ctx -> loadCupcakeParts(ctx, connectionPool));
+        app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.get("myorders", ctx -> viewMyOrders(ctx, connectionPool));
         app.get("viewcart", ctx -> viewMyCart(ctx, connectionPool));
-        app.post("ordernow", ctx -> placeOrder());
-        app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
-        app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
-        app.post("cancelorder", ctx -> cancelOrder());
-        app.get("/user-frontpage", ctx -> loadCupcakeParts(ctx, connectionPool));
 
         // Admin routes
         app.post("delete-order", ctx -> deleteOrder());
@@ -41,6 +46,9 @@ public class OrderController {
     }
 
     public static void addToCart(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+
+        ctx.sessionAttribute("CurrentUser");
+
         try {
             int bottomId = Integer.parseInt(ctx.formParam("bottom"));
             int topId = Integer.parseInt(ctx.formParam("top"));
@@ -91,7 +99,26 @@ public class OrderController {
         return totalPrice;
     }
 
-    private static void placeOrder() {
+    public static void placeOrder(Context ctx, ConnectionPool connectionPool) {
+        try {
+
+            Integer userId = ctx.sessionAttribute("CurrentUser");
+            List<OrderItem> basket = ctx.sessionAttribute("basket");
+
+            if (userId != null && basket != null && !basket.isEmpty()) {
+
+                Order newOrder = new Order(-1,userId, basket, "PENDING", LocalDateTime.now());
+
+                OrderMapper.createOrder(newOrder, connectionPool);
+
+                ctx.sessionAttribute("basket", new ArrayList<OrderItem>());
+
+            } else {
+                ctx.result("Basket empty or user not logged in");
+            }
+        } catch (DatabaseException e) {
+            ctx.result("Error placing order." + e.getMessage());
+        }
     }
 
     private static void cancelOrderInOverview() {

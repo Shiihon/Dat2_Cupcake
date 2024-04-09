@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderMapper {
+
     public static List<Order> getAllOrders(ConnectionPool connectionpool) throws DatabaseException {
         List<Order> orderList = new ArrayList<>();
         String sql = "SELECT order_id, user_id, order_status, order_timestamp FROM orders";
