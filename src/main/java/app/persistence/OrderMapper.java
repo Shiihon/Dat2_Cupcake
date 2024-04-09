@@ -78,15 +78,15 @@ public class OrderMapper {
     }
 
     public static void createOrder(Order order, ConnectionPool connectionPool) throws DatabaseException {
-        String sql = "INSERT INTO orders (user_id, order_status, order_timestamp) values (?,?,?,?)";
+        String sql = "INSERT INTO orders (user_id, order_status, order_timestamp) values (?,?,?)";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
-            ps.setInt(2, order.getUserId());
-            ps.setString(3, order.getStatus());
-            ps.setTimestamp(4, Timestamp.valueOf(order.getTimestamp()));
+            ps.setInt(1, order.getUserId());
+            ps.setString(2, order.getStatus());
+            ps.setTimestamp(3, Timestamp.valueOf(order.getTimestamp()));
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected == 1) {
