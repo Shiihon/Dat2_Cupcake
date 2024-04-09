@@ -94,7 +94,7 @@ public class UserMapperTest {
 
     @Test
     void createUserTest() throws DatabaseException {
-        User expectedUser = new User(3, "Nanna@cphbusiness.com", "1234", "customer", 500);
+        User expectedUser = new User(expectedUsers.size() + 1, "Nanna@cphbusiness.com", "1234", "customer", 500);
         UserMapper.createAccount(expectedUser.getEmail(), expectedUser.getPassword(), connectionPool);
         User actualUser = UserMapper.getUserById(expectedUser.getUserId(), connectionPool);
 
