@@ -108,10 +108,10 @@ public class OrderController {
 
                 Order newOrder = new Order(user.getUserId(), basket, "In Progress", LocalDateTime.now());
 
-                int totalPrice = calculateTotalPrice(basket);
+                int totalPrice = newOrder.getTotalPrice();
                 int currentBalance = user.getBalance();
 
-                if(currentBalance >= totalPrice) {
+                if (currentBalance >= totalPrice) {
                     int newBalance = currentBalance - totalPrice;
                     UserMapper.setUserBalance(user.getUserId(), newBalance, connectionPool);
                     OrderMapper.createOrder(newOrder, connectionPool);
