@@ -102,14 +102,22 @@ public class OrderController {
     public static void placeOrder(Context ctx, ConnectionPool connectionPool) {
         try {
 
-            User userId = ctx.sessionAttribute("currentUser");
+            User user = ctx.sessionAttribute("currentUser");
             List<OrderItem> basket = ctx.sessionAttribute("basket");
 
-            if (userId != null && basket != null && !basket.isEmpty()) {
+            if (user != null && basket != null && !basket.isEmpty()) {
 
-                Order newOrder = new Order(userId.getUserId(), basket, "In Progress", LocalDateTime.now());
+                Order newOrder = new Order(user.getUserId(), basket, "In Progress", LocalDateTime.now());
 
                 OrderMapper.createOrder(newOrder, connectionPool);
+
+                int totalPrice = calculateTotalPrice(basket);
+                int currentBalance = user.getBalance();
+
+                if(currentBalance >= totalPrice) {
+                    int newBalance = currentBalance - totalPrice;
+                    UserMapper.setUserBalance(user.getUserId(), newBalance, connectionPool);
+                }
 
                 ctx.sessionAttribute("basket", new ArrayList<OrderItem>());
                 ctx.redirect("/pop-up.html");
