@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserMapper {
     public static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException {
@@ -54,6 +56,33 @@ public class UserMapper {
             }
             throw new DatabaseException(msg, e.getMessage());
         }
+    }
+
+    public static List<User> getAllUsersByRole(String userRole, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "SELECT user_id, user_email, user_password, user_balance FROM users " +
+                "WHERE user_role = ?";
+        List<User> users = new ArrayList<>();
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setString(1, userRole);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int userId = rs.getInt("user_id");
+                String userEmail = rs.getString("user_email");
+                String userPassword = rs.getString("user_password");
+                int userBalance = rs.getInt("user_balance");
+
+                users.add(new User(userId, userEmail, userPassword, userRole, userBalance));
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not retrieve data from database", e.getMessage());
+        }
+
+        return users;
     }
 
     public static User getUserById(int userId, ConnectionPool connectionPool) throws DatabaseException {
