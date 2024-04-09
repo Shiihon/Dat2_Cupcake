@@ -84,7 +84,7 @@ public class OrderController {
             basket = new ArrayList<>();
         }
 
-        int totalPrice = calculateTotalPrice(basket);
+        int totalPrice = calculateTotalBasketPrice(basket);
         ctx.attribute("basket", basket);
         ctx.attribute("totalPrice", totalPrice);
         ctx.render("order-overview.html");
