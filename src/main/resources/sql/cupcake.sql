@@ -175,14 +175,14 @@ INSERT INTO public.cupcake_bottoms (cupcake_bottom_name, cupcake_bottom_price)
 VALUES ('Chocolate', 5),
        ('Vanilla', 5),
        ('Nutmeg', 5),
-       ('Pistacio', 6),
+       ('Pistachio', 6),
        ('Almond', 7);
 
 
 INSERT INTO public.cupcake_tops (cupcake_top_name, cupcake_top_price)
 VALUES ('Chocolate', 5),
        ('Blueberry', 5),
-       ('Rasberry', 5),
+       ('Raspberry', 5),
        ('Crispy', 6),
        ('Strawberry', 6),
        ('Rum/Raisin', 7),
