@@ -49,8 +49,6 @@ public class OrderController {
 
     public static void addToCart(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
 
-        ctx.sessionAttribute("currentUser");
-
         try {
             int bottomId = Integer.parseInt(ctx.formParam("bottom"));
             int topId = Integer.parseInt(ctx.formParam("top"));
@@ -109,7 +107,7 @@ public class OrderController {
 
             if (userId != null && basket != null && !basket.isEmpty()) {
 
-                Order newOrder = new Order(-1,userId.getUserId(), basket, "In Progress", LocalDateTime.now());
+                Order newOrder = new Order(userId.getUserId(), basket, "In Progress", LocalDateTime.now());
 
                 OrderMapper.createOrder(newOrder, connectionPool);
 

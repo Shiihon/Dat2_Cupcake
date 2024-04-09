@@ -19,6 +19,13 @@ public class Order {
         this.timestamp = timestamp;
     }
 
+    public Order(int userId, List<OrderItem> orderItems, String status, LocalDateTime timestamp) {
+        this.userId = userId;
+        this.orderItems = orderItems;
+        this.status = status;
+        this.timestamp = timestamp;
+    }
+
     public int getOrderId() {
         return orderId;
     }
