@@ -109,18 +109,19 @@ public class OrderController {
 
                 Order newOrder = new Order(user.getUserId(), basket, "In Progress", LocalDateTime.now());
 
-                OrderMapper.createOrder(newOrder, connectionPool);
-
                 int totalPrice = calculateTotalPrice(basket);
                 int currentBalance = user.getBalance();
 
                 if(currentBalance >= totalPrice) {
                     int newBalance = currentBalance - totalPrice;
                     UserMapper.setUserBalance(user.getUserId(), newBalance, connectionPool);
-                }
+                    OrderMapper.createOrder(newOrder, connectionPool);
 
-                ctx.sessionAttribute("basket", new ArrayList<OrderItem>());
-                ctx.redirect("/pop-up.html");
+                    ctx.sessionAttribute("basket", new ArrayList<OrderItem>());
+                    ctx.redirect("/pop-up.html");
+                } else {
+                    ctx.result("Balance too low");
+                }
             } else {
                 ctx.result("Basket empty or user not logged in");
             }
