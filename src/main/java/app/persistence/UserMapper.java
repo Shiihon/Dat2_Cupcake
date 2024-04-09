@@ -109,4 +109,23 @@ public class UserMapper {
             throw new DatabaseException("Could not retrieve data from database", e.getMessage());
         }
     }
+
+    public static void setUserBalance(int userId, int newUserBalance, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "UPDATE users SET user_balance = ? WHERE user_id = ?";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setInt(1, newUserBalance);
+            ps.setInt(2, userId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 1) {
+                throw new DatabaseException("Failed to update user balance for user ID: " + userId);
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException("Error updating user balance", e.getMessage());
+        }
+    }
 }
