@@ -53,10 +53,6 @@ ul.nav-bar {
     padding: 8px;
 }
 
-li.nav-bar-item:has(a) {
-    background-color: #f3f3f3;
-}
-
 li.nav-bar-item a, li.nav-bar-item span {
     display: block;
     text-align: center;
@@ -75,12 +71,12 @@ li.nav-bar-item span {
 }
 
 li.nav-bar-item a:hover:not(.active) {
-    background-color: #ddd;
+    background-color: #ffdbdb;
     cursor: pointer;
 }
 
 li.nav-bar-item a.active:hover {
-    background-color: #ffdbdb;
+    background-color: #ffb3b3;
     cursor: pointer;
 }
 
