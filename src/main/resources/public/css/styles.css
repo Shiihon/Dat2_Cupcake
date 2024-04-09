@@ -120,7 +120,7 @@ li.nav-bar-item a.active {
     gap: 15px;
 }
 
-h1 {
+h1.page-title {
     margin-top: 25px;
     margin-bottom: 5px;
 }
