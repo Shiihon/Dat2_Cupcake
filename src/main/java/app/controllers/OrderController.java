@@ -3,6 +3,7 @@ package app.controllers;
 import app.entities.CupcakePart;
 import app.entities.Order;
 import app.entities.OrderItem;
+import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.CupcakeMapper;
@@ -47,7 +48,7 @@ public class OrderController {
 
     public static void addToCart(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
 
-        ctx.sessionAttribute("CurrentUser");
+        ctx.sessionAttribute("currentUser");
 
         try {
             int bottomId = Integer.parseInt(ctx.formParam("bottom"));
@@ -102,17 +103,17 @@ public class OrderController {
     public static void placeOrder(Context ctx, ConnectionPool connectionPool) {
         try {
 
-            Integer userId = ctx.sessionAttribute("CurrentUser");
+            User userId = ctx.sessionAttribute("currentUser");
             List<OrderItem> basket = ctx.sessionAttribute("basket");
 
             if (userId != null && basket != null && !basket.isEmpty()) {
 
-                Order newOrder = new Order(-1,userId, basket, "PENDING", LocalDateTime.now());
+                Order newOrder = new Order(-1,userId.getUserId(), basket, "PENDING", LocalDateTime.now());
 
                 OrderMapper.createOrder(newOrder, connectionPool);
 
                 ctx.sessionAttribute("basket", new ArrayList<OrderItem>());
-
+                ctx.redirect("/pop-up.html");
             } else {
                 ctx.result("Basket empty or user not logged in");
             }
