@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <title>Ordreoversigt</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+          rel="stylesheet">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
     <link href="../public/css/order-overview.css" th:href="@{/css/order-overview.css}" rel="stylesheet"/>
 </head>
@@ -14,7 +15,8 @@
 <div th:replace="~{fragments :: header('Header fragment')}"></div>
 
 <nav class="navbar">
-    <a class="back-button" th:if="${session.currentUser != null}" href="user-frontpage.html" th:href="@{/backtoordersite}">Tilbage</a>
+    <a class="back-button" th:if="${session.currentUser != null}" href="user-frontpage.html"
+       th:href="@{/backtoordersite}">Tilbage</a>
 
     <div class="customer-email"
          th:text="${session.currentUser != null ? session.currentUser.email : 'Not logged in'}">
@@ -41,7 +43,8 @@
             </tr>
             <tr>
                 <td><h2>Balance:</h2></td>
-                <td><h3 th:text="${session.currentUser != null ? session.currentUser.balance : 'Not logged in'}"></h3></td>
+                <td><h3 th:text="${session.currentUser != null ? session.currentUser.balance : 'Not logged in'}"></h3>
+                </td>
                 <td><h3>kr</h3></td>
             </tr>
             <tr>
@@ -56,14 +59,14 @@
             <tr>
                 <td>
                     <div class="button1">
-                    <button type="submit">Bestil</button>
+                        <button type="submit">Bestil</button>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
                     <div class="button2">
-                    <button type="submit">Annuller Bestilling</button>
+                        <button type="submit">Annuller Bestilling</button>
                     </div>
                 </td>
             </tr>

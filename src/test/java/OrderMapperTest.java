@@ -80,22 +80,22 @@ public class OrderMapperTest {
                 new OrderItem(
                         1,
                         1,
-                        expectedCupcakeTops.get(0),
                         expectedCupcakeBottoms.get(0),
+                        expectedCupcakeTops.get(2),
                         4
                 ),
                 new OrderItem(
                         2,
                         1,
-                        expectedCupcakeTops.get(1),
                         expectedCupcakeBottoms.get(1),
+                        expectedCupcakeTops.get(0),
                         10
                 ),
                 new OrderItem(
                         3,
                         2,
-                        expectedCupcakeTops.get(2),
                         expectedCupcakeBottoms.get(2),
+                        expectedCupcakeTops.get(1),
                         6
                 )
         );
@@ -267,16 +267,16 @@ public class OrderMapperTest {
                                 4,
                                 4,
                                 new CupcakePart(
-                                        1,
-                                        "Blueberry",
-                                        5,
-                                        CupcakePart.Type.TOP
-                                ),
-                                new CupcakePart(
                                         2,
                                         "Pistachio",
                                         6,
                                         CupcakePart.Type.BOTTOM
+                                ),
+                                new CupcakePart(
+                                        1,
+                                        "Blueberry",
+                                        5,
+                                        CupcakePart.Type.TOP
                                 ),
                                 8
                         )

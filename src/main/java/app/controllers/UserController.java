@@ -7,6 +7,8 @@ import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.util.Objects;
+
 public class UserController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         app.post("login", ctx -> login(ctx, connectionPool));
@@ -43,7 +45,6 @@ public class UserController {
         ctx.redirect("/");
     }
 
-
     public static void login(Context ctx, ConnectionPool connectionPool) {
         String email = ctx.formParam("email");
         String password = ctx.formParam("password");
@@ -54,7 +55,12 @@ public class UserController {
             ctx.sessionAttribute("currentUser", user);
             // Hvis ja, send videre til forsiden med login besked
             ctx.attribute("message", "Du er nu logget ind");
-            ctx.redirect("/user-frontpage");
+
+            if (Objects.equals(user.getRole(), "admin")) {
+                ctx.redirect("/active-customers-orders");
+            } else {
+                ctx.redirect("/user-frontpage");
+            }
         } catch (DatabaseException e) {
             // Hvis nej, send tilbage til login side med fejl besked
             ctx.attribute("message", e.getMessage());

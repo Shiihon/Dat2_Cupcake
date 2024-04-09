@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head th:fragment="head(title)">
     <title th:text="${title}">Frontpage</title>
@@ -17,34 +17,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
     <link href="../public/css/my-orders.css" th:href="@{/css/my-orders.css}" rel="stylesheet"/>
-
 </head>
 
 <body>
-
-<header th:fragment="header(title)">
-    <div class="headerimage">
-        <img th:src="@{/images/CupHeader.png}" src="../public/images/CupHeader.png" width="100%"/>
-    </div>
-</header>
+<div th:replace="~{fragments :: header('Header fragment')}"></div>
 
 <nav class="navbar">
-    <a class="back-button" th:if="${session.currentUser != null}" href="user-frontpage.html" th:href="@{/backtoordersite}">Tilbage</a>
+    <a class="back-button" th:if="${session.currentUser != null}" href="/user-frontpage"
+       th:href="@{/backtoordersite}">Tilbage</a>
 
     <div class="customer-email"
-            th:text="${session.currentUser != null ? session.currentUser.email : 'Not logged in'}">
+         th:text="${session.currentUser != null ? session.currentUser.email : 'Not logged in'}">
     </div>
 </nav>
 
-
-<div class="outer-container">
-
-</div>
-
-
-<footer>
-    <a class="logout-button" th:if="${session.currentUser != null}" href="index.html" th:href="@{/logout}">Log ud</a>
-</footer>
-
+<div th:replace="~{fragments :: footer}"></div>
 </body>
 </html>

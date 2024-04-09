@@ -1,0 +1,103 @@
+/**** Customer Orders ****/
+
+.customer-order-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+    gap: 15px;
+}
+
+
+/**** Header Container ****/
+
+.order-header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.order-header-container h3 {
+    margin: 0;
+}
+
+
+/**** Body Container ****/
+
+.order-body-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+
+/**** Items Container ****/
+
+.order-items-container {
+    flex-basis: 80%;
+}
+
+.order-items-content {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 0;
+    gap: 10px;
+}
+
+
+/**** Item Content ****/
+
+.item-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0 15px;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 15px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 120px;
+}
+
+.item-details p {
+    flex-basis: 120px;
+    margin: 0;
+}
+
+.item-quantity {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 80px
+}
+
+.item-quantity p {
+    flex-basis: 80px;
+    margin: 0;
+}
+
+
+/**** Order Buttons ****/
+
+.order-buttons-container {
+    flex-basis: 130px;
+    align-self: center;
+}
+
+.order-buttons-content {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    gap: 10px;
+}

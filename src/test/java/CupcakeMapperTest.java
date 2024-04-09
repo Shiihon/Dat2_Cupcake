@@ -108,7 +108,7 @@ public class CupcakeMapperTest {
 
     @Test
     void getCupcakeBottomsTest() throws DatabaseException {
-        List<CupcakePart> bottoms = CupcakeMapper.getCupcakeBottoms(connectionPool);
+        List<CupcakePart> bottoms = CupcakeMapper.getAllCupcakeBottoms(connectionPool);
 
         Assertions.assertFalse(bottoms.isEmpty(), "Bottoms should not be empty");
         Assertions.assertEquals(expectedCupcakeBottoms.size(), bottoms.size());
@@ -117,7 +117,7 @@ public class CupcakeMapperTest {
 
     @Test
     void getCupcakeTopsTest() throws DatabaseException {
-        List<CupcakePart> tops = CupcakeMapper.getCupcakeTops(connectionPool);
+        List<CupcakePart> tops = CupcakeMapper.getAllCupcakeTops(connectionPool);
 
         Assertions.assertFalse(tops.isEmpty(), "Tops should not be empty");
         Assertions.assertEquals(expectedCupcakeTops.size(), tops.size());
@@ -125,9 +125,16 @@ public class CupcakeMapperTest {
     }
 
     @Test
-    void getCupcakePartByIdTest() throws DatabaseException {
-        CupcakePart actualCupcakePart = CupcakeMapper.getCupcakePartById(3, connectionPool, CupcakePart.Type.BOTTOM);
+    void getCupcakeBottomByIdTest() throws DatabaseException {
+        CupcakePart actualCupcakePart = CupcakeMapper.getCupcakeBottomById(3, connectionPool);
 
         Assertions.assertEquals(expectedCupcakeBottoms.get(2), actualCupcakePart);
+    }
+
+    @Test
+    void getCupcakeTopByIdTest() throws DatabaseException {
+        CupcakePart actualCupcakePart = CupcakeMapper.getCupcakeTopById(3, connectionPool);
+
+        Assertions.assertEquals(expectedCupcakeTops.get(2), actualCupcakePart);
     }
 }

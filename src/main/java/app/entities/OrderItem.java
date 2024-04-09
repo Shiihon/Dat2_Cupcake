@@ -5,21 +5,21 @@ import java.util.Objects;
 public class OrderItem {
     private int orderItemId;
     private int orderId;
-    private CupcakePart cupcakeTop;
     private CupcakePart cupcakeBottom;
+    private CupcakePart cupcakeTop;
     private int quantity;
 
-    public OrderItem(int orderItemId, int orderId, CupcakePart cupcakeTop, CupcakePart cupcakeBottom, int quantity) {
+    public OrderItem(int orderItemId, int orderId, CupcakePart cupcakeBottom, CupcakePart cupcakeTop, int quantity) {
         this.orderItemId = orderItemId;
         this.orderId = orderId;
-        this.cupcakeTop = cupcakeTop;
         this.cupcakeBottom = cupcakeBottom;
+        this.cupcakeTop = cupcakeTop;
         this.quantity = quantity;
     }
 
-    public OrderItem(CupcakePart cupcakeTop, CupcakePart cupcakeBottom, int quantity) {
-        this.cupcakeTop = cupcakeTop;
+    public OrderItem(CupcakePart cupcakeBottom, CupcakePart cupcakeTop, int quantity) {
         this.cupcakeBottom = cupcakeBottom;
+        this.cupcakeTop = cupcakeTop;
         this.quantity = quantity;
     }
 
@@ -74,8 +74,8 @@ public class OrderItem {
         return "OrderItem{" +
                 "orderItemId=" + orderItemId +
                 ", orderId=" + orderId +
-                ", cupcakeTop=" + cupcakeTop +
                 ", cupcakeBottom=" + cupcakeBottom +
+                ", cupcakeTop=" + cupcakeTop +
                 ", quantity=" + quantity +
                 '}';
     }

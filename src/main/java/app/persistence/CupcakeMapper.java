@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CupcakeMapper {
 
-    public static List<CupcakePart> getCupcakeBottoms(ConnectionPool connectionPool) throws DatabaseException {
+    public static List<CupcakePart> getAllCupcakeBottoms(ConnectionPool connectionPool) throws DatabaseException {
         List<CupcakePart> bottoms = new ArrayList<>();
 
         String sql = "SELECT cupcake_bottom_id, cupcake_bottom_name, cupcake_bottom_price FROM cupcake_bottoms";
@@ -35,7 +35,7 @@ public class CupcakeMapper {
         return bottoms;
     }
 
-    public static List<CupcakePart> getCupcakeTops(ConnectionPool connectionPool) throws DatabaseException {
+    public static List<CupcakePart> getAllCupcakeTops(ConnectionPool connectionPool) throws DatabaseException {
         List<CupcakePart> tops = new ArrayList<>();
 
         String sql = "SELECT cupcake_top_id, cupcake_top_name, cupcake_top_price FROM cupcake_tops";
@@ -58,7 +58,15 @@ public class CupcakeMapper {
         return tops;
     }
 
-    public static CupcakePart getCupcakePartById(int partId, ConnectionPool connectionPool, CupcakePart.Type type) throws DatabaseException {
+    public static CupcakePart getCupcakeBottomById(int cupcakePartId, ConnectionPool connectionPool) throws DatabaseException {
+        return getCupcakePartById(cupcakePartId, CupcakePart.Type.BOTTOM, connectionPool);
+    }
+
+    public static CupcakePart getCupcakeTopById(int cupcakePartId, ConnectionPool connectionPool) throws DatabaseException {
+        return getCupcakePartById(cupcakePartId, CupcakePart.Type.TOP, connectionPool);
+    }
+
+    private static CupcakePart getCupcakePartById(int partId, CupcakePart.Type type, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "";
         if (type == CupcakePart.Type.BOTTOM) {
             sql = "SELECT cupcake_bottom_id, cupcake_bottom_name, cupcake_bottom_price FROM cupcake_bottoms WHERE cupcake_bottom_id = ?";
