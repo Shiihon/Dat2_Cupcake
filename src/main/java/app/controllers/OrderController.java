@@ -118,7 +118,7 @@ public class OrderController {
                     OrderMapper.createOrder(newOrder, connectionPool);
 
                     ctx.sessionAttribute("basket", new ArrayList<OrderItem>());
-                    ctx.redirect("/pop-up.html");
+                    ctx.render("/pop-up");
                 } else {
                     ctx.result("Balance too low");
                 }
