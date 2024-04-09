@@ -187,7 +187,7 @@ public class OrderMapper {
                 int cupcakeBottomId = rs.getInt("cupcake_bottom_id");
                 int cupcakeTopId = rs.getInt("cupcake_top_id");
                 int orderItemQuantity = rs.getInt("order_item_quantity");
-                orderItems.add(new OrderItem(orderItemId, orderId, CupcakeMapper.getCupcakeBottomById(cupcakeTopId, connectionPool), CupcakeMapper.getCupcakeTopById(cupcakeBottomId, connectionPool), orderItemQuantity));
+                orderItems.add(new OrderItem(orderItemId, orderId, CupcakeMapper.getCupcakeBottomById(cupcakeBottomId, connectionPool), CupcakeMapper.getCupcakeTopById(cupcakeTopId, connectionPool), orderItemQuantity));
             }
 
         } catch (SQLException e) {
@@ -250,7 +250,7 @@ public class OrderMapper {
                 int cupcakeBottomId = rs.getInt("cupcake_bottom_id");
                 int cupcakeTopId = rs.getInt("cupcake_top_id");
                 int orderItemQuantity = rs.getInt("order_item_quantity");
-                orderItem = new OrderItem(orderItemId, orderId, CupcakeMapper.getCupcakeBottomById(cupcakeTopId, connectionPool), CupcakeMapper.getCupcakeTopById(cupcakeBottomId, connectionPool), orderItemQuantity);
+                orderItem = new OrderItem(orderItemId, orderId, CupcakeMapper.getCupcakeBottomById(cupcakeBottomId, connectionPool), CupcakeMapper.getCupcakeTopById(cupcakeTopId, connectionPool), orderItemQuantity);
             } else {
                 throw new DatabaseException("The order id doesn't exist");
             }
