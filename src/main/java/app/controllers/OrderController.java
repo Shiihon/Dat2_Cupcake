@@ -23,7 +23,6 @@ public class OrderController {
         // User Routes
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
-        app.post("cancelorder", ctx -> cancelOrder());
 
         app.get("ordernow", ctx -> placeOrder(ctx, connectionPool));
         app.get("/user-frontpage", ctx -> loadCupcakeParts(ctx, connectionPool));
@@ -137,9 +136,6 @@ public class OrderController {
     }
 
     private static void deleteOrder() {
-    }
-
-    private static void cancelOrder() {
     }
 
     private static void viewAllCustomersOrders(Context ctx, ConnectionPool connectionPool) {
