@@ -110,7 +110,7 @@ public class OrderController {
 
             if (userId != null && basket != null && !basket.isEmpty()) {
 
-                Order newOrder = new Order(-1,userId.getUserId(), basket, "PENDING", LocalDateTime.now());
+                Order newOrder = new Order(-1,userId.getUserId(), basket, "In Progress", LocalDateTime.now());
 
                 OrderMapper.createOrder(newOrder, connectionPool);
 
