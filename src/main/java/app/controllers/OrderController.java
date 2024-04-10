@@ -24,7 +24,7 @@ public class OrderController {
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
 
-        app.get("ordernow", ctx -> placeOrder(ctx, connectionPool));
+        app.post("ordernow", ctx -> placeOrder(ctx, connectionPool));
         app.get("/user-frontpage", ctx -> loadCupcakeParts(ctx, connectionPool));
         app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.get("myorders", ctx -> viewMyOrders(ctx, connectionPool));

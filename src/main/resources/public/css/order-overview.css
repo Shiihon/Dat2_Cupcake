@@ -42,17 +42,23 @@ h3 {
 .row {
     margin-left: -5px;
     margin-right: -5px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .column1, .column2 {
     float: left;
-    width: 10%;
-    padding: 5px;
-
+    padding: 10px;
 }
 
 .column1 {
-    width: 700px;
+    width: 70%;
+}
+
+.column2 {
+    width: 30%;
 }
 
 /* Clearfix (clear floats) */
@@ -62,11 +68,19 @@ h3 {
     display: table;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    border: 1px solid #000000;
+    border-radius: 2px;
+    padding: 10px;
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
-    border: 1px solid #000000;
     height: auto;
 }
 
@@ -75,19 +89,32 @@ table {
     margin-top: -20px;
 }
 
+.gray h3 {
+    margin-bottom: 40px;
+}
+
+.money {
+    text-align: right;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 table img {
     max-width: 25px;
     height: auto;
 }
 
+tr {
+    height: 30px;
+}
+
 th, td {
     text-align: left;
     padding: 16px;
-
 }
 
-.column2 th, .column2 td {
-    padding-top: 0;
+td > h2, td > h3 {
+    margin: 0;
 }
 
 table button {
@@ -106,4 +133,18 @@ tr td .button1, tr td .button2 {
     text-align: center;
     width: 180px;
     margin-left: 30%;
+}
+
+.overview-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 16px;
+}
+
+.overview-buttons button {
+    width: 60%;
+    height: 30px;
 }
