@@ -143,16 +143,14 @@ public class OrderController {
             int orderId = Integer.parseInt(Objects.requireNonNull(ctx.formParam("orderId")));
 
             OrderMapper.setOrderStatus(orderId, "Complete", connectionPool);
-            refreshCurrentAdminPage(ctx);
         } catch (NullPointerException ignored) {
             ctx.sessionAttribute("error", "No order id was provided.");
-            refreshCurrentAdminPage(ctx);
         } catch (NumberFormatException ignored) {
             ctx.sessionAttribute("error", "The provided order id must be number.");
-            refreshCurrentAdminPage(ctx);
         } catch (DatabaseException ignored) {
             ctx.sessionAttribute("error", "Could not update the order status.");
-            refreshCurrentAdminPage(ctx);
+        } finally {
+            refreshCurrentPage(ctx, "/active-customers-orders");
         }
     }
 
@@ -161,16 +159,14 @@ public class OrderController {
             int orderId = Integer.parseInt(Objects.requireNonNull(ctx.formParam("orderId")));
 
             OrderMapper.deleteOrder(orderId, connectionPool);
-            refreshCurrentAdminPage(ctx);
         } catch (NullPointerException ignored) {
             ctx.sessionAttribute("error", "No order id was provided");
-            refreshCurrentAdminPage(ctx);
         } catch (NumberFormatException ignored) {
             ctx.sessionAttribute("error", "The provided order id must be number");
-            refreshCurrentAdminPage(ctx);
         } catch (DatabaseException ignored) {
             ctx.sessionAttribute("error", "Could not delete the order");
-            refreshCurrentAdminPage(ctx);
+        } finally {
+            refreshCurrentPage(ctx, "/active-customers-orders");
         }
     }
 
