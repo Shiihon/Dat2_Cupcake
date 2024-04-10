@@ -134,3 +134,17 @@ tr td .button1, tr td .button2 {
     width: 180px;
     margin-left: 30%;
 }
+
+.overview-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 16px;
+}
+
+.overview-buttons button {
+    width: 60%;
+    height: 30px;
+}
