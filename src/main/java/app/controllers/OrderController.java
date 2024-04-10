@@ -13,8 +13,6 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.*;
 
 public class OrderController {
@@ -25,7 +23,7 @@ public class OrderController {
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
         app.post("cancelorder", ctx -> cancelOrder());
 
-        app.get("ordernow", ctx -> placeOrder(ctx, connectionPool));
+        app.post("ordernow", ctx -> placeOrder(ctx, connectionPool));
         app.get("/user-frontpage", ctx -> loadCupcakeParts(ctx, connectionPool));
         app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.get("myorders", ctx -> viewMyOrders(ctx, connectionPool));
@@ -112,7 +110,7 @@ public class OrderController {
                 int totalPrice = calculateTotalPrice(basket);
                 int currentBalance = user.getBalance();
 
-                if(currentBalance >= totalPrice) {
+                if (currentBalance >= totalPrice) {
                     int newBalance = currentBalance - totalPrice;
                     UserMapper.setUserBalance(user.getUserId(), newBalance, connectionPool);
                     OrderMapper.createOrder(newOrder, connectionPool);
