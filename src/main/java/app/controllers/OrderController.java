@@ -100,8 +100,17 @@ public class OrderController {
     }
 
     private static void viewMyOrders(Context ctx, ConnectionPool connectionPool) {
-        ctx.render("my-orders.html");
-        ctx.sessionAttribute("error", null);
+        try {
+            User user = Objects.requireNonNull(ctx.sessionAttribute("currentUser"));
+            List<Order> userOrders = OrderMapper.getAllUserOrders(user.getUserId(), connectionPool);
+
+            ctx.attribute("orders", userOrders);
+            ctx.render("my-orders.html");
+            ctx.sessionAttribute("error", null);
+        } catch (NullPointerException | DatabaseException e) {
+            ctx.sessionAttribute("error", "The provided order id must be number.");
+            ctx.render("my-orders.html");
+        }
     }
 
     private static void viewMyCart(Context ctx, ConnectionPool connectionPool) {
