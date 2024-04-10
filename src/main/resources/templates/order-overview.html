@@ -27,50 +27,45 @@
 
 <div class="row">
     <div class="column1">
-        <table>
-            <tr th:each="item : ${basket}">
-                <td th:text="${item.cupcakeBottom.name + ' + ' + item.cupcakeTop.name + '&nbsp;&nbsp;&nbsp;' + item.quantity + ' stk ' + item.getTotalItemPrice() + ' kr.'}"></td>
-                <td><img th:src="@{/images/remove.png}" src="/images/remove.png" width="100%"/></td>
-            </tr>
-        </table>
+        <div class="content">
+            <table>
+                <tr th:each="item : ${basket}">
+                    <td th:text="${item.cupcakeBottom.name + ' + ' + item.cupcakeTop.name + '&nbsp;&nbsp;&nbsp;' + item.quantity + ' stk ' + item.getTotalItemPrice() + ' kr.'}"></td>
+                    <td><img th:src="@{/images/remove.png}" src="/images/remove.png" width="100%"/></td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div class="column2">
-        <table>
-            <tr>
-                <td><h2>Total:</h2></td>
-                <td><h3 th:text="${totalPrice}"></h3></td>
-                <td><h3>kr</h3></td>
-            </tr>
-            <tr>
-                <td><h2>Balance:</h2></td>
-                <td><h3 th:text="${session.currentUser != null ? session.currentUser.balance : 'Not logged in'}"></h3>
-                </td>
-                <td><h3>kr</h3></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="gray"><h3 th:text="'- ' + ${totalPrice}"></h3></td>
-            </tr>
-            <tr>
-                <td><h2>Ny Balance:</h2></td>
-                <td><h3 th:text="${session.currentUser.balance - totalPrice}"></h3></td>
-                <td><h3>kr</h3></td>
-            </tr>
-            <tr>
-                <td>
-                    <div>
-                        <a class="button1" th:if="${session.currentUser != null}" href="pop-up.html" th:href="@{/ordernow}">Bestil</a>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="button2">
-                        <button type="submit">Annuller Bestilling</button>
-                    </div>
-                </td>
-            </tr>
-        </table>
+        <div class="content">
+            <table>
+                <tr>
+                    <td><h2>Total:</h2></td>
+                    <td class="money"><h3 th:text="${totalPrice}"></h3></td>
+                    <td><h3>kr</h3></td>
+                </tr>
+                <tr>
+                    <td><h2>Balance:</h2></td>
+                    <td class="money"><h3
+                            th:text="${session.currentUser != null ? session.currentUser.balance : 'Not logged in'}"></h3>
+                    </td>
+                    <td><h3>kr</h3></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="money gray"><h3 th:text="'- ' + ${totalPrice}">- 10</h3></td>
+                </tr>
+                <tr>
+                    <td><h2>Ny Balance:</h2></td>
+                    <td class="money"><h3 th:text="${session.currentUser.balance - totalPrice}"></h3></td>
+                    <td><h3>kr</h3></td>
+                </tr>
+            </table>
+            <form class="overview-buttons" method="post">
+                <button type="submit" formaction="/ordernow">Bestil</button>
+                <button type="submit" formaction="/cancelorderinoverview">Annuller Bestilling</button>
+            </form>
+        </div>
     </div>
 </div>
 
