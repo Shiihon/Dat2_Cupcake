@@ -42,17 +42,23 @@ h3 {
 .row {
     margin-left: -5px;
     margin-right: -5px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .column1, .column2 {
     float: left;
-    width: 10%;
-    padding: 5px;
-
+    padding: 10px;
 }
 
 .column1 {
-    width: 700px;
+    width: 70%;
+}
+
+.column2 {
+    width: 30%;
 }
 
 /* Clearfix (clear floats) */
