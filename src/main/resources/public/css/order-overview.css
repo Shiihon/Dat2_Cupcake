@@ -89,6 +89,16 @@ table {
     margin-top: -20px;
 }
 
+.gray h3 {
+    margin-bottom: 40px;
+}
+
+.money {
+    text-align: right;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 table img {
     max-width: 25px;
     height: auto;
