@@ -46,6 +46,16 @@ public class Order {
         return timestamp;
     }
 
+    public int getTotalPrice() {
+        int totalPrice = 0;
+
+        for (OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalItemPrice();
+        }
+
+        return totalPrice;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
