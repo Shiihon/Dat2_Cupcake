@@ -28,7 +28,7 @@ public class OrderMapper {
                 orderList.add(new Order(orderId, userId, getAllOrderItems(orderId, connectionpool), orderStatus, timestamp));
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Error while getting all orders");
+            throw new DatabaseException("Error while getting all orders: " + e.getMessage());
         }
         return orderList;
     }
@@ -50,7 +50,7 @@ public class OrderMapper {
                 orderList.add(new Order(orderId, userId, getAllOrderItems(orderId, connectionPool), orderStatus, timestamp));
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Error while getting all the orders");
+            throw new DatabaseException("Error while getting all orders by status: " + e.getMessage());
         }
         return orderList;
     }
@@ -72,7 +72,7 @@ public class OrderMapper {
                 orderList.add(new Order(orderId, userId, getAllOrderItems(orderId, connectionPool), orderStatus, timestamp));
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Database error", e.getMessage());
+            throw new DatabaseException("Error while getting all user orders: " + e.getMessage());
         }
         return orderList;
     }
@@ -99,7 +99,7 @@ public class OrderMapper {
                     createOrderItem(orderItem, connectionPool);
                 }
             } else {
-                throw new DatabaseException("Error could not insert order item");
+                throw new DatabaseException("Error could not insert order");
             }
         } catch (SQLException e) {
             throw new DatabaseException("Error in DB connection", e.getMessage());
@@ -119,7 +119,7 @@ public class OrderMapper {
             ps.setInt(1, orderId);
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 1) {
-                throw new DatabaseException("Error in updating order");
+                throw new DatabaseException("Error could not delete order");
             }
         } catch (SQLException e) {
             throw new DatabaseException("Database error", e.getMessage());
@@ -137,7 +137,7 @@ public class OrderMapper {
             ps.setInt(2, orderId);
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 1) {
-                throw new DatabaseException("Error in updating order");
+                throw new DatabaseException("Error updating order status");
             }
         } catch (SQLException e) {
             throw new DatabaseException("Error in DB");
@@ -147,8 +147,6 @@ public class OrderMapper {
     public static Order getOrderById(int orderId, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "SELECT user_id, order_status, order_timestamp " +
                 " FROM orders WHERE order_id = ?";
-
-        Order order = null;
 
         try (
                 Connection connection = connectionPool.getConnection();
@@ -160,17 +158,16 @@ public class OrderMapper {
                 int userId = rs.getInt("user_id");
                 String orderStatus = rs.getString("order_status");
                 LocalDateTime timestamp = rs.getTimestamp("order_timestamp").toLocalDateTime();
-                order = new Order(orderId, userId, getAllOrderItems(orderId, connectionPool), orderStatus, timestamp);
+
+                return new Order(orderId, userId, getAllOrderItems(orderId, connectionPool), orderStatus, timestamp);
             } else {
-                throw new DatabaseException("The order id doesn't exist");
+                throw new DatabaseException("Could not get order with id = " + orderId);
             }
 
         } catch (SQLException e) {
             throw new DatabaseException("Database Error", e.getMessage());
         }
-        return order;
     }
-
 
     private static List<OrderItem> getAllOrderItems(int orderId, ConnectionPool connectionPool) throws SQLException, DatabaseException {
         List<OrderItem> orderItems = new ArrayList<>();
@@ -228,7 +225,7 @@ public class OrderMapper {
             ps.setInt(1, orderId);
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected == 0) {
-                throw new DatabaseException("Error in updating order items");
+                throw new DatabaseException("Error trying to delete order items");
             }
         } catch (SQLException e) {
             throw new DatabaseException("Error in deleting orderItem", e.getMessage());
@@ -253,7 +250,7 @@ public class OrderMapper {
                 int orderItemQuantity = rs.getInt("order_item_quantity");
                 orderItem = new OrderItem(orderItemId, orderId, CupcakeMapper.getCupcakeBottomById(cupcakeBottomId, connectionPool), CupcakeMapper.getCupcakeTopById(cupcakeTopId, connectionPool), orderItemQuantity);
             } else {
-                throw new DatabaseException("The order id doesn't exist");
+                throw new DatabaseException("Could not get order item with id = " + orderItemId);
             }
 
         } catch (SQLException e) {

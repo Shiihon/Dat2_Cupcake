@@ -12,9 +12,9 @@ import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.*;
 
 public class OrderController {
@@ -23,9 +23,8 @@ public class OrderController {
         // User Routes
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
-        app.post("cancelorder", ctx -> cancelOrder());
 
-        app.get("ordernow", ctx -> placeOrder(ctx, connectionPool));
+        app.post("ordernow", ctx -> placeOrder(ctx, connectionPool));
         app.get("/user-frontpage", ctx -> loadCupcakeParts(ctx, connectionPool));
         app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.get("myorders", ctx -> viewMyOrders(ctx, connectionPool));
@@ -33,8 +32,8 @@ public class OrderController {
         app.get("/pop-up", ctx -> ctx.render("pop-up"));
 
         // Admin routes
-        app.post("delete-order", ctx -> deleteOrder());
-        app.post("set-order-ready", ctx -> orderReadyToPickup());
+        app.post("delete-order", ctx -> deleteCustomerOrder(ctx, connectionPool));
+        app.post("set-order-ready", ctx -> orderReadyToPickup(ctx, connectionPool));
         app.get("/active-customers-orders", ctx -> viewAllCustomersOrders(ctx, connectionPool));
         app.get("/customers", ctx -> viewCustomers(ctx, connectionPool));
         app.get("/customer-orders", ctx -> viewCustomerOrders(ctx, connectionPool));
@@ -86,13 +85,13 @@ public class OrderController {
             basket = new ArrayList<>();
         }
 
-        int totalPrice = calculateTotalPrice(basket);
+        int totalPrice = calculateTotalBasketPrice(basket);
         ctx.attribute("basket", basket);
         ctx.attribute("totalPrice", totalPrice);
         ctx.render("order-overview.html");
     }
 
-    public static int calculateTotalPrice(List<OrderItem> basket) {
+    private static int calculateTotalBasketPrice(List<OrderItem> basket) {
         int totalPrice = 0;
         for (OrderItem item : basket) {
             totalPrice += item.getTotalItemPrice();
@@ -100,7 +99,7 @@ public class OrderController {
         return totalPrice;
     }
 
-    public static void placeOrder(Context ctx, ConnectionPool connectionPool) {
+    private static void placeOrder(Context ctx, ConnectionPool connectionPool) {
         try {
 
             User user = ctx.sessionAttribute("currentUser");
@@ -110,10 +109,10 @@ public class OrderController {
 
                 Order newOrder = new Order(user.getUserId(), basket, "In Progress", LocalDateTime.now());
 
-                int totalPrice = calculateTotalPrice(basket);
+                int totalPrice = newOrder.getTotalPrice();
                 int currentBalance = user.getBalance();
 
-                if(currentBalance >= totalPrice) {
+                if (currentBalance >= totalPrice) {
                     int newBalance = currentBalance - totalPrice;
                     UserMapper.setUserBalance(user.getUserId(), newBalance, connectionPool);
                     OrderMapper.createOrder(newOrder, connectionPool);
@@ -134,13 +133,51 @@ public class OrderController {
     private static void cancelOrderInOverview() {
     }
 
-    private static void orderReadyToPickup() {
+    private static void orderReadyToPickup(Context ctx, ConnectionPool connectionPool) {
+        try {
+            int orderId = Integer.parseInt(Objects.requireNonNull(ctx.formParam("orderId")));
+
+            OrderMapper.setOrderStatus(orderId, "Complete", connectionPool);
+            refreshCurrentAdminPage(ctx);
+        } catch (NullPointerException ignored) {
+            ctx.sessionAttribute("error", "No order id was provided.");
+            refreshCurrentAdminPage(ctx);
+        } catch (NumberFormatException ignored) {
+            ctx.sessionAttribute("error", "The provided order id must be number.");
+            refreshCurrentAdminPage(ctx);
+        } catch (DatabaseException ignored) {
+            ctx.sessionAttribute("error", "Could not update the order status.");
+            refreshCurrentAdminPage(ctx);
+        }
     }
 
-    private static void deleteOrder() {
+    private static void deleteCustomerOrder(Context ctx, ConnectionPool connectionPool) {
+        try {
+            int orderId = Integer.parseInt(Objects.requireNonNull(ctx.formParam("orderId")));
+
+            OrderMapper.deleteOrder(orderId, connectionPool);
+            refreshCurrentAdminPage(ctx);
+        } catch (NullPointerException ignored) {
+            ctx.sessionAttribute("error", "No order id was provided");
+            refreshCurrentAdminPage(ctx);
+        } catch (NumberFormatException ignored) {
+            ctx.sessionAttribute("error", "The provided order id must be number");
+            refreshCurrentAdminPage(ctx);
+        } catch (DatabaseException ignored) {
+            ctx.sessionAttribute("error", "Could not delete the order");
+            refreshCurrentAdminPage(ctx);
+        }
     }
 
-    private static void cancelOrder() {
+    private static void refreshCurrentAdminPage(Context ctx) {
+        try {
+            URI previousURI = new URI(ctx.req().getHeader("referer"));
+            previousURI = new URI(null, null, previousURI.getPath(), previousURI.getQuery(), null);
+
+            ctx.redirect(previousURI.toString());
+        } catch (URISyntaxException e) {
+            ctx.redirect("/active-customers-orders");
+        }
     }
 
     private static void viewAllCustomersOrders(Context ctx, ConnectionPool connectionPool) {
@@ -159,8 +196,10 @@ public class OrderController {
 
             ctx.attribute("orders", userOrderMap);
             ctx.render("admin-frontpage.html");
+            ctx.sessionAttribute("error", null);
         } catch (DatabaseException e) {
-            e.printStackTrace();
+            ctx.attribute("message", "Could not load active customers orders");
+            ctx.render("admin-frontpage.html");
         }
     }
 
@@ -170,8 +209,10 @@ public class OrderController {
 
             ctx.attribute("customers", customers);
             ctx.render("admin-customers.html");
+            ctx.sessionAttribute("error", null);
         } catch (DatabaseException e) {
-            e.printStackTrace();
+            ctx.attribute("message", "Could not load customers");
+            ctx.render("admin-customers.html");
         }
     }
 
@@ -185,9 +226,15 @@ public class OrderController {
             ctx.attribute("customer", customer);
             ctx.attribute("orders", customerOrders);
             ctx.render("admin-customer-orders.html");
-        } catch (DatabaseException e) {
-            e.printStackTrace();
-        } catch (NullPointerException | NumberFormatException e) {
+            ctx.sessionAttribute("error", null);
+        } catch (NullPointerException ignored) {
+            ctx.sessionAttribute("error", "No customer id was provided");
+            ctx.redirect("/customers");
+        } catch (NumberFormatException ignored) {
+            ctx.sessionAttribute("error", "The provided customer id must be number");
+            ctx.redirect("/customers");
+        } catch (DatabaseException ignored) {
+            ctx.sessionAttribute("error", "Could not load the customer orders");
             ctx.redirect("/customers");
         }
     }
