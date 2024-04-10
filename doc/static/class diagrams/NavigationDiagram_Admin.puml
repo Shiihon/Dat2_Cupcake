@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+scale 350 width
+[*] --> WelcomingPage : admin
+
+state WelcomingPage {
+WelcomingPage : Cupcake Logo
+}
+
+state LogInPage
+WelcomingPage --> LogInPage
+LogInPage : Admin enters E-mail and Password
+LogInPage --> LogInPage : Failed Logging in
+
+
+state AdminFrontPage {
+LogInPage --> AdminFrontPage : Succeeded Login
+AdminFrontPage --> CustomerOrderPage
+AdminFrontPage --> CustomersPage
+
+state CustomersPage{
+CustomersPage :  * View of the different customer's
+}
+
+state SingleCustomer {
+CustomersPage --> SingleCustomer : clicks on the specifik cusotmer
+SingleCustomer : * View over the customer's order/orders
+}
+
+ state CustomerOrderPage{
+ CustomerOrderPage : * Admin can see the different
+ CustomerOrderPage :   customer's orders.
+ CustomerOrderPage : * Orders "In progress"
+ }
+
+ state OrderComplete {
+ CustomerOrderPage --> OrderComplete : Order to "Completed"
+ OrderComplete : Completed orders gets deleted
+ }
+
+ state LogOut {
+   AdminFrontPage --> LogOut : Logging out
+ }
+}
+
+LogOut --> [*]
+@enduml
