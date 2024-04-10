@@ -29,7 +29,7 @@ public class OrderController {
         app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.get("myorders", ctx -> viewMyOrders(ctx, connectionPool));
         app.get("viewcart", ctx -> viewMyCart(ctx, connectionPool));
-        app.get("/pop-up", ctx -> ctx.render("pop-up"));
+        app.get("/pop-up", ctx -> ctx.render("pop-up.html"));
 
         // Admin routes
         app.post("delete-order", ctx -> deleteCustomerOrder(ctx, connectionPool));
