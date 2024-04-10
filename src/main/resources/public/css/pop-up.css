@@ -1,5 +1,5 @@
 h1, h2 {
-text-align: center;
+    text-align: center;
 }
 
 .navbar {
@@ -11,4 +11,25 @@ text-align: center;
     align-items: center;
     padding: 10px 10px 10px 10px;
     box-sizing: border-box;
+}
+
+.back-button {
+    width: 80px;
+    height: 35px;
+    border: 1px solid black;
+    font-family: "Josefin Sans";
+    padding: 10px 20px;
+    font-size: 13px;
+    text-align: center;
+    margin-right: auto;
+    cursor: pointer;
+    background-color: transparent;
+    color: black;
+}
+
+.customer-email {
+    font-family: "Josefin Sans";
+    margin-right: auto;
+    padding: 0 10px;
+    font-size: 0.8rem;
 }
