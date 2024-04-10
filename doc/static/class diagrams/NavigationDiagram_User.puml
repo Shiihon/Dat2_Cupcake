@@ -1,0 +1,51 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+scale 350 width
+[*] --> WelcomingPage : customer
+
+state WelcomingPage {
+WelcomingPage : Cupcake Logo
+}
+
+state LogInPage
+WelcomingPage --> LogInPage
+WelcomingPage --> CreateAccountPage
+LogInPage : Customer enters E-mail and Password
+LogInPage --> LogInPage : Failed Logging in
+
+state CreateAccountPage
+CreateAccountPage --> LogInPage : Succeeded
+CreateAccountPage --> CreateAccountPage : Failed creating account
+CreateAccountPage : Customer enters details.
+
+state UserFrontPage {
+LogInPage --> UserFrontPage : Succeeded Login
+UserFrontPage --> CustomerPage
+UserFrontPage --> ItemPage
+OrderPage -r-> CustomerPage : Order completed
+
+ state CustomerPage {
+ CustomerPage : Customers can see their orders here.
+ }
+  state ItemPage {
+  ItemPage : CUPCAKES:
+  ItemPage : Choose Top
+  ItemPage : Choose Bottom
+  ItemPage : Choose Sprinkles
+  ItemPage : Choose Amount
+  }
+   state OrderPage {
+   ItemPage --> OrderPage : Order is successful
+   OrderPage : See the order
+   OrderPage : See the cost
+   OrderPage : See the balance after paying for the order
+   }
+
+   state LogOut {
+   UserFrontPage --> LogOut : Logging out
+   }
+}
+
+LogOut --> [*]
+@enduml
