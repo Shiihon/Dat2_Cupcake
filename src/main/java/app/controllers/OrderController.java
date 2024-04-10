@@ -174,14 +174,14 @@ public class OrderController {
         }
     }
 
-    private static void refreshCurrentAdminPage(Context ctx) {
+    private static void refreshCurrentPage(Context ctx, String fallbackPage) {
         try {
             URI previousURI = new URI(ctx.req().getHeader("referer"));
             previousURI = new URI(null, null, previousURI.getPath(), previousURI.getQuery(), null);
 
             ctx.redirect(previousURI.toString());
-        } catch (URISyntaxException e) {
-            ctx.redirect("/active-customers-orders");
+        } catch (URISyntaxException | NullPointerException e) {
+            ctx.redirect(fallbackPage);
         }
     }
 
