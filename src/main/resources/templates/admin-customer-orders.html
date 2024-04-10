@@ -17,7 +17,13 @@
         <div th:replace="~{fragments :: navigation-bar('Current Customer Orders')}"></div>
 
         <div class="page-container">
-            <h1 th:text="${customer.getEmail()}">Customer Email</h1>
+            <div class="error-container">
+                <p class="error" th:unless="${#strings.isEmpty(#ctx.session.error)}" th:text="${#ctx.session.error}">
+                    Error message
+                </p>
+            </div>
+
+            <h1 class="page-title" th:text="${customer.getEmail()}">Customer Email</h1>
 
             <ul class="page-list-content">
                 <li class="customer-order-container" th:each="order: ${orders}">
@@ -63,7 +69,6 @@
 
                             <div class="order-buttons-container">
                                 <form class="order-buttons-content" method="post">
-                                    <input type="hidden" name="customerId" th:value="${customer.getUserId()}">
                                     <input type="hidden" name="orderId" th:value="${order.getOrderId()}">
 
                                     <button type="submit" formaction="/set-order-ready">Klar til afhentning</button>
