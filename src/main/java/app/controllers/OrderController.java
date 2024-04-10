@@ -23,8 +23,9 @@ public class OrderController {
         // User Routes
         app.post("addtocart", ctx -> addToCart(ctx, connectionPool));
         app.post("cancelorderinoverview", ctx -> cancelOrderInOverview());
-
         app.post("ordernow", ctx -> placeOrder(ctx, connectionPool));
+
+        app.get("/removefromcart", ctx -> removeFromCart(ctx));
         app.get("/user-frontpage", ctx -> loadCupcakeParts(ctx, connectionPool));
         app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.get("myorders", ctx -> viewMyOrders(ctx, connectionPool));
@@ -45,9 +46,10 @@ public class OrderController {
         ctx.attribute("bottoms", bottoms);
         ctx.attribute("tops", tops);
         ctx.render("user-frontpage.html");
+        ctx.sessionAttribute("error", null);
     }
 
-    public static void addToCart(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+    public static void addToCart(Context ctx, ConnectionPool connectionPool) {
 
         try {
             int bottomId = Integer.parseInt(ctx.formParam("bottom"));
@@ -75,8 +77,31 @@ public class OrderController {
         }
     }
 
+    private static void removeFromCart(Context ctx) {
+        try {
+            int orderIndex = Integer.parseInt(Objects.requireNonNull(ctx.queryParam("orderIndex")));
+
+            List<OrderItem> basket = ctx.sessionAttribute("basket");
+            if (basket == null) {
+                basket = new ArrayList<>();
+            }
+
+            basket.remove(orderIndex);
+            ctx.sessionAttribute("basket", basket);
+        } catch (NullPointerException e) {
+            ctx.sessionAttribute("error", "No order index was provided");
+        } catch (NumberFormatException e) {
+            ctx.sessionAttribute("error", "The provided order index was not a number");
+        } catch (IndexOutOfBoundsException e) {
+            ctx.sessionAttribute("error", "Could not remove the order from the cart");
+        } finally {
+            refreshCurrentPage(ctx, "/user-frontpage");
+        }
+    }
+
     private static void viewMyOrders(Context ctx, ConnectionPool connectionPool) {
         ctx.render("my-orders.html");
+        ctx.sessionAttribute("error", null);
     }
 
     private static void viewMyCart(Context ctx, ConnectionPool connectionPool) {
@@ -89,6 +114,7 @@ public class OrderController {
         ctx.attribute("basket", basket);
         ctx.attribute("totalPrice", totalPrice);
         ctx.render("order-overview.html");
+        ctx.sessionAttribute("error", null);
     }
 
     private static int calculateTotalBasketPrice(List<OrderItem> basket) {
