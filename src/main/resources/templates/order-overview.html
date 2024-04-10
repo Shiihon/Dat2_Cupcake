@@ -22,6 +22,11 @@
          th:text="${session.currentUser != null ? session.currentUser.email : 'Not logged in'}">
     </div>
 </nav>
+<div class="error-container">
+    <p class="error" th:unless="${#strings.isEmpty(#ctx.session.error)}" th:text="${#ctx.session.error}">
+        Error message
+    </p>
+</div>
 
 <h1 class="page-title">Ordreoversigt</h1>
 

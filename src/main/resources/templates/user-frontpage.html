@@ -29,7 +29,8 @@
 </header>
 
 <nav class="navbar">
-    <a class="myorders-button" th:if="${session.currentUser != null}" href="my-orders.html" th:href="@{/myorders}">Mine ordrer</a>
+    <a class="myorders-button" th:if="${session.currentUser != null}" href="my-orders.html" th:href="@{/myorders}">Mine
+        ordrer</a>
 
     <div
             class="customer-email"
@@ -41,6 +42,11 @@
         <img th:src="@{/images/ShoppingCart.png}" src="../public/images/ShoppingCart.png" alt="Shopping Cart">
     </a>
 </nav>
+<div class="error-container">
+    <p class="error" th:unless="${#strings.isEmpty(#ctx.session.error)}" th:text="${#ctx.session.error}">
+        Error message
+    </p>
+</div>
 
 <main>
     <h1>Velkommen ombord</h1>
