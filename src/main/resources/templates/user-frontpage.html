@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${title}">Frontpage</title>
+    <meta charset="UTF-8">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+          rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&display=swap" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="../public/css/user-frontpage.css" th:href="@{/css/user-frontpage.css}" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+<header th:fragment="header(title)">
+    <div class="header-image">
+        <img th:src="@{/images/CupHeader.png}" src="../public/images/CupHeader.png" width="100%"/>
+    </div>
+</header>
+
+<nav class="navbar">
+    <a class="myorders-button" th:if="${session.currentUser != null}" href="my-orders.html" th:href="@{/myorders}">Mine ordrer</a>
+
+    <div
+            class="customer-email"
+            th:text="${session.currentUser != null ? session.currentUser.email : 'Not logged in'}">
+    </div>
+
+    <a class="shoppingcart-button"
+       type="button" th:if="${session.currentUser != null}" href="order-overview.html" th:href="@{/viewcart}">
+        <img th:src="@{/images/ShoppingCart.png}" src="../public/images/ShoppingCart.png" alt="Shopping Cart">
+    </a>
+</nav>
+
+<main>
+    <h1>Velkommen ombord</h1>
+    <p>Vælg og bestil her:</p>
+
+    <form th:action="@{/addtobasket}" method="post">
+        <div class="dropdown">
+            <select name="bottom" id="bottom">
+                <option value="" disabled selected>Vælg bund:</option>
+                <th:block th:each="bottom: ${bottoms}">
+                    <option th:value="${bottom.cupcakePartId}" th:text="${bottom.name + ' - ' + bottom.price}"></option>
+                </th:block>
+            </select>
+
+            <select name="top" id="top">
+                <option value="" disabled selected>Vælg topping:</option>
+                <th:block th:each="top : ${tops}">
+                    <option th:value="${top.cupcakePartId}" th:text="${top.name + ' - ' + top.price}"></option>
+                </th:block>
+            </select>
+
+            <select name="amount" id="amount">
+                <option value="" disabled selected>Vælg antal:</option>
+                <option value="1"/>
+                1</option>
+                <option value="2"/>
+                2</option>
+                <option value="3"/>
+                3</option>
+                <option value="4"/>
+                4</option>
+                <option value="5"/>
+                5</option>
+                <option value="6"/>
+                6</option>
+                <option value="7"/>
+                7</option>
+                <option value="8"/>
+                8</option>
+                <option value="9"/>
+                9</option>
+                <option value="10"/>
+                10</option>
+            </select>
+        </div>
+
+        <div class="button-container">
+            <button class="addtocart" type="submit" formaction="addtocart">Tilføj til kurv</button>
+        </div>
+    </form>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

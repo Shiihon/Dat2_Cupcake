@@ -1,0 +1,150 @@
+.navbar {
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    box-sizing: border-box;
+}
+
+.back-button {
+    width: 80px;
+    height: 35px;
+    border: 1px solid black;
+    font-family: "Josefin Sans";
+    padding: 10px 20px;
+    font-size: 13px;
+    text-align: center;
+    margin-right: auto;
+    cursor: pointer;
+    background-color: transparent;
+    color: black;
+
+}
+
+.back-button:hover {
+    background-color: #E29F9F;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    padding: 0;
+}
+
+h3 {
+    font-weight: normal;
+    padding: 0;
+}
+
+
+.row {
+    margin-left: -5px;
+    margin-right: -5px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.column1, .column2 {
+    float: left;
+    padding: 10px;
+}
+
+.column1 {
+    width: 70%;
+}
+
+.column2 {
+    width: 30%;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    border: 1px solid #000000;
+    border-radius: 2px;
+    padding: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    height: auto;
+}
+
+.gray {
+    color: grey;
+    margin-top: -20px;
+}
+
+.gray h3 {
+    margin-bottom: 40px;
+}
+
+.money {
+    text-align: right;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+table img {
+    max-width: 25px;
+    height: auto;
+}
+
+tr {
+    height: 30px;
+}
+
+th, td {
+    text-align: left;
+    padding: 16px;
+}
+
+td > h2, td > h3 {
+    margin: 0;
+}
+
+table button {
+    background-color: #FACACA;
+    border: none;
+    border-radius: 2em 2em 2em 2em;
+    padding: 10px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #ffb3b3;
+}
+
+tr td .button1, tr td .button2 {
+    text-align: center;
+    width: 180px;
+    margin-left: 30%;
+}
+
+.overview-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 16px;
+}
+
+.overview-buttons button {
+    width: 60%;
+    height: 30px;
+}

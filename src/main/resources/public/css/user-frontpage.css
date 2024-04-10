@@ -1,0 +1,113 @@
+.navbar {
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    box-sizing: border-box;
+}
+
+.myorders-button {
+    color: black;
+    width: 90px;
+    height: 35px;
+    border: 1px solid black;
+    padding: 10px 9px;
+    font-family: "Josefin Sans";
+    font-size: 13px;
+    text-align: center;
+    margin-right: auto;
+    cursor: pointer;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.myorders-button:hover {
+    background-color: #E29F9F;
+}
+
+.shoppingcart-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.shoppingcart-button img{
+    width: 30px;
+    height: 30px;
+}
+
+.shoppingcart-button img:hover{
+    height: 28px;
+}
+
+.customer-email {
+    font-family: "Josefin Sans";
+    margin-right: auto;
+    padding: 0 10px;
+    font-size: 0.8rem;
+}
+
+main h1 {
+    font-family: "Charmonman";
+    font-size: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 0.1rem;
+    text-align: center;
+}
+
+main p {
+    font-family: "Josefin Sans";
+    text-align: center;
+    margin-top: 0.1rem;
+    margin-bottom: 3rem;
+}
+
+.dropdown {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.dropdown select {
+    font-family: "Josefin Sans";
+    margin: 0.5rem;
+    font-size: 17px;
+    background-color: #E29F9F;
+    color: black;
+    border: none;
+    padding: 7px 25px;
+    border-radius: 20px;
+}
+
+#bottom, #topping, #amount {
+    width: 200px;
+}
+
+#bottom:hover, #topping:hover, #amount:hover {
+    background-color: rgba(226, 159, 159, 0.85);
+    cursor: pointer;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.addtocart{
+    font-family: "Josefin Sans";
+    font-size: 15px;
+    background-color: #FACACA;
+    border: none;
+    padding: 7px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: black;
+    margin-top: 1rem;
+}

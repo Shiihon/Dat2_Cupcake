@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:fragment="head(title)">
+    <title th:text="${title}">Frontpage</title>
+    <meta charset="UTF-8">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+          rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&display=swap" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="../public/css/my-orders.css" th:href="@{/css/my-orders.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div th:replace="~{fragments :: header('Header fragment')}"></div>
+
+<nav class="navbar">
+    <a class="back-button" th:if="${session.currentUser != null}" href="/user-frontpage"
+       th:href="@{/backtoordersite}">Tilbage</a>
+
+    <div class="customer-email"
+         th:text="${session.currentUser != null ? session.currentUser.email : 'Not logged in'}">
+    </div>
+</nav>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
