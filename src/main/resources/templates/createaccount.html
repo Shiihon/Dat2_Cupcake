@@ -24,5 +24,6 @@
     <button class="buttons" type="submit" formaction="/createAccount">Opret konto</button>
 </form>
 
+<div class="error-container"><p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p></div>
 </body>
 </html>
