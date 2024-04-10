@@ -29,7 +29,7 @@ public class OrderController {
         app.get("backtoordersite", ctx -> ctx.redirect("/user-frontpage"));
         app.get("myorders", ctx -> viewMyOrders(ctx, connectionPool));
         app.get("viewcart", ctx -> viewMyCart(ctx, connectionPool));
-        app.get("/pop-up", ctx -> ctx.render("pop-up.html"));
+        app.get("/pop-up", ctx -> popup(ctx));
 
         // Admin routes
         app.post("delete-order", ctx -> deleteCustomerOrder(ctx, connectionPool));
@@ -128,6 +128,11 @@ public class OrderController {
         } catch (DatabaseException e) {
             ctx.result("Error placing order." + e.getMessage());
         }
+    }
+
+    private static void popup(Context ctx) {
+        ctx.render("pop-up.html");
+        ctx.sessionAttribute("error", null);
     }
 
     private static void cancelOrderInOverview() {
