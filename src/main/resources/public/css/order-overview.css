@@ -104,14 +104,17 @@ table img {
     height: auto;
 }
 
+tr {
+    height: 30px;
+}
+
 th, td {
     text-align: left;
     padding: 16px;
-
 }
 
-.column2 th, .column2 td {
-    padding-top: 0;
+td > h2, td > h3 {
+    margin: 0;
 }
 
 table button {
