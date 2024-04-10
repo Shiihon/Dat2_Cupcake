@@ -68,11 +68,19 @@ h3 {
     display: table;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    border: 1px solid #000000;
+    border-radius: 2px;
+    padding: 10px;
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
-    border: 1px solid #000000;
     height: auto;
 }
 
