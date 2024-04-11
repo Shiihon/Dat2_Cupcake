@@ -1,0 +1,28 @@
+/**** Customer ****/
+
+.customer-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 40px;
+}
+
+
+/**** Info Container ****/
+
+.customer-info-container {
+    word-break: break-all;
+}
+
+.customer-info-container h4 {
+    margin: 0;
+}
+
+
+/**** Button Container ****/
+
+.customer-button-container {
+    flex-shrink: 0;
+}

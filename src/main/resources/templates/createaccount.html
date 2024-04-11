@@ -2,34 +2,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-    <title>Login</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
           rel="stylesheet">
-
+    <title>Opret Konto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../public/css/login-page.css" th:href="@{/css/login-page.css}" rel="stylesheet"/>
     <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 
 <body>
+
 <img class="headerImage" src="../public/images/CupcakeLogo.png" th:src="@{/images/CupcakeLogo.png}" alt="Cupcake Logo"/>
 
 <form class="generic-form" method="post">
-    <input type="text" name="email" placeholder="Indtast E-mail"/>
-    <input type="password" name="password" placeholder="Indtast kodeord"/>
-    <br><br>
+    <input type="text" name="userEmail" placeholder="Indtast E-mail"/>
+    <input type="password" name="password1" placeholder="Indtast kodeord"/>
+    <input type="password" name="password2" placeholder="Gentag kodeord"/>
+    <br>
 
-    <button class="buttons" type="submit" formaction="/login">Login</button>
+    <button class="buttons" type="submit" formaction="/createAccount">Opret konto</button>
 </form>
 
-<form>
-    <div>
-        <button class="buttons" type="submit" formaction="/createAccount">Opret konto</button>
-    </div>
-</form>
-
-<div class="error"><p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p></div>
-
+<div class="error-container"><p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p></div>
 </body>
 </html>

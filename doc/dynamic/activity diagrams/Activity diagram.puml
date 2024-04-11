@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+Title CupCake
+|Kunde|
+    start
+    :Gå til website;
+
+|Website|
+    :Vis login eller opret konto;
+
+|Kunde|
+    if (Har konto?) then (ja)
+    else (nej)
+    |Website|
+    :Opret konto;
+    endif
+
+|#AntiqueWhite|Website|
+    repeat
+        :Indtast credentials;
+    repeat while (credentials true?) is (no)
+    ->yes;
+    :Log ind;
+
+|Kunde|
+    :Bestil cupcakes;
+
+|Website|
+    :Gem ordre;
+    :Lav kvittering;
+    fork
+    |Kunde|
+    :Kvittering]
+    :Tag bilen;
+    fork again
+    |Butik|
+    :Ordre]
+      if(Godkend ordre?) then (ja)
+            |Butik|
+            :Færdiggør ordre]
+        else (nej)
+            |Website|
+            :Send afvisning til kunde;
+            |Kunde|
+            :Afvisning]
+            stop
+        endif
+        end fork
+|Butik|
+    :Afhent kager;
+stop
+@enduml

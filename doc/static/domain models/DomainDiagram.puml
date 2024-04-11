@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/object-diagram
+
+object Kunde {
+* Email
+* Kode
+* Konto
+}
+object Ordre {
+* OrdreNr
+* Dato
+}
+object Vare {
+* VareNr
+* VareNavn
+* Pris
+* Antal
+}
+
+object Administrator {
+* Login
+* Kan se kunder
+* Kan se ordre
+* Kan redigere i ordre
+}
+
+Ordre "M" *-- "M" Vare
+Kunde "1" *--  "M" Ordre
+Ordre *-- Administrator
+Kunde *-- Administrator
+
+@enduml

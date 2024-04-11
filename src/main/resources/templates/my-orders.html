@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:fragment="head(title)">
+    <title th:text="${title}">Frontpage</title>
+    <meta charset="UTF-8">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+          rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&display=swap" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="../public/css/my-orders.css" th:href="@{/css/my-orders.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div th:replace="~{fragments :: header('Header fragment')}"></div>
+
+<nav class="navbar">
+    <a class="back-button" th:if="${session.currentUser != null}" href="/user-frontpage"
+       th:href="@{/backtoordersite}">Tilbage</a>
+
+    <div class="customer-email"
+         th:text="${session.currentUser != null ? session.currentUser.email : 'Not logged in'}">
+    </div>
+</nav>
+
+<div class="page-container">
+    <div class="error-container">
+        <p class="error" th:unless="${#strings.isEmpty(#ctx.session.error)}" th:text="${#ctx.session.error}">
+            Error message
+        </p>
+    </div>
+
+    <h1 class="page-title">Mine ordrer</h1>
+
+    <ul class="page-list-content">
+        <li class="order-container" th:each="order: ${orders}">
+            <div class="order-content box-shadow">
+                <div class="order-header-container">
+                    <h3>ID:
+                        <span th:text="${order.getOrderId()}">
+                                    Order Id
+                                </span>
+                    </h3>
+                </div>
+
+                <div class="order-body-container">
+                    <div class="order-items-container">
+                        <ul class="order-items-content box-shadow">
+                            <li class="item-container" th:each="orderItem: ${order.getOrderItems()}">
+                                <div class="item-content">
+                                    <div class="item-details">
+                                        <p>
+                                            Bund:
+                                            <span th:text="${orderItem.getCupcakeBottom().getName()}">
+                                                        Bottom
+                                                    </span>
+                                        </p>
+                                        <p>
+                                            Top:
+                                            <span th:text="${orderItem.getCupcakeTop().getName()}">
+                                                        Top
+                                                    </span>
+                                        </p>
+                                    </div>
+                                    <div class="item-quantity">
+                                        <p>Antal:
+                                            <span th:text="${orderItem.getQuantity()}">
+                                                        Amount
+                                                    </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

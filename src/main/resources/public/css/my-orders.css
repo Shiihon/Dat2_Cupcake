@@ -1,0 +1,135 @@
+.navbar {
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+    box-sizing: border-box;
+}
+
+.back-button {
+    width: 80px;
+    height: 35px;
+    border: 1px solid black;
+    font-family: "Josefin Sans";
+    padding: 10px 20px;
+    font-size: 13px;
+    text-align: center;
+    margin-right: auto;
+    cursor: pointer;
+    background-color: transparent;
+    color: black;
+}
+
+.back-button:hover {
+    background-color: #E29F9F;
+}
+
+
+footer .logout-button {
+    background-color: #FACACA;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-family: "Josefin Sans";
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+/**** Order ****/
+
+.order-container {
+    display: flex;
+    justify-content: center;
+}
+
+.order-content {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 60px;
+    flex-basis: 70%;
+    gap: 6px;
+}
+
+.order-header-container h3 {
+    margin: 0;
+}
+
+.order-body-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+
+/**** Items Container ****/
+
+.order-items-container {
+    flex-basis: 100%;
+}
+
+.order-items-content {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin: 0;
+    gap: 10px;
+}
+
+
+/**** Item Content ****/
+
+.item-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0 15px;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0 15px;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.item-details p {
+    flex-basis: 130px;
+    margin: 0;
+}
+
+.item-quantity {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 80px;
+    flex-shrink: 0;
+}
+
+.item-quantity p {
+    margin: 0;
+}
+
+
+/**** Order Buttons ****/
+
+.order-buttons-container {
+    flex-basis: 130px;
+    align-self: center;
+}
+
+.order-buttons-content {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    gap: 10px;
+}
